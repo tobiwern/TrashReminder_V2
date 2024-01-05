@@ -7,7 +7,6 @@
 //https://arduinojson.org/v6/doc/deserialization/
 
 
-
 boolean startLittleFS() {
   if (!LittleFS.begin()) {
     DEBUG_SERIAL.println("ERROR: Failed to mount LittleFS.");

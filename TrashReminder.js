@@ -316,7 +316,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
                 selectedTaskIds.push(taskId);
             }
         }
-        if (dateTime+86400000 >= now) { textColor = "black"; } else { textColor = "lightgrey"; } //1 day = 86400000 miliseconds
+        if (dateTime.valueOf()+24*60*60*1000 > now) { textColor = "black"; } else { textColor = "lightgrey"; } //+1 day (in ms)
         if (selectedTaskIds.length >= 1) {
             text += "<tr>"
             text += "<td class=description nowrap style='color: " + textColor + ";'>" + epochToDateString(epoch) + "</td>";

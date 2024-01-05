@@ -1,4 +1,3 @@
-//todo: Button for Demo mode
 //setInterval(function(){getData();}, 2000);
 function require(script) {
     $.ajax({
@@ -18,6 +17,19 @@ var gMaxNumberOfEpochs;
 var gMaxNumberOfTasksPerDay;
 var gMaxNumberOfTaskIds;
 var gHideDelayDefault = 3;
+
+function acknowledge() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            showMessage("I", "Müllabholung bestätigt!", "buttonMessage", gHideDelayDefault);
+        }
+    };
+    xhttp.open("GET", "acknowledge", true);
+    xhttp.send();
+}
+
+
 function fireworks() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -245,7 +257,7 @@ function sendCurrentDataToESP() { //send currently set data to ESP
         const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
         sendTasksToESP(jsonText, true);
     } catch (e) {
-        showMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder/issues' target='_blank'>GitHub Issue</a></em>", "message");
+        showMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>", "message");
         return;
     }
 }
@@ -261,7 +273,7 @@ function refreshTaskTypesAndDates(response) {
         refreshTaskTypes();
         refreshTaskDates();
     } catch (e) {
-        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
+        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
         document.getElementById("taskDates").innerHTML = response;
         return;
     }
@@ -432,7 +444,7 @@ function genJson() {
     try {
         const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
     } catch (e) {
-        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder/issues' target='_blank'>GitHub Issue</a>", "message");
+        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "message");
         return;
     }
     sendTasksToESP(jsonText);
@@ -455,7 +467,7 @@ function checkMaxNumberOfEntries() {
         }
     }
     if (text != "") {
-        text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder/issues' target='_blank'>GitHub Issue</a>!";
+        text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>!";
         showMessage("W", text, "message");
     }
 }
@@ -493,7 +505,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
 }
 
 function send(number) {//debug
-    showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "message");
+    showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "message");
 }
 
 /// ColorPicker          green      blue       yellow     white      orange     pink       purple    iceblue    icegreen
@@ -575,12 +587,12 @@ function showMessage(msgType, message, receiver = "buttonMessage", hideDelayInSe
 
 function createWebpage() {
     var innerHTML = `
-    <img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/TrashReminder.jpg?raw=true'
+    <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true'
         alt='Trash Reminder' width='400' height='185'>
     <h1>M&uuml;ll-Erinnerung Einstellungen</h1>
     <form name='config'>
         <div class=frame>
-            <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h2>
+            <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h2>
             <table>
                 <tr>
                     <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
@@ -597,14 +609,14 @@ function createWebpage() {
         <br>
     </form>
     <div class=frame>
-      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/truck.svg?raw=true'> Abfuhrtermine</div></h2>
+      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'> Abfuhrtermine</div></h2>
       In den folgenden zwei Untergruppen kann ausgewählt werden, an welche <b>Abfallart</b> sie erinnert werden wollen und es werden die <b>abgespeicherten Termine</b> angezeigt.
-      <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
+      <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
       <div id='taskTypes'></div>
       <div id='messageTaskTypes'></div>
-      <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
+      <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
       <div id='taskDates'></div>
-      <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/download.svg?raw=true'> Neue Abfuhrtermine (ICS/ICAL)</div></h3>
+      <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Neue Abfuhrtermine (ICS/ICAL)</div></h3>
       <p>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</p>
       <p>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
       angeboten und müssen zuerst heruntergeladen werden.</p>
@@ -638,19 +650,19 @@ function createWebpage() {
       </div>
       <br>
       <div class=frame>
-          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
+          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
           Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
           <br><br>
       </div>
       <br>
       <div id='buttonMessage'></div>
       <div>
-        <button class="button" onclick="closeConfig()">Beenden</button>
-        <button class="button" onclick="requestTasksFromESP()">Lesen</button>
-        <button class="button" onclick="deleteTasksOnESP()">L&ouml;schen</button>
+        <button class="button" onclick="acknowledge()">M&uuml;llabholung best&auml;tigen</button>
+        <button class="button" onclick="closeConfig()">TrashReminder neu starten</button>
+        <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
         <button class="button" onclick="fireworks()">Feuerwerk</button>
         <button class="button" onclick="demo()">Demo</button>
-        <button class="button" onclick="resetWifiSettingsOnESP()">Reset WLAN</button>
+        <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
       </div>`;
     document.getElementById("body").innerHTML = innerHTML;
     // var colorPickerSetup = `

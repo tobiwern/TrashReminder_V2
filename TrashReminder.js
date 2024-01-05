@@ -307,8 +307,8 @@ function refreshTaskDates() { //show TaskDates on Webpage
         taskIdEnableValue.push(checkBox.checked);
     }
     var now = Date.now();
-    for (const epoch of epochs) {
-        var dateTime = new Date(epoch * 1000);
+    for (const epoch of epochs) {  //epoch in seconds
+        var dateTime = new Date(epoch * 1000); //Date uses miliseconds
         var taskIds = gDataEpochTaskDict[epoch];
         selectedTaskIds = [];
         for (const taskId of taskIds) {
@@ -316,7 +316,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
                 selectedTaskIds.push(taskId);
             }
         }
-        if (dateTime >= now) { textColor = "black"; } else { textColor = "lightgrey"; }
+        if (dateTime+86400000 >= now) { textColor = "black"; } else { textColor = "lightgrey"; } //1 day = 86400000 miliseconds
         if (selectedTaskIds.length >= 1) {
             text += "<tr>"
             text += "<td class=description nowrap style='color: " + textColor + ";'>" + epochToDateString(epoch) + "</td>";

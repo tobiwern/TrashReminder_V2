@@ -37,6 +37,7 @@ boolean initDataFromFile() {
   if (error) {
     DEBUG_SERIAL.print("deserializeJson() failed: ");
     DEBUG_SERIAL.println(error.f_str());
+    showFSInfo();
     return (false);
   }
   // get validTasks ////////////////////////////////
@@ -176,14 +177,15 @@ void receiveFromWebpage_Tasks() {
   DEBUG_SERIAL.println("Receiving settings in JSON format: " + jsonText);
   if (writeFile(dataFile, jsonText.c_str())) {
     server.send(200, "text/plane", "OK");
-    initDataFromFile();
   } else {
     server.send(500, "text/plane", "ERROR");
   }
+  initDataFromFile();
 }
 
 void closeSettings() {
   DEBUG_SERIAL.println("Closing Settings.");
+  server.send(200, "text/plane", "OK");
   STATE_NEXT = STATE_INIT;
 }
 

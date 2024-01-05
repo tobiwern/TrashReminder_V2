@@ -5,12 +5,9 @@ ESP:
   - Sleep when there are no events in the next days
   - Contact time server less often and maintain time internally (possible? => can we detect if the device returns from sleep or gets replugged? yes)
   - check if there are more tasksPerDay then allowed
-  - query API directly instead of hard-coded list (?)
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
-  - Date should only be shown as outdated AFTER the date (currently todays date is shown in grey)
   - Option to merge currently still available and new ICS so not everything is overwritten.
-  - Allow in settings to define a different time zone
   - Show Firmware Version in Webpage!
 3D-Model:
   - Add magnets to trashcan so it snapps in place
@@ -18,10 +15,16 @@ Helpful:
   - Epoch Converter: https://www.epochconverter.com/
   - JSON Validator: https://jsonformatter.curiousconcept.com/#
   - ICS/ICAL: https://www.ionos.de/digitalguide/websites/web-entwicklung/icalendar/ or https://datatracker.ietf.org/doc/html/rfc5545
+  - Getting timezone from IP: https://ipapi.co/api/?csharp#specific-location-field6 or https://ipapi.co/json/ => https://ipapi.co/utc_offset
 */
 
 #include <ESP8266WiFi.h>
 #include <NTPClient.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+
+const char* ipTimezoneServer = "https://ipapi.co/utc_offset";
+
 #include <WiFiUdp.h>
 #include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager
 
@@ -31,7 +34,7 @@ Helpful:
 
 #include "filesystem.h"
 #include "webpage.h"
-  
+
 //forward function prototypes (so function order does not matter)
 //void setColor(int color, boolean fade, int blinkSpeed);
 
@@ -132,7 +135,7 @@ void setup() {
   WiFi.hostname("TrashReminder");
   //Time Client
   timeClient.begin();
-  timeClient.setTimeOffset(3600);  //in seconds GMT+2 Berlin, GMT-4 NY => -3600*4
+  timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
   //  deleteFile(dataFile);
 }
 
@@ -151,6 +154,30 @@ void handleConnection() {
 int getCurrentTimeEpoch() {
   timeClient.update();
   return (timeClient.getEpochTime());
+}
+
+int getTimeOffsetFromPublicIP() {
+  int timeOffset = 3600; //default
+  HTTPClient http;
+  WiFiClientSecure client;
+  String payload;
+  client.setInsecure();
+  client.connect(ipTimezoneServer, 443);
+  http.begin(client, ipTimezoneServer);
+  int httpCode = http.GET();
+  if (httpCode == 200) {
+    payload = http.getString();
+    String sign = payload.substring(0, 1);
+    int hours = payload.substring(1, 3).toInt();
+    float minutes = payload.substring(3, 5).toFloat();
+    timeOffset = int((hours+minutes/60)*3600);
+    if(sign == "-"){timeOffset = -timeOffset;}
+    DEBUG_SERIAL.println("INFO: Successfully detected NTP timeOffset " + String(timeOffset) + " (GTM " + payload + ") from public IP.");
+  } else {
+    DEBUG_SERIAL.print("WARNING: Failed to detect NTP timeOffset from public IP. Defaulting to Germany. Http Error Code: " + String(httpCode));
+  }
+  http.end();
+  return(timeOffset);
 }
 
 void printColorIds() {  //debug

@@ -10,7 +10,6 @@ WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Date should only be shown as outdated AFTER the date (currently todays date is shown in grey)
   - Option to merge currently still available and new ICS so not everything is overwritten.
-  - Acknowledge via model OR website
   - Allow in settings to define a different time zone
   - Show Firmware Version in Webpage!
 3D-Model:

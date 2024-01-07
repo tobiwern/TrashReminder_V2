@@ -58,7 +58,7 @@ unsigned long millisLast = 0;
 #define STATE_QUERY 3
 #define STATE_DEMO 4
 
-int STATE = STATE_INIT;
+int STATE = STATE_SHOW;
 //int STATE = STATE_DEMO;
 int STATE_PREVIOUS = -1;
 int STATE_NEXT = -1;
@@ -393,18 +393,6 @@ void handleState() {
   // DEBUG_SERIAL.println("STATE = " + stateTbl[STATE] + ", STATE_PREVIOUS = " + stateTbl[STATE_PREVIOUS]);
   if (STATE != STATE_PREVIOUS) { DEBUG_SERIAL.println("STATE = " + stateTbl[STATE]); }
   switch (STATE) {
-    case STATE_INIT:  //***********************************************************
-      millisLast = millisNow;
-      brightness = 255;
-      colorIndex = 0;
-      acknowledge = 0;
-      memset(colorIds, -1, sizeof(colorIds));
-      memset(colorIdsLast, -1, sizeof(colorIdsLast));
-      //      listDir("/"); //ToDo1
-      initStartEndTimes();  //initializes startHour and endHour
-      initDataFromFile();
-      STATE_NEXT = STATE_SHOW;
-      break;
     case STATE_SHOW:  //***********************************************************
       rainbowWithGlitter();
       FastLED.show();
@@ -419,9 +407,21 @@ void handleState() {
           STATE_NEXT = STATE_FOLLOWING;
           STATE_FOLLOWING = -1;
         } else {
-          STATE_NEXT = STATE_QUERY;
+          STATE_NEXT = STATE_INIT;
         }
       }
+      break;
+    case STATE_INIT:  //***********************************************************
+      millisLast = millisNow;
+      brightness = 255;
+      colorIndex = 0;
+      acknowledge = 0;
+      memset(colorIds, -1, sizeof(colorIds));
+      memset(colorIdsLast, -1, sizeof(colorIdsLast));
+      //      listDir("/"); //ToDo1
+      initStartEndTimes();  //initializes startHour and endHour
+      initDataFromFile();
+      STATE_NEXT = STATE_QUERY;
       break;
     case STATE_DISCONNECTED:  //***********************************************************
       setColor(CRGB::Red, true, 2);

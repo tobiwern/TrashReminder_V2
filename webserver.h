@@ -10,7 +10,6 @@
 #include <ESP8266WebServer.h>
 ESP8266WebServer server(80);
 boolean serverRunning = false;
-#define JSON_MEMORY 1024 * 30
 
 void printTaskIds(int taskIds[]) {  //debug
   DEBUG_SERIAL.print("taskIds[] = ");
@@ -29,15 +28,22 @@ boolean initDataFromFile() {
   int numberOfColors = 0;  //only locally needed
   numberOfEpochs = 0;
   if (!file) {
-    DEBUG_SERIAL.println("INFO: Failed to open file " + String(dataFile) + " for reading!");
+    DEBUG_SERIAL.println("WARNING: Failed to open file " + String(dataFile) + " for reading!");
     return (false);
   }
-  DynamicJsonDocument doc(JSON_MEMORY);  //on heap for large amount of data
+  uint32_t freeHeap = ESP.getFreeHeap();
+  Serial.println("Free Heap: " + String(freeHeap));
+  JsonDocument doc;  //on heap for large amount of data
+//  doc.clear();
+//  doc.garbageCollect();
+  if (doc.overflowed()) {
+    DEBUG_SERIAL.println("WARNING: Failed to allocate memory for Deserialization! Used memory is: " + String(doc.memoryUsage()) + ". Retrying another time.");
+    JsonDocument doc;
+  }
   DeserializationError error = deserializeJson(doc, file);
   if (error) {
-    DEBUG_SERIAL.print("deserializeJson() failed: ");
-    DEBUG_SERIAL.println(error.f_str());
-    showFSInfo();
+    DEBUG_SERIAL.println("WARNING: Failed to deserialize data! Error: " + String(error.f_str()));
+    //showFSInfo();
     return (false);
   }
   // get validTasks ////////////////////////////////
@@ -149,6 +155,7 @@ void writeStartEndTimes() {
   jsonText = "{\"startHour\":" + String(startHour) + ",\"endHour\":" + String(endHour) + "}";
   DEBUG_SERIAL.println("Writing settings: " + jsonText);
   writeFile("/settings.json", jsonText.c_str());
+  showFSInfo();
   initStartEndTimes();
 }
 
@@ -174,13 +181,18 @@ void setEndHour() {
 
 void receiveFromWebpage_Tasks() {
   String jsonText = server.arg("value");
-  DEBUG_SERIAL.println("Receiving settings in JSON format: " + jsonText);
+  DEBUG_SERIAL.println("Receiving data in JSON format: " + jsonText);
   if (writeFile(dataFile, jsonText.c_str())) {
     server.send(200, "text/plane", "OK");
   } else {
     server.send(500, "text/plane", "ERROR");
   }
-  initDataFromFile();
+//  showFSInfo();
+//  Serial.println("Before");
+//  delay(5000);  //ToDo
+//  Serial.println("After");
+  STATE_NEXT = STATE_INIT;
+  //initDataFromFile();
 }
 
 void closeSettings() {
@@ -208,11 +220,12 @@ void deleteTasks() {
   DEBUG_SERIAL.println("Delete Settings.");
   if (deleteFile(dataFile)) {
     server.send(200, "text/plane", "OK");
-    initDataFromFile();
+    //    initDataFromFile();
   } else {
     server.send(500, "text/plane", "ERROR");
   }
-  //STATE_NEXT = STATE_INIT;
+  delay(500);  //ToDo
+  STATE_NEXT = STATE_INIT;
 }
 
 void resetWifiSettings() {

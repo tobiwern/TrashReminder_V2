@@ -5,11 +5,12 @@ ESP:
   - Sleep when there are no events in the next days
   - Contact time server less often and maintain time internally (possible? => can we detect if the device returns from sleep or gets replugged? yes)
   - check if there are more tasksPerDay then allowed
-  - ESP.getFreeHeap()
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
   - Show Firmware Version in Webpage!
+  - Restructure with tabs
+  - Invalidate dates (grey) following start/end times!
 3D-Model:
   - Add magnets to trashcan so it snapps in place
 Helpful:

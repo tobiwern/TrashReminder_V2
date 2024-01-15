@@ -21,26 +21,6 @@ void endLittleFS() {
   DEBUG_SERIAL.println("INFO: Successfully un-mounted LittleFS.");
 }
 
-boolean writeFile(const char* fileName, const char* message) {
-  if (!startLittleFS()) { return (false); }
-  File file = LittleFS.open(fileName, "w");
-  if (!file) {
-    DEBUG_SERIAL.println("ERROR: Failed to open file " + String(fileName) + " for writing!");
-    return (false);
-  }
-  if (file.print(message)) {
-    DEBUG_SERIAL.println("INFO: Successfully wrote file " + String(fileName) + "!");
-  } else {
-    DEBUG_SERIAL.println("ERROR: Failed to write file " + String(fileName) + "!");
-    return (false);
-  }
-  size_t size = file.size();
-  DEBUG_SERIAL.println("INFO: File size is " + String(size) + ".");
-  file.close();
-  endLittleFS();
-  return (true);
-}
-
 boolean listDir(const char* dirname) {
   if (!startLittleFS()) { return (false); }
   Serial.printf("Listing directory: %s\n", dirname);
@@ -75,6 +55,26 @@ boolean showFSInfo() {
   DEBUG_SERIAL.println("maxOpenFiles: " + String(info.maxOpenFiles));
   DEBUG_SERIAL.println("maxPathLength: " + String(info.maxPathLength));
   listDir("/");
+  endLittleFS();
+  return (true);
+}
+
+boolean writeFile(const char* fileName, const char* message) {
+  if (!startLittleFS()) { return (false); }
+  File file = LittleFS.open(fileName, "w");
+  if (!file) {
+    DEBUG_SERIAL.println("ERROR: Failed to open file " + String(fileName) + " for writing!");
+    return (false);
+  }
+  if (file.print(message)) {
+    DEBUG_SERIAL.println("INFO: Successfully wrote file " + String(fileName) + "!");
+  } else {
+    DEBUG_SERIAL.println("ERROR: Failed to write file " + String(fileName) + "!");
+    return (false);
+  }
+  size_t size = file.size();
+  DEBUG_SERIAL.println("INFO: File size is " + String(size) + ".");
+  file.close();
   endLittleFS();
   return (true);
 }

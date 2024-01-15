@@ -49,10 +49,14 @@ function demo() {
     window.scrollTo(0, 0);
 }
 
-function closeConfig() {
+function restartTrashReminder() {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "close", true);
     xhttp.send();
+}
+
+function closeConfig() {
+    restartTrashReminder();
     document.getElementById("body").innerHTML = "<h1>Beendet - Bitte Fenster schließen!</h1>";
     window.scrollTo(0, 0);
     //  window.close(); //close the page
@@ -658,7 +662,7 @@ function createWebpage() {
       <div id='buttonMessage'></div>
       <div>
         <button class="button" onclick="acknowledge()">M&uuml;llabholung best&auml;tigen</button>
-        <button class="button" onclick="closeConfig()">TrashReminder neu starten</button>
+        <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
         <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
         <button class="button" onclick="fireworks()">Feuerwerk</button>
         <button class="button" onclick="demo()">Demo</button>

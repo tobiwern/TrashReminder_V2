@@ -187,12 +187,7 @@ void receiveFromWebpage_Tasks() {
   } else {
     server.send(500, "text/plane", "ERROR");
   }
-//  showFSInfo();
-//  Serial.println("Before");
-//  delay(5000);  //ToDo
-//  Serial.println("After");
   STATE_NEXT = STATE_INIT;
-  //initDataFromFile();
 }
 
 void closeSettings() {
@@ -220,7 +215,6 @@ void deleteTasks() {
   DEBUG_SERIAL.println("Delete Settings.");
   if (deleteFile(dataFile)) {
     server.send(200, "text/plane", "OK");
-    //    initDataFromFile();
   } else {
     server.send(500, "text/plane", "ERROR");
   }

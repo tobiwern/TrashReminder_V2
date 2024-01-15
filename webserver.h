@@ -108,7 +108,7 @@ void initStartEndTimes() {
     DEBUG_SERIAL.println("INFO: Failed to open file " + String(settingsFile) + " for reading!");
     return;
   }
-  StaticJsonDocument<512> doc;
+  JsonDocument doc;
   DeserializationError error = deserializeJson(doc, file);
   if (error) {
     DEBUG_SERIAL.print("deserializeJson() failed: ");

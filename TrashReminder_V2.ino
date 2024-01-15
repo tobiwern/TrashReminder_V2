@@ -5,6 +5,7 @@ ESP:
   - Sleep when there are no events in the next days
   - Contact time server less often and maintain time internally (possible? => can we detect if the device returns from sleep or gets replugged? yes)
   - check if there are more tasksPerDay then allowed
+  - ESP.getFreeHeap()
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
@@ -91,6 +92,8 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 unsigned int nowEpoch = 0;   //global since only querying every minute
 int queryIntervall = 60000;  //ms => every minute (could be less, however to really turn on LED at intended time...)
 unsigned long lastQueryMillis = 0;
+int timeEpochLast = -1;
+int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
 
 //data
 const char* dataFile = "/data.json";
@@ -151,9 +154,46 @@ void handleConnection() {
   }
 }
 
+int getDominantTimeEpoch(int repeat) {
+  int timeEpoch[repeat];
+  for (int i = 0; i < repeat; i++) {
+    timeEpoch[i] = getTimeEpoch();
+    Serial.println("timeEpoch" + String(i) + ": " + String(timeEpoch[i]));
+    delay(100);
+  }
+  int sum = 0;
+  for (int i = 0; i < repeat; i++) {
+    sum += timeEpoch[i];
+  }
+  int average = int(sum / float(repeat));
+  int minDeviation = abs(average - timeEpoch[0]);
+  int dominantTimeEpoch = timeEpoch[0];
+  for (int i = 1; i < repeat; i++) {
+    if (abs(average - timeEpoch[i]) < minDeviation) { dominantTimeEpoch = timeEpoch[i]; }  //pick timeEpoch with least deviation to the average of all timeEpochs
+  }
+  Serial.println("dominantTimeEpoch: " + String(dominantTimeEpoch));
+  timeEpochLast = dominantTimeEpoch; //since this is considered correct
+  return (dominantTimeEpoch);
+}
+
+int getTimeEpoch() {
+  int timeEpoch = 0;
+  while (timeEpoch < 1705261183) {  //an old time stamp is not possible
+    timeClient.update();
+    timeEpoch = timeClient.getEpochTime(); //library continuous guessing when server connection is lost!
+//    Serial.println("timeEpoch: " + String(timeEpoch));
+  }
+  return (timeEpoch);
+}
+
 int getCurrentTimeEpoch() {
-  timeClient.update();
-  return (timeClient.getEpochTime());
+  int timeEpoch = getTimeEpoch();
+  if (abs(timeEpoch - timeEpochLast) > maxTimeEpochDelta) {
+    Serial.println("WARNING: There was a glitch on the NTP Time Server! Last time: " + String(timeEpochLast) + ", current time: " + String(timeEpoch) + ". Repeating query!");
+    timeEpoch = getDominantTimeEpoch(3);
+  }
+  timeEpochLast = timeEpoch;
+  return (timeEpoch);  //sometimes receives too large timestamp
 }
 
 int getTimeOffsetFromPublicIP() {
@@ -421,6 +461,7 @@ void handleState() {
       //      listDir("/"); //ToDo1
       initStartEndTimes();  //initializes startHour and endHour
       initDataFromFile();
+      nowEpoch = getDominantTimeEpoch(3);  //making sure that the very first time stamp is correct
       STATE_NEXT = STATE_QUERY;
       break;
     case STATE_DISCONNECTED:  //***********************************************************

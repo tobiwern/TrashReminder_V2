@@ -368,6 +368,7 @@ void setAcknowledge() {
     lastSwitchMillis = now;
     if (switchCounter == 2) {
       if (STATE == STATE_DEMO) {
+        millisLast = now;
         STATE_NEXT = STATE_SHOW;  //reset
       } else {
         STATE_NEXT = STATE_DEMO;

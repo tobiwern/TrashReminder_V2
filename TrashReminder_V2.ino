@@ -6,6 +6,7 @@ ESP:
   - Contact time server less often and maintain time internally (possible? => can we detect if the device returns from sleep or gets replugged? yes)
   - check if there are more tasksPerDay then allowed
   - Should we have a logFile that is overwritten when running out of space? Could help debug - Or have a "Send/Delete Logfile" option in the GUI 
+  - "Not found" when opening page in browser?
 - NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
   - Switch epochTime to unsigned long
   - update() =>  @return true on success, false on failure
@@ -52,7 +53,7 @@ int colorIdsLast[maxNumberOfTasksPerDay];
 int colorIndex = 0;  //used to toggle between multiple colors for same day tasks
 
 int startHour = 15;                  //am Vortag
-int endHour = 8;                     //am Abholugstag
+int endHour = 9;                     //am Abholugstag
 int brightness = 255;                //highest value since used to fadeBy...
 int fadeAmount = 5;                  // Set the amount to fade to 5, 10, 15, 20, 25 etc even up to 255.
 int showDuration = 5000;             //ms Splash screen

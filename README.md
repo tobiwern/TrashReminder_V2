@@ -43,7 +43,7 @@ Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausges
 Sollte es zu einer Verbindungsstörung zum Internet kommen, signalisiert die `Müll-Erinnerung` dies durch ein `schnelles rotes Blinken`. Man muss nichts weiter unternehmen - sobald die Verbindung wieder hergestellt werden kann wechselt die `Müll-Erinnerung` in den regulären Modus.
 
 ## Konfigurationsseite
-Die Konfigurationsseite kann über ein Smartphone oder Computer über den Link [http://TrashReminder](http://TrashReminder) aufrufen werden.
+Die Konfigurationsseite kann über ein Smartphone oder einen Computer über den Link [http://TrashReminder](http://TrashReminder) aufrufen werden.
 
 Über die Konfigurationsseite können folgenden Einstellungen für die `Müll-Erinnerung` vorgenommen werden:
 - Start- und End-Uhrzeit der Erinnerung

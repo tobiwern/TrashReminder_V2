@@ -34,16 +34,13 @@ boolean initDataFromFile() {
   uint32_t freeHeap = ESP.getFreeHeap();
   Serial.println("Free Heap: " + String(freeHeap));
   JsonDocument doc;  //on heap for large amount of data
-//  doc.clear();
-//  doc.garbageCollect();
   if (doc.overflowed()) {
-    DEBUG_SERIAL.println("WARNING: Failed to allocate memory for Deserialization! Used memory is: " + String(doc.memoryUsage()) + ". Retrying another time.");
+    DEBUG_SERIAL.println("WARNING: Failed to allocate memory for Deserialization! Free memory is: " + String(freeHeap) + ". Retrying another time.");
     JsonDocument doc;
   }
   DeserializationError error = deserializeJson(doc, file);
   if (error) {
     DEBUG_SERIAL.println("WARNING: Failed to deserialize data! Error: " + String(error.f_str()));
-    //showFSInfo();
     return (false);
   }
   // get validTasks ////////////////////////////////

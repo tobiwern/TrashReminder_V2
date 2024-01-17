@@ -162,36 +162,40 @@ void handleConnection() {
   }
 }
 
+int getTimeEpoch(boolean force = false) {
+  int timeEpoch = 0;
+  while (timeEpoch < 1705261183) {  //an old time stamp is not possible
+    if (force) {
+      timeClient.forceUpdate();
+    } else {
+      timeClient.update();
+    }
+    timeEpoch = timeClient.getEpochTime();  //library continuous guessing when server connection is lost! However means that getDominantTimeEpoch will just always get the same value...
+                                            //    Serial.println("timeEpoch: " + String(timeEpoch));
+  }
+  return (timeEpoch);
+}
+
 int getDominantTimeEpoch(int repeat) {
   int timeEpoch[repeat];
   for (int i = 0; i < repeat; i++) {
-    timeEpoch[i] = getTimeEpoch();
+    timeEpoch[i] = getTimeEpoch(true);
     Serial.println("timeEpoch" + String(i) + ": " + String(timeEpoch[i]));
-    delay(100);
+    delay(500);
   }
   int sum = 0;
   for (int i = 0; i < repeat; i++) {
     sum += timeEpoch[i];
   }
   int average = int(sum / float(repeat));
-  int minDeviation = abs(average - timeEpoch[0]);
+  int minDeviation = abs(average - timeEpoch[0]);  //unsiged int: need to detect which one is larger and do the correct subtraction order
   int dominantTimeEpoch = timeEpoch[0];
   for (int i = 1; i < repeat; i++) {
     if (abs(average - timeEpoch[i]) < minDeviation) { dominantTimeEpoch = timeEpoch[i]; }  //pick timeEpoch with least deviation to the average of all timeEpochs
   }
   Serial.println("dominantTimeEpoch: " + String(dominantTimeEpoch));
-  timeEpochLast = dominantTimeEpoch; //since this is considered correct
+  timeEpochLast = dominantTimeEpoch;  //since this is considered correct
   return (dominantTimeEpoch);
-}
-
-int getTimeEpoch() {
-  int timeEpoch = 0;
-  while (timeEpoch < 1705261183) {  //an old time stamp is not possible
-    timeClient.update();
-    timeEpoch = timeClient.getEpochTime(); //library continuous guessing when server connection is lost!
-//    Serial.println("timeEpoch: " + String(timeEpoch));
-  }
-  return (timeEpoch);
 }
 
 int getCurrentTimeEpoch() {
@@ -205,7 +209,7 @@ int getCurrentTimeEpoch() {
 }
 
 int getTimeOffsetFromPublicIP() {
-  int timeOffset = 3600; //default
+  int timeOffset = 3600;  //default
   HTTPClient http;
   WiFiClientSecure client;
   String payload;
@@ -218,14 +222,14 @@ int getTimeOffsetFromPublicIP() {
     String sign = payload.substring(0, 1);
     int hours = payload.substring(1, 3).toInt();
     float minutes = payload.substring(3, 5).toFloat();
-    timeOffset = int((hours+minutes/60)*3600);
-    if(sign == "-"){timeOffset = -timeOffset;}
+    timeOffset = int((hours + minutes / 60) * 3600);
+    if (sign == "-") { timeOffset = -timeOffset; }
     DEBUG_SERIAL.println("INFO: Successfully detected NTP timeOffset " + String(timeOffset) + " (GTM " + payload + ") from public IP.");
   } else {
     DEBUG_SERIAL.print("WARNING: Failed to detect NTP timeOffset from public IP. Defaulting to Germany. Http Error Code: " + String(httpCode));
   }
   http.end();
-  return(timeOffset);
+  return (timeOffset);
 }
 
 void printColorIds() {  //debug
@@ -488,7 +492,7 @@ void handleState() {
       if (!serverRunning) { startWebServer(); }
       server.handleClient();
       break;
-    case STATE_DEMO: //***********************************************************
+    case STATE_DEMO:  //***********************************************************
       if (STATE_PREVIOUS != STATE_DEMO) {
         DEBUG_SERIAL.println("Setting Demo Config");
         acknowledge = 0;

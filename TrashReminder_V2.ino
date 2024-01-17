@@ -5,12 +5,19 @@ ESP:
   - Sleep when there are no events in the next days
   - Contact time server less often and maintain time internally (possible? => can we detect if the device returns from sleep or gets replugged? yes)
   - check if there are more tasksPerDay then allowed
+  - Connection lost should not trigger an INIT (oder?) es geht ja nur darum den timestamp weiterzuführen.
+  - Should we have a logFile that is overwritten when running out of space? Could help debug - Or have a "Send/Delete Logfile" option in the GUI 
+- NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
+  - Switch epochTime to unsigned long
+  - update() =>  @return true on success, false on failure
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
   - Show Firmware Version in Webpage!
   - Restructure with tabs
   - Invalidate dates (grey) following start/end times!
+  - Have NTP Server as option on the webpage
+  - Have Autodetection of timezone in the webpage
 3D-Model:
   - Add magnets to trashcan so it snapps in place
 Helpful:
@@ -467,7 +474,7 @@ void handleState() {
       break;
     case STATE_DISCONNECTED:  //***********************************************************
       setColor(CRGB::Red, true, 2);
-      if (WiFi.isConnected()) { STATE_NEXT = STATE_INIT; }
+      if (WiFi.isConnected()) { STATE_NEXT = STATE_QUERY; }
       break;
     case STATE_QUERY:  //***********************************************************
       if (((millisNow - lastQueryMillis) > queryIntervall) || (lastQueryMillis == 0)) {
@@ -481,7 +488,7 @@ void handleState() {
       if (!serverRunning) { startWebServer(); }
       server.handleClient();
       break;
-    case STATE_DEMO:
+    case STATE_DEMO: //***********************************************************
       if (STATE_PREVIOUS != STATE_DEMO) {
         DEBUG_SERIAL.println("Setting Demo Config");
         acknowledge = 0;

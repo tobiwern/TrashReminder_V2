@@ -5,7 +5,6 @@ ESP:
   - Sleep when there are no events in the next days
   - Contact time server less often and maintain time internally (possible? => can we detect if the device returns from sleep or gets replugged? yes)
   - check if there are more tasksPerDay then allowed
-  - Connection lost should not trigger an INIT (oder?) es geht ja nur darum den timestamp weiterzuführen.
   - Should we have a logFile that is overwritten when running out of space? Could help debug - Or have a "Send/Delete Logfile" option in the GUI 
 - NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
   - Switch epochTime to unsigned long
@@ -98,10 +97,10 @@ int initialized = 0;   //in order to prevent acknowledge to be triggered at the 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 unsigned int nowEpoch = 0;   //global since only querying every minute
+unsigned int timeEpochLast = 0;
+int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
 int queryIntervall = 60000;  //ms => every minute (could be less, however to really turn on LED at intended time...)
 unsigned long lastQueryMillis = 0;
-int timeEpochLast = -1;
-int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
 
 //data
 const char* dataFile = "/data.json";
@@ -162,8 +161,8 @@ void handleConnection() {
   }
 }
 
-int getTimeEpoch(boolean force = false) {
-  int timeEpoch = 0;
+unsigned int getTimeEpoch(boolean force = false) {
+  unsigned int timeEpoch = 0;
   while (timeEpoch < 1705261183) {  //an old time stamp is not possible
     if (force) {
       timeClient.forceUpdate();
@@ -171,36 +170,50 @@ int getTimeEpoch(boolean force = false) {
       timeClient.update();
     }
     timeEpoch = timeClient.getEpochTime();  //library continuous guessing when server connection is lost! However means that getDominantTimeEpoch will just always get the same value...
-                                            //    Serial.println("timeEpoch: " + String(timeEpoch));
+                                            //    DEBUG_SERIAL.println("timeEpoch: " + String(timeEpoch));
   }
   return (timeEpoch);
 }
 
-int getDominantTimeEpoch(int repeat) {
-  int timeEpoch[repeat];
+unsigned int getDominantTimeEpoch(int repeat) {
+  unsigned int timeEpoch[repeat];
   for (int i = 0; i < repeat; i++) {
     timeEpoch[i] = getTimeEpoch(true);
-    Serial.println("timeEpoch" + String(i) + ": " + String(timeEpoch[i]));
+    DEBUG_SERIAL.println("timeEpoch" + String(i) + ": " + String(timeEpoch[i]));
     delay(500);
   }
-  int sum = 0;
+  unsigned long long sum = 0;
   for (int i = 0; i < repeat; i++) {
     sum += timeEpoch[i];
   }
-  int average = int(sum / float(repeat));
-  int minDeviation = abs(average - timeEpoch[0]);  //unsiged int: need to detect which one is larger and do the correct subtraction order
-  int dominantTimeEpoch = timeEpoch[0];
+  unsigned int average = sum / repeat;
+  unsigned int minDeviation = getDistance(average, timeEpoch[0]);
+  unsigned int dominantTimeEpoch = timeEpoch[0];
   for (int i = 1; i < repeat; i++) {
-    if (abs(average - timeEpoch[i]) < minDeviation) { dominantTimeEpoch = timeEpoch[i]; }  //pick timeEpoch with least deviation to the average of all timeEpochs
+    unsigned int currDeviation = getDistance(average, timeEpoch[i]);
+    if (currDeviation < minDeviation) {
+      dominantTimeEpoch = timeEpoch[i];
+      minDeviation = currDeviation;
+    }  //pick timeEpoch with least deviation to the average of all timeEpochs
   }
-  Serial.println("dominantTimeEpoch: " + String(dominantTimeEpoch));
+  DEBUG_SERIAL.println("sum: " + String(sum) + ", average: " + String(average) + ", minDeviation: " + String(minDeviation) + ", dominantTimeEpoch: " + String(dominantTimeEpoch));
   timeEpochLast = dominantTimeEpoch;  //since this is considered correct
   return (dominantTimeEpoch);
 }
 
-int getCurrentTimeEpoch() {
-  int timeEpoch = getTimeEpoch();
-  if (abs(timeEpoch - timeEpochLast) > maxTimeEpochDelta) {
+unsigned int getDistance(unsigned int epochTime1, unsigned int epochTime2) {
+  unsigned int distance;
+  if (epochTime1 > epochTime2) {
+    distance = epochTime1 - epochTime2;
+  } else {
+    distance = epochTime2 - epochTime1;
+  }
+  return (distance);
+}
+
+unsigned int getCurrentTimeEpoch() {
+  unsigned int timeEpoch = getTimeEpoch();
+  if (getDistance(timeEpoch, timeEpochLast) > maxTimeEpochDelta) {
     Serial.println("WARNING: There was a glitch on the NTP Time Server! Last time: " + String(timeEpochLast) + ", current time: " + String(timeEpoch) + ". Repeating query!");
     timeEpoch = getDominantTimeEpoch(3);
   }
@@ -288,7 +301,7 @@ void setColor(int color, boolean fade = true, int blinkSpeed = 20) {
 }
 
 void handleLed(unsigned int nowEpoch) {
-  int dictEpoch;
+  unsigned int dictEpoch;
   boolean futureDatesExist = false;
   memset(colorIds, -1, sizeof(colorIds));
   //  printColorIds();

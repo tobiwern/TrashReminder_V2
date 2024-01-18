@@ -32,7 +32,7 @@ boolean initDataFromFile() {
     return (false);
   }
   uint32_t freeHeap = ESP.getFreeHeap();
-  Serial.println("Free Heap: " + String(freeHeap));
+  Serial.println("Free Heap (before): " + String(freeHeap));
   JsonDocument doc;  //on heap for large amount of data
   if (doc.overflowed()) {
     DEBUG_SERIAL.println("WARNING: Failed to allocate memory for Deserialization! Free memory is: " + String(freeHeap) + ". Retrying another time.");
@@ -43,6 +43,7 @@ boolean initDataFromFile() {
     DEBUG_SERIAL.println("WARNING: Failed to deserialize data! Error: " + String(error.f_str()));
     return (false);
   }
+  Serial.println("Free Heap (after): " + String(ESP.getFreeHeap()));
   // get validTasks ////////////////////////////////
   JsonArray validTaskIds = doc["validTaskIds"];  //Implicit cast
   for (JsonVariant v : validTaskIds) {
@@ -160,8 +161,7 @@ void setStartHour() {
   String hour = server.arg("value");
   DEBUG_SERIAL.println("Setting startHour = " + hour);
   startHour = hour.toInt();
-  setColor(CRGB::White, false);
-  setColor(CRGB::Purple, false);
+  acknowledgeBlink();
   server.send(200, "text/plane", "Neuer Startzeitpunkt gespeichert.");
   writeStartEndTimes();
 }
@@ -170,8 +170,7 @@ void setEndHour() {
   String hour = server.arg("value");
   DEBUG_SERIAL.println("Setting endHour = " + hour);
   endHour = hour.toInt();
-  setColor(CRGB::White, false);
-  setColor(CRGB::Purple, false);
+  acknowledgeBlink();
   server.send(200, "text/plane", "Neuer Endzeitpunkt gespeichert.");
   writeStartEndTimes();
 }
@@ -184,6 +183,7 @@ void receiveFromWebpage_Tasks() {
   } else {
     server.send(500, "text/plane", "ERROR");
   }
+  acknowledgeBlink();
   STATE_NEXT = STATE_INIT;
 }
 

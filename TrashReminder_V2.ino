@@ -18,6 +18,8 @@ WebPage:
   - Invalidate dates (grey) following start/end times!
   - Have NTP Server as option on the webpage
   - Have Autodetection of timezone in the webpage
+  - Wait before sending tasks selected (if somebody enables/disables different tasks one after the other)
+  - When loading new dates: Prompt if old dates should be loaded (or directly ignore?)
 3D-Model:
   - Add magnets to trashcan so it snapps in place
 Helpful:
@@ -97,10 +99,10 @@ int initialized = 0;   //in order to prevent acknowledge to be triggered at the 
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
-unsigned int nowEpoch = 0;   //global since only querying every minute
+unsigned int nowEpoch = 0;  //global since only querying every minute
 unsigned int timeEpochLast = 0;
 int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
-int queryIntervall = 60000;  //ms => every minute (could be less, however to really turn on LED at intended time...)
+int queryIntervall = 60000;       //ms => every minute (could be less, however to really turn on LED at intended time...)
 unsigned long lastQueryMillis = 0;
 
 //data
@@ -373,10 +375,14 @@ void setAcknowledge() {
       } else {
         STATE_NEXT = STATE_DEMO;
       }
-      setColor(CRGB::Purple, false);
-      setColor(CRGB::Black, false);
+      acknowledgeBlink();
     }
   }
+}
+
+void acknowledgeBlink() {
+  setColor(CRGB::Purple, false);
+  setColor(CRGB::Black, false);
 }
 
 void doNothing() {

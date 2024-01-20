@@ -32,7 +32,7 @@ boolean initDataFromFile() {
     return (false);
   }
   uint32_t freeHeap = ESP.getFreeHeap();
-  Serial.println("Free Heap (before): " + String(freeHeap));
+  DEBUG_SERIAL.println("Free Heap (before): " + String(freeHeap));
   JsonDocument doc;  //on heap for large amount of data
   if (doc.overflowed()) {
     DEBUG_SERIAL.println("WARNING: Failed to allocate memory for Deserialization! Free memory is: " + String(freeHeap) + ". Retrying another time.");
@@ -43,7 +43,7 @@ boolean initDataFromFile() {
     DEBUG_SERIAL.println("WARNING: Failed to deserialize data! Error: " + String(error.f_str()));
     return (false);
   }
-  Serial.println("Free Heap (after): " + String(ESP.getFreeHeap()));
+  DEBUG_SERIAL.println("Free Heap (after): " + String(ESP.getFreeHeap()));
   // get validTasks ////////////////////////////////
   JsonArray validTaskIds = doc["validTaskIds"];  //Implicit cast
   for (JsonVariant v : validTaskIds) {
@@ -183,7 +183,9 @@ void receiveFromWebpage_Tasks() {
   } else {
     server.send(500, "text/plane", "ERROR");
   }
+  showFSInfo();
   acknowledgeBlink();
+  deleteFile("/events.log");
   STATE_NEXT = STATE_INIT;
 }
 

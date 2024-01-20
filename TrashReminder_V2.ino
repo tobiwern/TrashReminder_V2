@@ -52,8 +52,17 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 unsigned int nowEpoch = 0;  //global since only querying every minute
 unsigned int timeEpochLast = 0;
 int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
+//wait time before querying again on a NTP glitch
+int epochTimeRepeatWaitTime = 60;  //seconds
+unsigned long epochTimeRepeatWaitTimer = 0;
+boolean epochTimeRepeatWaitFlag = false;
 int queryIntervall = 60000;       //ms => every minute (could be less, however to really turn on LED at intended time...)
 unsigned long lastQueryMillis = 0;
+
+//files
+const char* dataFile = "/data.json";
+const char* logFile = "/logfile.txt";
+const char* settingsFile = "/settings.json";
 
 #include "filesystem.h"
 #include "webpage.h"
@@ -109,8 +118,6 @@ int triggerEpoch = 0;  //used to detect if the epochDict is changing => reset ac
 int initialized = 0;   //in order to prevent acknowledge to be triggered at the beginning
 
 //data
-const char* dataFile = "/data.json";
-const char* settingsFile = "/settings.json";
 int numberOfValidTaskIds = 0;  //global counter
 int numberOfTaskIds = 0;       //global counter
 int numberOfEpochs = 0;        //global counter
@@ -155,7 +162,7 @@ void setup() {
   //  deleteFile(dataFile);
   showFSInfo();
   //  logMessage("This is a message\n");
-  //  Serial.println("Read: " + readFile("events.log"));
+  //  Serial.println("Read: " + readFile(logFile));
   millisLast = millis();
 }
 
@@ -211,30 +218,30 @@ unsigned int getDominantTimeEpoch(int repeat) {
   return (dominantTimeEpoch);
 }
 
-unsigned int getDistance(unsigned int epochTime1, unsigned int epochTime2) {
+unsigned int getDistance(unsigned int epochTime1, unsigned int epochTime2) { 
   unsigned int distance;
-  if (epochTime1 > epochTime2) {
+  if (epochTime1 > epochTime2) { //since values are unsigned need to make sure to substract the smaller from the larger! not abs(a-b)!
     distance = epochTime1 - epochTime2;
   } else {
     distance = epochTime2 - epochTime1;
   }
   return (distance);
 }
-int epochTimeRepeatWaitTime = 60;  //seconds
-unsigned long epochTimeRepeatWaitTimer = 0;
-boolean epochTimeRepeatWaitFlag = false;
+
 unsigned int getCurrentTimeEpoch(unsigned long millisNow) {
   unsigned int timeEpoch = getTimeEpoch();
   if (getDistance(timeEpoch, timeEpochLast) > maxTimeEpochDelta) {
-    Serial.println("WARNING: There was a glitch on the NTP Time Server! Last time: " + String(timeEpochLast) + ", current time: " + String(timeEpoch) + ". Waiting a little and repeating query!");
+    logMessage("WARNING: There was a glitch on the NTP Time Server! Last time: " + String(timeEpochLast) + ", current time: " + String(timeEpoch) + ". Waiting a little and repeating query!");
     if (epochTimeRepeatWaitFlag == false) { epochTimeRepeatWaitTimer = millisNow; }  //since will be called consecutively
     epochTimeRepeatWaitFlag = true;
     timeEpoch = timeEpochLast;  // keeping old timestamp
   } else {                      //the timestamp recovered while waiting to run getDominantTimeEpoch
+    logMessage("INFO: Recovered! Matching timeEpoch received: " + String(timeEpoch));
     epochTimeRepeatWaitFlag == false;
   }
   if ((epochTimeRepeatWaitFlag == true) && (millisNow - epochTimeRepeatWaitTimer > epochTimeRepeatWaitTime)) {
     timeEpoch = getDominantTimeEpoch(3);
+    logMessage("INFO: Resetting to dominant timeEpoch: " + String(timeEpoch) + " after wait time (" + String(epochTimeRepeatWaitTime) + " seconds)");
     epochTimeRepeatWaitFlag == false;
   }
   timeEpochLast = timeEpoch;
@@ -526,7 +533,7 @@ void handleState() {
         nowEpoch = getCurrentTimeEpoch(millisNow);
         DEBUG_SERIAL.println("Received current epoch time: " + String(nowEpoch));
         lastQueryMillis = millisNow;
-        Serial.println("Free Heap: " + String(ESP.getFreeHeap()));
+        //Serial.println("Free Heap: " + String(ESP.getFreeHeap()));
       }
       handleLed(nowEpoch);
       handleReed();

@@ -131,6 +131,18 @@ void sendTasksToWebpage() {  //transfering ESP data to the Webpage
   }
 }
 
+void sendLogToWebpage() {  //transfering ESP data to the Webpage
+  String value = readFile(logFile);
+  if (value != "") {
+    DEBUG_SERIAL.println("Received:" + value);
+    DEBUG_SERIAL.println("Sending log: " + value);
+    server.send(200, "text/plane", value);
+  } else {
+    value = "ERROR";
+    server.send(500, "text/plane", value);
+  }
+}
+
 void sendSettingsToWebpage() {  //transferring ESP settings => Webpage
   String value;
   value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds;
@@ -185,7 +197,7 @@ void receiveFromWebpage_Tasks() {
   }
   showFSInfo();
   acknowledgeBlink();
-  deleteFile("/events.log");
+  //  deleteFile("/events.log");
   STATE_NEXT = STATE_INIT;
 }
 
@@ -203,11 +215,17 @@ void fireworks() {
   server.send(200, "text/plane", "OK");  //should always respond to prevent resend (10x)
 }
 
-void demo() {
-  DEBUG_SERIAL.println("Demo...");
-  STATE_NEXT = STATE_DEMO;
-  millisLast = millis();                 //to reset show timer
-  server.send(200, "text/plane", "OK");  //should always respond to prevent resend (10x)
+void toggleDemo() {
+  if (STATE == STATE_DEMO) {
+    DEBUG_SERIAL.println("DemoOff");
+    STATE_NEXT = STATE_INIT;
+    server.send(200, "text/plane", "Demo beendet!");  
+  } else {
+    DEBUG_SERIAL.println("DemoOn");
+    STATE_NEXT = STATE_DEMO;
+    millisLast = millis();                 //to reset show timer
+    server.send(200, "text/plane", "Demo gestartet!");  
+  }
 }
 
 void deleteTasks() {
@@ -244,11 +262,12 @@ void startWebServer() {
   server.on("/set_end", setEndHour);
   server.on("/request_settings", sendSettingsToWebpage);
   server.on("/request_tasks", sendTasksToWebpage);     //ESP => webpage
+  server.on("/request_log", sendLogToWebpage);         //ESP => webpage
   server.on("/send_tasks", receiveFromWebpage_Tasks);  //webpage => ESP name
   server.on("/delete_tasks", deleteTasks);
   server.on("/close", closeSettings);
   server.on("/fireworks", fireworks);
-  server.on("/demo", demo);
+  server.on("/demo", toggleDemo);
   server.on("/acknowledge", receiveFromWebpage_Acknowledge);
   server.on("/reset_wifi_settings", resetWifiSettings);
   //  server.on("/send_ValidTaskIds", receiveFromWebpage_ValidTaskIds);

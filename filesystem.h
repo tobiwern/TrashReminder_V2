@@ -12,13 +12,13 @@ boolean startLittleFS() {
     DEBUG_SERIAL.println("ERROR: Failed to mount LittleFS.");
     return (false);
   }
-  DEBUG_SERIAL.println("INFO: Successfully mounted LittleFS.");
+//  DEBUG_SERIAL.println("INFO: Successfully mounted LittleFS.");
   return (true);
 }
 
 void endLittleFS() {
   LittleFS.end();
-  DEBUG_SERIAL.println("INFO: Successfully un-mounted LittleFS.");
+//  DEBUG_SERIAL.println("INFO: Successfully un-mounted LittleFS.");
 }
 
 boolean listDir(const char* dirname) {
@@ -27,8 +27,8 @@ boolean listDir(const char* dirname) {
   Dir root = LittleFS.openDir(dirname);
   while (root.next()) {
     File file = root.openFile("r");
-//    DEBUG_SERIAL.printf(" FILE: %s, SIZE: %d", String(root.fileName()), file.size());  //tried to compact, however sometimes file name is not correctly resolved!
-    DEBUG_SERIAL.print(" FILE: "); 
+    //    DEBUG_SERIAL.printf(" FILE: %s, SIZE: %d", String(root.fileName()), file.size());  //tried to compact, however sometimes file name is not correctly resolved!
+    DEBUG_SERIAL.print(" FILE: ");
     DEBUG_SERIAL.print(root.fileName());
     DEBUG_SERIAL.print(", SIZE: ");
     DEBUG_SERIAL.print(file.size());
@@ -59,9 +59,14 @@ boolean showFSInfo() {
   return (true);
 }
 
-boolean writeFile(const char* fileName, const char* message) {
+boolean writeFile(const char* fileName, const char* message, boolean append = false) {
   if (!startLittleFS()) { return (false); }
-  File file = LittleFS.open(fileName, "w");
+  File file;
+  if (append) {
+    file = LittleFS.open(fileName, "a");
+  } else {
+    file = LittleFS.open(fileName, "w");
+  }
   if (!file) {
     DEBUG_SERIAL.println("ERROR: Failed to open file " + String(fileName) + " for writing!");
     return (false);
@@ -77,21 +82,6 @@ boolean writeFile(const char* fileName, const char* message) {
   file.close();
   endLittleFS();
   return (true);
-}
-
-String readFile(const char* fileName) {
-  //File System
-  if (!startLittleFS()) { return (""); }
-  DEBUG_SERIAL.printf("INFO: Reading file: %s\n", fileName);
-  File file = LittleFS.open(fileName, "r");
-  if (!file) {
-    DEBUG_SERIAL.println("INFO: Failed to open file " + String(fileName) + " for reading!");
-    return ("");
-  }
-  String jsonText = file.readString();
-  file.close();
-  endLittleFS();
-  return (jsonText);
 }
 
 boolean deleteFile(const char* fileName) {
@@ -111,6 +101,41 @@ boolean deleteFile(const char* fileName) {
   }
   endLittleFS();
   return (true);
+}
+
+long getRemainingSpace(){
+  if (!startLittleFS()) { return (false); }
+  FSInfo info;
+  LittleFS.info(info);
+  long spaceRemaining = info.totalBytes - info.usedBytes;
+  endLittleFS();
+  return(spaceRemaining);
+}
+void logMessage(const char* message) {
+  timeClient.update();
+  String time = timeClient.getFormattedTime();
+  String logMessage = time + ": " + message;
+  long spaceRemaining = getRemainingSpace();
+  if (spaceRemaining < 2000) {
+    DEBUG_SERIAL.println("Running out of space (" + String(spaceRemaining) + ")...Deleting logfile.");
+    deleteFile("/events.log"); //better strategy would be to start chopping the file from the beginning
+  }
+  writeFile("/events.log", logMessage.c_str(), true);
+}
+
+String readFile(const char* fileName) {
+  //File System
+  if (!startLittleFS()) { return (""); }
+  DEBUG_SERIAL.printf("INFO: Reading file: %s\n", fileName);
+  File file = LittleFS.open(fileName, "r");
+  if (!file) {
+    DEBUG_SERIAL.println("INFO: Failed to open file " + String(fileName) + " for reading!");
+    return ("");
+  }
+  String text = file.readString();
+  file.close();
+  endLittleFS();
+  return (text);
 }
 
 boolean renameFile(const char* fileName1, const char* fileName2) {

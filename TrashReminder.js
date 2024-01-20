@@ -29,7 +29,6 @@ function acknowledge() {
     xhttp.send();
 }
 
-
 function fireworks() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -41,12 +40,23 @@ function fireworks() {
     xhttp.send();
 }
 
-function demo() {
+function toggleDemo() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "demo", true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if(this.responseText == "DemoOn"){
+                showMessage("I", "Demo Mode gestartet!" , "buttonMessage", gHideDelayDefault);
+                document.getElementById("demoButton").innerHTML = "Demo Mode beenden";
+            } else {
+                showMessage("I", "Demo Mode beendet!" , "buttonMessage", gHideDelayDefault);
+                document.getElementById("demoButton").innerHTML = "Demo Mode starten";
+            }
+        }
+    };
+    xhttp.open("GET", "toggle_demo", true);
     xhttp.send();
-    document.getElementById("body").innerHTML = "<h1>Demo Mode!</h1>";
-    window.scrollTo(0, 0);
+//    document.getElementById("body").innerHTML = "<h1>Demo Mode!</h1>";
+//    window.scrollTo(0, 0);
 }
 
 function restartTrashReminder() {
@@ -65,6 +75,17 @@ function closeConfig() {
     document.getElementById("body").innerHTML = "<h1>Beendet - Bitte Fenster schließen!</h1>";
     window.scrollTo(0, 0);
     //  window.close(); //close the page
+}
+
+function requestLogFromESP() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            showMessage("I", this.responseText, "buttonMessage"); //show continuous
+        }
+    };
+    xhttp.open("GET", "request_log", true);
+    xhttp.send();
 }
 
 function requestSettingsFromESP() {
@@ -670,7 +691,8 @@ function createWebpage() {
         <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
         <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
         <button class="button" onclick="fireworks()">Feuerwerk</button>
-        <button class="button" onclick="demo()">Demo</button>
+        <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
+        <button class="button" onclick="requestLogFromESP()">Logfile anzeigen</button>
         <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
       </div>`;
     document.getElementById("body").innerHTML = innerHTML;

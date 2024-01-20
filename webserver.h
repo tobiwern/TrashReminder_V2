@@ -267,7 +267,7 @@ void startWebServer() {
   server.on("/delete_tasks", deleteTasks);
   server.on("/close", closeSettings);
   server.on("/fireworks", fireworks);
-  server.on("/demo", toggleDemo);
+  server.on("/toggle_demo", toggleDemo);
   server.on("/acknowledge", receiveFromWebpage_Acknowledge);
   server.on("/reset_wifi_settings", resetWifiSettings);
   //  server.on("/send_ValidTaskIds", receiveFromWebpage_ValidTaskIds);

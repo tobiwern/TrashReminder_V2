@@ -12,13 +12,13 @@ boolean startLittleFS() {
     DEBUG_SERIAL.println("ERROR: Failed to mount LittleFS.");
     return (false);
   }
-//  DEBUG_SERIAL.println("INFO: Successfully mounted LittleFS.");
+  //  DEBUG_SERIAL.println("INFO: Successfully mounted LittleFS.");
   return (true);
 }
 
 void endLittleFS() {
   LittleFS.end();
-//  DEBUG_SERIAL.println("INFO: Successfully un-mounted LittleFS.");
+  //  DEBUG_SERIAL.println("INFO: Successfully un-mounted LittleFS.");
 }
 
 boolean listDir(const char* dirname) {
@@ -103,24 +103,25 @@ boolean deleteFile(const char* fileName) {
   return (true);
 }
 
-long getRemainingSpace(){
+long getRemainingSpace() {
   if (!startLittleFS()) { return (false); }
   FSInfo info;
   LittleFS.info(info);
   long spaceRemaining = info.totalBytes - info.usedBytes;
   endLittleFS();
-  return(spaceRemaining);
+  return (spaceRemaining);
 }
-void logMessage(const char* message) {
+void logMessage(String message, boolean print = true) {
   timeClient.update();
   String time = timeClient.getFormattedTime();
   String logMessage = time + ": " + message;
   long spaceRemaining = getRemainingSpace();
   if (spaceRemaining < 2000) {
     DEBUG_SERIAL.println("Running out of space (" + String(spaceRemaining) + ")...Deleting logfile.");
-    deleteFile("/events.log"); //better strategy would be to start chopping the file from the beginning
+    deleteFile(logFile);  //better strategy would be to start chopping the file from the beginning
   }
-  writeFile("/events.log", logMessage.c_str(), true);
+  writeFile(logFile, logMessage.c_str(), true);
+  if (print) { DEBUG_SERIAL.println(message); }
 }
 
 String readFile(const char* fileName) {

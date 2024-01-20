@@ -7,9 +7,10 @@ ESP:
   - check if there are more tasksPerDay then allowed
   - Should we have a logFile that is overwritten when running out of space? Could help debug - Or have a "Send/Delete Logfile" option in the GUI 
   - "Not found" when opening page in browser?
+  - How can we go in demoMode without configuring WiFi?
 - NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
-  - Switch epochTime to unsigned long
   - update() =>  @return true on success, false on failure
+  - if glitch => first wait for a minute, then query again
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
@@ -20,8 +21,10 @@ WebPage:
   - Have Autodetection of timezone in the webpage
   - Wait before sending tasks selected (if somebody enables/disables different tasks one after the other)
   - When loading new dates: Prompt if old dates should be loaded (or directly ignore?)
+  - Demo Mode beenden option
 3D-Model:
   - Add magnets to trashcan so it snapps in place
+  - Smaller holes to improve metal splint
 Helpful:
   - Epoch Converter: https://www.epochconverter.com/
   - JSON Validator: https://jsonformatter.curiousconcept.com/#
@@ -43,6 +46,15 @@ const char* ipTimezoneServer = "https://ipapi.co/utc_offset";
 #define DEBUG_SERIAL \
   if (DEBUG) Serial
 
+// Define NTP Client to get time
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org");
+unsigned int nowEpoch = 0;  //global since only querying every minute
+unsigned int timeEpochLast = 0;
+int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
+int queryIntervall = 60000;       //ms => every minute (could be less, however to really turn on LED at intended time...)
+unsigned long lastQueryMillis = 0;
+
 #include "filesystem.h"
 #include "webpage.h"
 
@@ -57,7 +69,7 @@ int colorIndex = 0;  //used to toggle between multiple colors for same day tasks
 int startHour = 15;                  //am Vortag
 int endHour = 9;                     //am Abholugstag
 int brightness = 255;                //highest value since used to fadeBy...
-int fadeAmount = 5;                  // Set the amount to fade to 5, 10, 15, 20, 25 etc even up to 255.
+int fadeAmount = 5;                  //Set the amount to fade to 5, 10, 15, 20, 25 etc even up to 255.
 int showDuration = 5000;             //ms Splash screen
 int configTimeout = 10 * 60 * 1000;  //10 minutes
 unsigned long millisLast = 0;
@@ -95,15 +107,6 @@ unsigned long lastSwitchMillis = 0;
 int acknowledge = 0;   //turn off reminder light when the Mülleimer is lupft
 int triggerEpoch = 0;  //used to detect if the epochDict is changing => reset acknowledge
 int initialized = 0;   //in order to prevent acknowledge to be triggered at the beginning
-
-// Define NTP Client to get time
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org");
-unsigned int nowEpoch = 0;  //global since only querying every minute
-unsigned int timeEpochLast = 0;
-int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
-int queryIntervall = 60000;       //ms => every minute (could be less, however to really turn on LED at intended time...)
-unsigned long lastQueryMillis = 0;
 
 //data
 const char* dataFile = "/data.json";
@@ -150,6 +153,10 @@ void setup() {
   timeClient.begin();
   timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
   //  deleteFile(dataFile);
+  showFSInfo();
+  //  logMessage("This is a message\n");
+  //  Serial.println("Read: " + readFile("events.log"));
+  millisLast = millis();
 }
 
 void loop() {
@@ -172,7 +179,7 @@ unsigned int getTimeEpoch(boolean force = false) {
     } else {
       timeClient.update();
     }
-    timeEpoch = timeClient.getEpochTime();  //library continuous guessing when server connection is lost! However means that getDominantTimeEpoch will just always get the same value...
+    timeEpoch = timeClient.getEpochTime();  //library continuous guessing when server connection is lost!
                                             //    DEBUG_SERIAL.println("timeEpoch: " + String(timeEpoch));
   }
   return (timeEpoch);
@@ -213,19 +220,29 @@ unsigned int getDistance(unsigned int epochTime1, unsigned int epochTime2) {
   }
   return (distance);
 }
-
-unsigned int getCurrentTimeEpoch() {
+int epochTimeRepeatWaitTime = 60;  //seconds
+unsigned long epochTimeRepeatWaitTimer = 0;
+boolean epochTimeRepeatWaitFlag = false;
+unsigned int getCurrentTimeEpoch(unsigned long millisNow) {
   unsigned int timeEpoch = getTimeEpoch();
   if (getDistance(timeEpoch, timeEpochLast) > maxTimeEpochDelta) {
-    Serial.println("WARNING: There was a glitch on the NTP Time Server! Last time: " + String(timeEpochLast) + ", current time: " + String(timeEpoch) + ". Repeating query!");
+    Serial.println("WARNING: There was a glitch on the NTP Time Server! Last time: " + String(timeEpochLast) + ", current time: " + String(timeEpoch) + ". Waiting a little and repeating query!");
+    if (epochTimeRepeatWaitFlag == false) { epochTimeRepeatWaitTimer = millisNow; }  //since will be called consecutively
+    epochTimeRepeatWaitFlag = true;
+    timeEpoch = timeEpochLast;  // keeping old timestamp
+  } else {                      //the timestamp recovered while waiting to run getDominantTimeEpoch
+    epochTimeRepeatWaitFlag == false;
+  }
+  if ((epochTimeRepeatWaitFlag == true) && (millisNow - epochTimeRepeatWaitTimer > epochTimeRepeatWaitTime)) {
     timeEpoch = getDominantTimeEpoch(3);
+    epochTimeRepeatWaitFlag == false;
   }
   timeEpochLast = timeEpoch;
   return (timeEpoch);  //sometimes receives too large timestamp
 }
 
 int getTimeOffsetFromPublicIP() {
-  int timeOffset = 3600;  //default
+  int timeOffset = 3600;  //default GErmany
   HTTPClient http;
   WiFiClientSecure client;
   String payload;
@@ -242,7 +259,7 @@ int getTimeOffsetFromPublicIP() {
     if (sign == "-") { timeOffset = -timeOffset; }
     DEBUG_SERIAL.println("INFO: Successfully detected NTP timeOffset " + String(timeOffset) + " (GTM " + payload + ") from public IP.");
   } else {
-    DEBUG_SERIAL.print("WARNING: Failed to detect NTP timeOffset from public IP. Defaulting to Germany. Http Error Code: " + String(httpCode));
+    DEBUG_SERIAL.println("WARNING: Failed to detect NTP timeOffset from public IP. Defaulting to Germany. Http Error Code: " + String(httpCode));
   }
   http.end();
   return (timeOffset);
@@ -382,6 +399,7 @@ void setAcknowledge() {
 
 void acknowledgeBlink() {
   setColor(CRGB::Purple, false);
+  delay(200);
   setColor(CRGB::Black, false);
 }
 
@@ -457,6 +475,7 @@ void setDemoConfig() {
   demoTaskDict[2] = { .epoch = 2, .taskIds = { 2, -1, -1, -1 } };  //Bio
   demoTaskDict[3] = { .epoch = 3, .taskIds = { 3, -1, -1, -1 } };  //Papier
   demoTaskDict[4] = { .epoch = 4, .taskIds = { 2, 3, -1, -1 } };   //Papier, Bio
+  memset(colorIds, -1, sizeof(colorIds));
   setColorIds(demoTaskDict[demoCurrTask].taskIds);
 }
 
@@ -476,6 +495,7 @@ void handleState() {
         gHue++;
       }  // slowly cycle the "base color" through the rainbow
       if ((millisNow - millisLast) > showDuration) {
+        setColor(CRGB::Black, false);
         if (STATE_FOLLOWING != -1) {
           STATE_NEXT = STATE_FOLLOWING;
           STATE_FOLLOWING = -1;
@@ -503,9 +523,10 @@ void handleState() {
       break;
     case STATE_QUERY:  //***********************************************************
       if (((millisNow - lastQueryMillis) > queryIntervall) || (lastQueryMillis == 0)) {
-        nowEpoch = getCurrentTimeEpoch();
+        nowEpoch = getCurrentTimeEpoch(millisNow);
         DEBUG_SERIAL.println("Received current epoch time: " + String(nowEpoch));
         lastQueryMillis = millisNow;
+        Serial.println("Free Heap: " + String(ESP.getFreeHeap()));
       }
       handleLed(nowEpoch);
       handleReed();
@@ -534,6 +555,8 @@ void handleState() {
         acknowledge = 0;
       }
       handleReed();
+      if (!serverRunning) { startWebServer(); }
+      server.handleClient();
       break;
     default:
       break;

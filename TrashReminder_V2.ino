@@ -161,7 +161,6 @@ void setup() {
   timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
   //  deleteFile(dataFile);
   showFSInfo();
-  //deleteFile(logFile);
   //  logMessage("This is a message\n");
   //  Serial.println("Read: " + readFile(logFile));
   millisLast = millis();

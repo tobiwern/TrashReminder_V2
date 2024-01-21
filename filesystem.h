@@ -115,7 +115,7 @@ void logMessage(String message, boolean print = true) {
   if (print) { DEBUG_SERIAL.println(message); }
   timeClient.update();
   String time = timeClient.getFormattedTime();
-  String logMessage = time + ": " + message;
+  String logMessage = time + ": " + message + "\n";
   long spaceRemaining = getRemainingSpace();
   if (spaceRemaining < 2000) {
     DEBUG_SERIAL.println("Running out of space (" + String(spaceRemaining) + ")...Deleting logfile.");

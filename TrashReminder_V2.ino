@@ -161,6 +161,7 @@ void setup() {
   timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
   //  deleteFile(dataFile);
   showFSInfo();
+  //deleteFile(logFile);
   //  logMessage("This is a message\n");
   //  Serial.println("Read: " + readFile(logFile));
   millisLast = millis();
@@ -236,13 +237,13 @@ unsigned int getCurrentTimeEpoch(unsigned long millisNow) {
     epochTimeRepeatWaitFlag = true;
     timeEpoch = timeEpochLast;  // keeping old timestamp
   } else {                      //the timestamp recovered while waiting to run getDominantTimeEpoch
-    logMessage("INFO: Recovered! Matching timeEpoch received: " + String(timeEpoch));
-    epochTimeRepeatWaitFlag == false;
+    if(epochTimeRepeatWaitFlag == true){logMessage("INFO: Recovered! Matching timeEpoch received: " + String(timeEpoch));}
+    epochTimeRepeatWaitFlag = false;
   }
   if ((epochTimeRepeatWaitFlag == true) && (millisNow - epochTimeRepeatWaitTimer > epochTimeRepeatWaitTime)) {
     timeEpoch = getDominantTimeEpoch(3);
     logMessage("INFO: Resetting to dominant timeEpoch: " + String(timeEpoch) + " after wait time (" + String(epochTimeRepeatWaitTime) + " seconds)");
-    epochTimeRepeatWaitFlag == false;
+    epochTimeRepeatWaitFlag = false;
   }
   timeEpochLast = timeEpoch;
   return (timeEpoch);  //sometimes receives too large timestamp

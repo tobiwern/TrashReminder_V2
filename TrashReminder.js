@@ -98,9 +98,9 @@ function deleteLogOnESP() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                showMessage("I", this.responseText, "buttonMessage", gHideDelayDefault);   
+                showMessage("I", "Logfile gelöscht.", "buttonMessage", gHideDelayDefault);   
             } else { //500
-                showMessage("W", this.responseText, "buttonMessage", gHideDelayDefault); 
+                showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "buttonMessage", gHideDelayDefault); 
             }      
         }
     };

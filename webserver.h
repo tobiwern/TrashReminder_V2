@@ -138,8 +138,7 @@ void sendLogToWebpage() {  //transfering ESP data to the Webpage
     DEBUG_SERIAL.println("Sending log: " + value);
     server.send(200, "text/plane", value);
   } else {
-    value = "ERROR";
-    server.send(500, "text/plane", value);
+    server.send(200, "text/plane", "Logfile ist leer.");
   }
 }
 
@@ -217,14 +216,14 @@ void fireworks() {
 
 void toggleDemo() {
   if (STATE == STATE_DEMO) {
-    DEBUG_SERIAL.println("DemoOff");
+    DEBUG_SERIAL.println("Demo beendet!");
     STATE_NEXT = STATE_INIT;
-    server.send(200, "text/plane", "Demo beendet!");  
+    server.send(200, "text/plane", "DemoOff");  
   } else {
-    DEBUG_SERIAL.println("DemoOn");
+    DEBUG_SERIAL.println("Demo gestartet!");
     STATE_NEXT = STATE_DEMO;
     millisLast = millis();                 //to reset show timer
-    server.send(200, "text/plane", "Demo gestartet!");  
+    server.send(200, "text/plane", "DemoOn");  
   }
 }
 
@@ -237,6 +236,15 @@ void deleteTasks() {
   }
   delay(500);  //ToDo
   STATE_NEXT = STATE_INIT;
+}
+
+void deleteLog() {
+  DEBUG_SERIAL.println("Delete Logfile.");
+  if (deleteFile(logFile)) {
+    server.send(200, "text/plane", "OK");
+  } else {
+    server.send(500, "text/plane", "ERROR");
+  }
 }
 
 void resetWifiSettings() {
@@ -265,6 +273,7 @@ void startWebServer() {
   server.on("/request_log", sendLogToWebpage);         //ESP => webpage
   server.on("/send_tasks", receiveFromWebpage_Tasks);  //webpage => ESP name
   server.on("/delete_tasks", deleteTasks);
+  server.on("/delete_log", deleteLog);
   server.on("/close", closeSettings);
   server.on("/fireworks", fireworks);
   server.on("/toggle_demo", toggleDemo);

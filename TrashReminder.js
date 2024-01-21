@@ -81,10 +81,30 @@ function requestLogFromESP() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", this.responseText, "buttonMessage"); //show continuous
+            showMessage("I", this.responseText.replace("\n", "<br>"), "buttonMessage"); //show continuous
         }
     };
     xhttp.open("GET", "request_log", true);
+    xhttp.send();
+}
+
+function deleteLogOnESP() {
+    const response = confirm("Wollen Sie wirklich das Logfile löschen?");
+    if (!response) {
+        showMessage("I", "Löschen des Logfiles abgebrochen.", "buttonMessage", gHideDelayDefault);
+        return;
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                showMessage("I", this.responseText, "buttonMessage", gHideDelayDefault);   
+            } else { //500
+                showMessage("W", this.responseText, "buttonMessage", gHideDelayDefault); 
+            }      
+        }
+    };
+    xhttp.open("GET", "delete_log", true);
     xhttp.send();
 }
 
@@ -692,7 +712,7 @@ function createWebpage() {
         <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
         <button class="button" onclick="fireworks()">Feuerwerk</button>
         <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
-        <button class="button" onclick="requestLogFromESP()">Logfile anzeigen</button>
+        <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
         <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
       </div>`;
     document.getElementById("body").innerHTML = innerHTML;

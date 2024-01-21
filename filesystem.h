@@ -72,13 +72,13 @@ boolean writeFile(const char* fileName, const char* message, boolean append = fa
     return (false);
   }
   if (file.print(message)) {
-    DEBUG_SERIAL.println("INFO: Successfully wrote file " + String(fileName) + "!");
+//    DEBUG_SERIAL.println("INFO: Successfully wrote file " + String(fileName) + "!");
   } else {
     DEBUG_SERIAL.println("ERROR: Failed to write file " + String(fileName) + "!");
     return (false);
   }
   size_t size = file.size();
-  DEBUG_SERIAL.println("INFO: File size is " + String(size) + ".");
+//  DEBUG_SERIAL.println("INFO: File size is " + String(size) + ".");
   file.close();
   endLittleFS();
   return (true);
@@ -112,6 +112,7 @@ long getRemainingSpace() {
   return (spaceRemaining);
 }
 void logMessage(String message, boolean print = true) {
+  if (print) { DEBUG_SERIAL.println(message); }
   timeClient.update();
   String time = timeClient.getFormattedTime();
   String logMessage = time + ": " + message;
@@ -121,7 +122,6 @@ void logMessage(String message, boolean print = true) {
     deleteFile(logFile);  //better strategy would be to start chopping the file from the beginning
   }
   writeFile(logFile, logMessage.c_str(), true);
-  if (print) { DEBUG_SERIAL.println(message); }
 }
 
 String readFile(const char* fileName) {

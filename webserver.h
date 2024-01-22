@@ -218,12 +218,12 @@ void toggleDemo() {
   if (STATE == STATE_DEMO) {
     DEBUG_SERIAL.println("Demo beendet!");
     STATE_NEXT = STATE_INIT;
-    server.send(200, "text/plane", "DemoOff");  
+    server.send(200, "text/plane", "DemoOff");
   } else {
     DEBUG_SERIAL.println("Demo gestartet!");
     STATE_NEXT = STATE_DEMO;
-    millisLast = millis();                 //to reset show timer
-    server.send(200, "text/plane", "DemoOn");  
+    millisLast = millis();  //to reset show timer
+    server.send(200, "text/plane", "DemoOn");
   }
 }
 
@@ -260,6 +260,7 @@ void resetWifiSettings() {
 void receiveFromWebpage_Acknowledge() {  //ToDo: Need to version webpages
   DEBUG_SERIAL.println("Acknowledge...");
   acknowledge = 1;
+  lastSwitchMillis = millis(); //in demo mode to have the same pause as by lifting trashcan
   server.send(200, "text/plane", "OK");  //should always respond to prevent resend (10x)
 }
 

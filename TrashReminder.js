@@ -633,6 +633,7 @@ function showMessage(msgType, message, receiver = "buttonMessage", hideDelayInSe
     } else {
         clearTimeout(timeoutID);
     }
+    if(receiver == "buttonMessage"){window.scrollTo(0, document.body.scrollHeight);}
 }
 
 function createWebpage() {

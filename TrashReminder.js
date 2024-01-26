@@ -710,10 +710,10 @@ function createWebpage() {
       <div>
         <button class="button" onclick="acknowledge()">M&uuml;llabholung best&auml;tigen</button>
         <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
-        <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
         <button class="button" onclick="fireworks()">Feuerwerk</button>
         <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
         <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
+        <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
         <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
       </div>`;
     document.getElementById("body").innerHTML = innerHTML;

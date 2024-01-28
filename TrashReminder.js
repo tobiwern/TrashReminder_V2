@@ -59,6 +59,13 @@ function toggleDemo() {
 //    window.scrollTo(0, 0);
 }
 
+function addFavicon() {
+    $favicon = document.createElement("link")
+    $favicon.rel = "icon"
+    $favicon.href = "favicon.ico"
+    document.head.appendChild($favicon)
+}
+
 function restartTrashReminder() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -717,6 +724,7 @@ function createWebpage() {
         <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
       </div>`;
     document.getElementById("body").innerHTML = innerHTML;
+    addFavicon();
     // var colorPickerSetup = `
     // <link rel="stylesheet" href="colorPicker/colorPick.css">
     // <script src="colorPicker/colorPick.js"></script>

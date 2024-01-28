@@ -111,15 +111,16 @@ long getRemainingSpace() {
   endLittleFS();
   return (spaceRemaining);
 }
+
 void logMessage(String message, boolean print = true) {
   if (print) { DEBUG_SERIAL.println(message); }
   timeClient.update();
-  String time = timeClient.getFormattedTime();
+  String time = timeClient.getFormattedDateTime();
   String logMessage = time + ": " + message + "\n";
   long spaceRemaining = getRemainingSpace();
   if (spaceRemaining < 2000) {
     DEBUG_SERIAL.println("Running out of space (" + String(spaceRemaining) + ")...Deleting logfile.");
-    deleteFile(logFile);  //better strategy would be to start chopping the file from the beginning
+    deleteFile(logFile);  //ToDo: better strategy would be to start chopping the file from the beginning
   }
   writeFile(logFile, logMessage.c_str(), true);
 }

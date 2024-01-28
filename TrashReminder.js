@@ -88,7 +88,7 @@ function requestLogFromESP() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", this.responseText.replace("\n", "<br>"), "buttonMessage"); //show continuous
+            showMessage("I", this.responseText.replaceAll("\n", "<br>"), "buttonMessage"); //show continuous
         }
     };
     xhttp.open("GET", "request_log", true);

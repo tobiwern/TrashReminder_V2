@@ -54,8 +54,8 @@ boolean showFSInfo() {
   DEBUG_SERIAL.println("pageSize: " + String(info.pageSize));
   DEBUG_SERIAL.println("maxOpenFiles: " + String(info.maxOpenFiles));
   DEBUG_SERIAL.println("maxPathLength: " + String(info.maxPathLength));
-  listDir("/");
   endLittleFS();
+  listDir("/");
   return (true);
 }
 
@@ -72,13 +72,13 @@ boolean writeFile(const char* fileName, const char* message, boolean append = fa
     return (false);
   }
   if (file.print(message)) {
-//    DEBUG_SERIAL.println("INFO: Successfully wrote file " + String(fileName) + "!");
+    //    DEBUG_SERIAL.println("INFO: Successfully wrote file " + String(fileName) + "!");
   } else {
     DEBUG_SERIAL.println("ERROR: Failed to write file " + String(fileName) + "!");
     return (false);
   }
   size_t size = file.size();
-//  DEBUG_SERIAL.println("INFO: File size is " + String(size) + ".");
+  //  DEBUG_SERIAL.println("INFO: File size is " + String(size) + ".");
   file.close();
   endLittleFS();
   return (true);
@@ -151,4 +151,172 @@ boolean renameFile(const char* fileName1, const char* fileName2) {
   }
   endLittleFS();
   return (true);
+}
+
+// CONNECTION HANDLING
+void saveSaveAndConnectState(int value) {
+  writeFile("saveAndConnectPressed.txt", String(value).c_str());
+}
+
+int saveAndConnectPressed() {
+  String saveAndConnectPressed = readFile("saveAndConnectPressed.txt");
+  int retVal;
+  if (saveAndConnectPressed == "") {
+    retVal = 0;
+  } else {
+    retVal = saveAndConnectPressed.toInt();
+  }
+  Serial.println("=== saveAndConnectPressed = " + String(retVal));
+  return (retVal);
+}
+
+void saveConnectionState(int value) {
+  writeFile("connectionFailed.txt", String(value).c_str());
+}
+
+int lastConnectionFailed() {
+  String connectionFailed = readFile("connectionFailed.txt");
+  int retVal;
+  if (connectionFailed == "") {
+    retVal = 0;
+  } else {
+    retVal = connectionFailed.toInt();
+  }
+  Serial.println("=== connectionFailed = " + String(retVal));
+  return (retVal);
+}
+
+// void saveConnectionState(int value) {
+//   preferences.begin("settings", false);  //read&write
+//   preferences.putInt("connectionFailed", value);
+//   preferences.end();
+// }
+
+// int lastConnectionFailed() {
+//   preferences.begin("settings", true);                            //read
+//   int connectionFailed = preferences.getInt("connectionFailed");  // default is 0 if value was not written!
+//   preferences.end();
+//   Serial.println("=== connectionFailed = " + String(connectionFailed));
+//   return (connectionFailed);
+// }
+
+boolean saveStaticIPSettings(String localIP = "") {
+  Serial.println("INFO: Saving Static IP Settings.");
+  if (!startLittleFS()) { return (false); }
+  File file = LittleFS.open(connectionFile, "w");
+  JsonDocument doc;
+  if (localIP != "") {
+    doc["localIP"] = localIP;
+  } else {
+    doc["localIP"] = WiFi.localIP().toString();
+  }
+  doc["gatewayIP"] = WiFi.gatewayIP().toString();
+  doc["dnsIP"] = WiFi.dnsIP().toString();
+  doc["subnetMask"] = WiFi.subnetMask().toString();
+  serializeJson(doc, file);
+  file.close();
+  endLittleFS();
+  return (true);
+}
+
+// void saveStaticIPSettings() {
+//   Serial.println("INFO: Saving Static IP Settings.");
+//   preferences.begin("settings", false);  //read&write
+//   preferences.putString("localIP", WiFi.localIP().toString());
+//   preferences.putString("gatewayIP", WiFi.gatewayIP().toString());
+//   preferences.putString("dnsIP", WiFi.dnsIP().toString());
+//   preferences.putString("subnetMask", WiFi.subnetMask().toString());
+//   preferences.end();
+// }
+
+boolean readStaticIPSettings() {
+  Serial.print("=== Read Settings");
+  if (!startLittleFS()) { return (false); }
+  DEBUG_SERIAL.printf("INFO: Reading file: %s\n", connectionFile);
+  File file = LittleFS.open(connectionFile, "r");
+  if (!file) {
+    DEBUG_SERIAL.println("INFO: Failed to open file " + String(connectionFile) + " for reading!");
+    endLittleFS();
+    return (false);
+  }
+  JsonDocument doc;
+  DeserializationError error = deserializeJson(doc, file);
+  if (error) {
+    DEBUG_SERIAL.print("deserializeJson() failed: ");
+    DEBUG_SERIAL.println(error.f_str());
+    return (false);
+  }
+  String localIPString = doc["localIP"];
+  String gatewayIPString = doc["gatewayIP"];
+  String dnsIPString = doc["dnsIP"];
+  String subnetMaskString = doc["subnetMask"];
+  file.close();
+  endLittleFS();
+  Serial.println("Read Static Ip Settings: localIP: " + localIPString + ", gatewayIP: " + gatewayIPString + ", dnsIP: " + dnsIPString + ", subnetMask: " + subnetMaskString);
+  localIP.fromString(localIPString.c_str());
+  gatewayIP.fromString(gatewayIPString.c_str());
+  dnsIP.fromString(dnsIPString.c_str());
+  subnetMask.fromString(subnetMaskString.c_str());
+  return (true);
+}
+
+// void readStaticIPSettings() {
+//   Serial.print("=== Read Settings");
+//   preferences.begin("settings", true);  //read
+//   String localIPString = preferences.getString("localIP");
+//   String gatewayIPString = preferences.getString("gatewayIP");
+//   String dnsIPString = preferences.getString("dnsIP");
+//   String subnetMaskString = preferences.getString("subnetMask");
+//   preferences.end();
+//   Serial.println("Read Static Ip Settings: localIP: " + localIPString + ", gatewayIP: " + gatewayIPString + ", subnetMask: " + subnetMaskString + ", dnsIP: " + dnsIPString);
+//   localIP.fromString(localIPString.c_str());
+//   gatewayIP.fromString(gatewayIPString.c_str());
+//   dnsIP.fromString(dnsIPString.c_str());
+//   subnetMask.fromString(subnetMaskString.c_str());
+// }
+
+void resetStaticIPSettings() {
+  Serial.println("=== Clear IP Settings");
+  deleteFile(connectionFile);  
+  saveConnectionState(0);
+  localIP.fromString("");  //reset local setting
+}
+
+// void resetStaticIPSettings() {
+//   Serial.println("=== Clear Settings");
+//   boolean success = preferences.begin("settings", false);  //read&write
+//   Serial.println("preferences.begin Success = " + String(success));
+//   //  preferences.remove("localIP"); // could also reset all parameters, however localIP is used to detect if static addresses set
+//   success = preferences.putString("localIP", " ");
+//   Serial.println("preferences.putString(localIP) Success = " + String(success));
+//   success = preferences.putInt("connectionFailed", 0);
+//   Serial.println("preferences.putInt(connectionFailed) Success = " + String(success));
+//   //preferences.clear();  //does not work???
+//   String localIPString = preferences.getString("localIP");
+//   Serial.println("localIPString = " + localIPString);
+//   String gatewayIPString = preferences.getString("gatewayIP");
+//   Serial.println("gatewayIPString = " + gatewayIPString);
+//   preferences.end();
+//   localIP.fromString("");  //reset local setting
+//   Serial.println("=== End Clear");
+// }
+
+void saveParamsCallback() {  //gets called when in the Captive Portal the "Speichern & Verbinden" ausgewählt wird
+  saveSaveAndConnectState(1);
+  //  String ipString = customIp.getValue();
+  //  IPAddress ip;
+  //  if (ip.fromString(ipString.c_str())) {  // try to parse into the IPAddress
+  //    Serial.println("INFO: Successfully received custom IP: " + ipString);
+  //    wm.disconnect();
+  //    IPAddress gateway(192, 168, 29, 1);
+  //    IPAddress subnet(255, 255, 255, 0);
+  //    IPAddress dns(8, 8, 8, 8);
+  //    wm.setSTAStaticIPConfig(ip, gateway, subnet, dns);
+  //    wm.autoConnect("TrashReminder");
+  //IPAddress ip(192, 168, 29, 15);
+  //WiFi.config(ip, dns, gateway, subnet);
+  //WiFi.begin(WiFi.SSID(), WiFi.psk());
+  //  } else {
+  //Serial.println("Invalid IP: " + ipString);
+  //  }
 }

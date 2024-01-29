@@ -19,9 +19,8 @@ WebPage:
   - Invalidate dates (grey) following start/end times!
   - Have NTP Server as option on the webpage
   - Have Autodetection of timezone in the webpage
-  - Wait before sending tasks selected (if somebody enables/disables different tasks one after the other)
-  - When loading new dates: Prompt if old dates should be loaded (or directly ignore?)
-  - Demo Mode beenden option
+  - Wait before sending tasks selected (if somebody enables/disables different tasks one after the other) OR Block Website until response is obtained (+ timeout) => load animation
+  - When loading new dates: Prompt if outdated dates should be loaded (or directly ignore?)
 3D-Model:
   - Add magnets to trashcan so it snapps in place
   - Smaller holes to improve metal splint
@@ -33,14 +32,18 @@ Helpful:
 */
 
 #include <ESP8266WiFi.h>
-#include <NTPClient.h>
+#include <NTPClient_Generic.h>  //https://github.com/khoih-prog/NTPClient_Generic OLD: https://github.com/arduino-libraries/NTPClient OR https://github.com/taranais/NTPClient
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
 const char* ipTimezoneServer = "https://ipapi.co/utc_offset";
 
 #include <WiFiUdp.h>
+#define WM_DEBUG_LEVEL DEBUG_NOTIFY
+#define WM_STRINGS_FILE "wm_strings_de.h"
 #include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager
+WiFiManager wm;
+//WiFiManagerParameter customIp("str", "Feste IP (optional, Format: 192.168.178.123):", "", 20);
 
 #define DEBUG true  //set to true for debug output, false for no debug output
 #define DEBUG_SERIAL \
@@ -57,13 +60,19 @@ int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
 int epochTimeRepeatWaitTime = 60;  //seconds
 unsigned long epochTimeRepeatWaitTimer = 0;
 boolean epochTimeRepeatWaitFlag = false;
-int queryIntervall = 60000;       //ms => every minute (could be less, however to really turn on LED at intended time...)
+int queryIntervall = 60000;  //ms => every minute (could be less, however to really turn on LED at intended time...)
 unsigned long lastQueryMillis = 0;
 
 //files
 const char* dataFile = "/data.json";
 const char* logFile = "/logfile.txt";
 const char* settingsFile = "/settings.json";
+const char* connectionFile = "/connection.json";
+
+IPAddress localIP;
+IPAddress gatewayIP;
+IPAddress dnsIP;
+IPAddress subnetMask;
 
 #include "filesystem.h"
 #include "webpage.h"
@@ -142,7 +151,34 @@ const int demoNumberOfTasks = 5;
 epochTask demoTaskDict[demoNumberOfTasks];
 int offDuration = 5 * 1000;  // 5 sec after trashcan was lifted the blinking starts again
 
+/*
+class IPAddressParameter : public WiFiManagerParameter {
+public:
+  IPAddressParameter(const char* id, const char* placeholder, IPAddress address)
+    : WiFiManagerParameter("") {
+    init(id, placeholder, address.toString().c_str(), 16, "", WFM_LABEL_BEFORE);
+  }
+
+  bool getValue(IPAddress& ip) {
+    return ip.fromString(WiFiManagerParameter::getValue());
+  }
+};
+*/
+
 void setup() {
+  setupHardware();
+  //deleteFile("nvs");
+  setupWifiManager();
+  setupTimeClient();
+  showFSInfo();
+  millisLast = millis();
+}  //End setup
+
+void loop() {
+  handleState();
+}
+
+void setupHardware() {
   Serial.begin(115200);
   while (!Serial) { ; }
   reed.attachEdgeDetect(doNothing, setAcknowledge);
@@ -150,25 +186,57 @@ void setup() {
   delay(200);
   leds[0] = CRGB::Red;  //in case no successful WiFi connection
   FastLED.show();
-  WiFiManager wm;
-  if (wm.autoConnect("TrashReminder")) {
-    DEBUG_SERIAL.println("Successfully connected.");
-  } else {
-    DEBUG_SERIAL.println("Failed to connect.");
-  }
-  WiFi.hostname("TrashReminder");
-  //Time Client
-  timeClient.begin();
-  timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
-  //  deleteFile(dataFile);
-  showFSInfo();
-  //  logMessage("This is a message\n");
-  //  Serial.println("Read: " + readFile(logFile));
-  millisLast = millis();
 }
 
-void loop() {
-  handleState();
+void setupTimeClient() {
+  timeClient.begin();
+  timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
+}
+
+void setupWifiManager() {
+  wm.setDebugOutput(true, "WifiM:");           //0-5
+  std::vector<const char*> menu = { "wifi" };  //only Wifi menu shown
+  wm.setMenu(menu);
+  wm.setShowStaticFields(false);  //initially don't show Static IP fields, only when regular DHCP connection fails.
+  WiFiManagerParameter custom_text("<dev style='color:green;'>Bitte <b>SSID</b> aus der Liste oben auswählen, <b>Passwort</b> eingeben und <b>Speichern & Verbinden</b> klicken.</dev>");
+  wm.addParameter(&custom_text);
+  //WiFiManagerParameter custom_mqtt_server("server", "mqtt server", "iot.eclipse", 40, " readonly");
+  //wm.addParameter(&custom_mqtt_server);
+  //wm.setCustomHeadElement("<style>html{filter: invert(100%); -webkit-filter: invert(100%);}</style>");
+  //  IPAddress ip(192,168,178,123);
+  //  IPAddressParameter param_ip("ip", "Feste IP (optional, Format: 192.168.178.123):", ip);
+  //  wm.setSTAStaticIPConfig(IPAddress(192,168,178,123), IPAddress(192,168,0,1), IPAddress(255,255,255,0));
+  //wm.setConnectTimeout(30);
+  wm.setConfigPortalTimeout(120);  // needed in order to continue in case of failed connection
+  //wm.addParameter(&customIp);
+  wm.setSaveParamsCallback(saveParamsCallback);
+  readStaticIPSettings();  //Todo: if static IP was indicated, use this from now on - should we do this in general or only if static IP was indicated? Maybe it is not even required assuming if the first connection was successful the router stores this IP???
+  Serial.println("=== localIP: " + localIP.toString());
+  if (localIP.toString() != "(IP unset)") {
+    Serial.println("INFO: Using Static IP Address Method!");
+    wm.setSTAStaticIPConfig(localIP, gatewayIP, subnetMask, dnsIP);
+  }
+  if (lastConnectionFailed() && saveAndConnectPressed()) {  //connectionFailed
+    DEBUG_SERIAL.println("INFO: Previous connection failed. Showing Custom IP fields.");
+    wm.setSTAStaticIPConfig(IPAddress(192, 168, 178, 123), IPAddress(192, 168, 178, 1), IPAddress(255, 255, 255, 0), IPAddress(8, 8, 8, 8));  //IP, Gateway, Subnet, DNS
+    //https://github.com/tzapu/WiFiManager/blob/0.16.0/examples/AutoConnectWithFSParametersAndCustomIP/AutoConnectWithFSParametersAndCustomIP.ino
+    WiFiManagerParameter custom_text("<br><br><dev style='color:red;'>Letzter Verbindungsversuch schlug fehl. Versuchen Sie eine unbenutzte statische IP Adresse zu vergeben.</dev><br>");
+    wm.addParameter(&custom_text);
+    wm.setConnectTimeout(120);
+    leds[0] = CRGB::Orange;  //in case no successful WiFi connection
+    FastLED.show();
+  }
+  if (wm.autoConnect("TrashReminder")) {
+    DEBUG_SERIAL.println("Successfully connected.");
+    if (lastConnectionFailed()) { saveStaticIPSettings(); }  //if there was a failed connection before and static IP has been indicated
+    saveConnectionState(0);
+    saveSaveAndConnectState(0);
+  } else {
+    DEBUG_SERIAL.println("Failed to connect.");
+    saveConnectionState(1);
+    ESP.restart();
+  }
+  WiFi.hostname("TrashReminder");
 }
 
 // ESP Functions
@@ -219,9 +287,9 @@ unsigned int getDominantTimeEpoch(int repeat) {
   return (dominantTimeEpoch);
 }
 
-unsigned int getDistance(unsigned int epochTime1, unsigned int epochTime2) { 
+unsigned int getDistance(unsigned int epochTime1, unsigned int epochTime2) {
   unsigned int distance;
-  if (epochTime1 > epochTime2) { //since values are unsigned need to make sure to substract the smaller from the larger! not abs(a-b)!
+  if (epochTime1 > epochTime2) {  //since values are unsigned need to make sure to substract the smaller from the larger! not abs(a-b)!
     distance = epochTime1 - epochTime2;
   } else {
     distance = epochTime2 - epochTime1;
@@ -237,7 +305,7 @@ unsigned int getCurrentTimeEpoch(unsigned long millisNow) {
     epochTimeRepeatWaitFlag = true;
     timeEpoch = timeEpochLast;  // keeping old timestamp
   } else {                      //the timestamp recovered while waiting to run getDominantTimeEpoch
-    if(epochTimeRepeatWaitFlag == true){logMessage("INFO: Recovered! Matching timeEpoch received: " + String(timeEpoch));}
+    if (epochTimeRepeatWaitFlag == true) { logMessage("INFO: Recovered! Matching timeEpoch received: " + String(timeEpoch)); }
     epochTimeRepeatWaitFlag = false;
   }
   if ((epochTimeRepeatWaitFlag == true) && (millisNow - epochTimeRepeatWaitTimer > epochTimeRepeatWaitTime)) {

@@ -77,17 +77,17 @@
        inkscape:export-ydpi="30.75" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:17.7806px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.444515"
-       x="37.637058"
-       y="105.99439"
+       style="font-style:normal;font-weight:normal;font-size:19.9285px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.498213"
+       x="30.911161"
+       y="106.7296"
        id="text85676"
        inkscape:export-filename="C:\Users\tobiw\Documents\Arduino\TrashReminder_V2\shortcut.png"
        inkscape:export-xdpi="30.75"
        inkscape:export-ydpi="30.75"><tspan
          sodipodi:role="line"
          id="tspan85674"
-         x="37.637058"
-         y="105.99439"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Script MT Bold';-inkscape-font-specification:'Script MT Bold, ';stroke-width:0.444515">TrashReminder</tspan></text>
+         x="30.911161"
+         y="106.7296"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Script MT Bold';-inkscape-font-specification:'Script MT Bold, ';stroke-width:0.498213">TrashReminder</tspan></text>
   </g>
 </svg>

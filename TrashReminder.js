@@ -64,6 +64,10 @@ function addFavicon() {
     $favicon.rel = "icon"
     $favicon.href = "favicon.ico"
     document.head.appendChild($favicon)
+    $shortcut = document.createElement("link")
+    $shortcut.rel = "apple-touch-icon"
+    $shortcut.href = "shortcut.png"
+    document.head.appendChild($shortcut)
 }
 
 function restartTrashReminder() {
@@ -720,7 +724,7 @@ function createWebpage() {
         <button class="button" onclick="fireworks()">Feuerwerk</button>
         <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
         <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
-        <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine L&ouml;schen</button>
+        <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine l&ouml;schen</button>
         <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
       </div>`;
     document.getElementById("body").innerHTML = innerHTML;

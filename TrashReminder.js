@@ -67,7 +67,13 @@ function addFavicon() {
     $shortcut = document.createElement("link")
     $shortcut.rel = "apple-touch-icon"
     $shortcut.href = "shortcut.png"
+    $shortcut.sizes = "152x152"
     document.head.appendChild($shortcut)
+    $shortcut1 = document.createElement("link")
+    $shortcut1.rel = "shortcut icon"
+    $shortcut1.href = "shortcut.png"
+    $shortcut1.sizes = "152x152"
+    document.head.appendChild($shortcut1)
 }
 
 function restartTrashReminder() {

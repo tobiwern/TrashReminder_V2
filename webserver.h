@@ -29,6 +29,7 @@ boolean initDataFromFile() {
   numberOfEpochs = 0;
   if (!file) {
     DEBUG_SERIAL.println("WARNING: Failed to open file " + String(dataFile) + " for reading!");
+    endLittleFS();
     return (false);
   }
   uint32_t freeHeap = ESP.getFreeHeap();
@@ -41,6 +42,7 @@ boolean initDataFromFile() {
   DeserializationError error = deserializeJson(doc, file);
   if (error) {
     DEBUG_SERIAL.println("WARNING: Failed to deserialize data! Error: " + String(error.f_str()));
+    endLittleFS();
     return (false);
   }
   DEBUG_SERIAL.println("Free Heap (after): " + String(ESP.getFreeHeap()));
@@ -104,6 +106,7 @@ void initStartEndTimes() {
   File file = LittleFS.open(settingsFile, "r");
   if (!file) {
     DEBUG_SERIAL.println("INFO: Failed to open file " + String(settingsFile) + " for reading!");
+    endLittleFS();
     return;
   }
   JsonDocument doc;
@@ -163,7 +166,7 @@ void writeStartEndTimes() {
   String jsonText = "";
   jsonText = "{\"startHour\":" + String(startHour) + ",\"endHour\":" + String(endHour) + "}";
   DEBUG_SERIAL.println("Writing settings: " + jsonText);
-  writeFile("/settings.json", jsonText.c_str());
+  writeFile(settingsFile, jsonText.c_str());
   showFSInfo();
   initStartEndTimes();
 }
@@ -245,11 +248,14 @@ void deleteLog() {
   } else {
     server.send(500, "text/plane", "ERROR");
   }
+  resetStaticIPSettings();
 }
 
 void resetWifiSettings() {
   DEBUG_SERIAL.println("Reset Wifi Settings.");
-  WiFiManager wm;  //Is this fine to have another instance?
+  resetStaticIPSettings();
+  readStaticIPSettings();
+  //  WiFiManager wm;  //Is this fine to have another instance?
   wm.resetSettings();
   server.send(200, "text/plane", "OK");
   //  leds[0] = CRGB::Red;                                      //in case no successful WiFi connection
@@ -260,7 +266,7 @@ void resetWifiSettings() {
 void receiveFromWebpage_Acknowledge() {  //ToDo: Need to version webpages
   DEBUG_SERIAL.println("Acknowledge...");
   acknowledge = 1;
-  lastSwitchMillis = millis(); //in demo mode to have the same pause as by lifting trashcan
+  lastSwitchMillis = millis();           //in demo mode to have the same pause as by lifting trashcan
   server.send(200, "text/plane", "OK");  //should always respond to prevent resend (10x)
 }
 

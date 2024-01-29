@@ -153,7 +153,7 @@ boolean renameFile(const char* fileName1, const char* fileName2) {
   return (true);
 }
 
-// CONNECTION HANDLING
+// WifiManager HANDLING
 void saveSaveAndConnectState(int value) {
   writeFile("saveAndConnectPressed.txt", String(value).c_str());
 }
@@ -186,20 +186,6 @@ int lastConnectionFailed() {
   return (retVal);
 }
 
-// void saveConnectionState(int value) {
-//   preferences.begin("settings", false);  //read&write
-//   preferences.putInt("connectionFailed", value);
-//   preferences.end();
-// }
-
-// int lastConnectionFailed() {
-//   preferences.begin("settings", true);                            //read
-//   int connectionFailed = preferences.getInt("connectionFailed");  // default is 0 if value was not written!
-//   preferences.end();
-//   Serial.println("=== connectionFailed = " + String(connectionFailed));
-//   return (connectionFailed);
-// }
-
 boolean saveStaticIPSettings(String localIP = "") {
   Serial.println("INFO: Saving Static IP Settings.");
   if (!startLittleFS()) { return (false); }
@@ -218,16 +204,6 @@ boolean saveStaticIPSettings(String localIP = "") {
   endLittleFS();
   return (true);
 }
-
-// void saveStaticIPSettings() {
-//   Serial.println("INFO: Saving Static IP Settings.");
-//   preferences.begin("settings", false);  //read&write
-//   preferences.putString("localIP", WiFi.localIP().toString());
-//   preferences.putString("gatewayIP", WiFi.gatewayIP().toString());
-//   preferences.putString("dnsIP", WiFi.dnsIP().toString());
-//   preferences.putString("subnetMask", WiFi.subnetMask().toString());
-//   preferences.end();
-// }
 
 boolean readStaticIPSettings() {
   Serial.print("=== Read Settings");
@@ -260,21 +236,6 @@ boolean readStaticIPSettings() {
   return (true);
 }
 
-// void readStaticIPSettings() {
-//   Serial.print("=== Read Settings");
-//   preferences.begin("settings", true);  //read
-//   String localIPString = preferences.getString("localIP");
-//   String gatewayIPString = preferences.getString("gatewayIP");
-//   String dnsIPString = preferences.getString("dnsIP");
-//   String subnetMaskString = preferences.getString("subnetMask");
-//   preferences.end();
-//   Serial.println("Read Static Ip Settings: localIP: " + localIPString + ", gatewayIP: " + gatewayIPString + ", subnetMask: " + subnetMaskString + ", dnsIP: " + dnsIPString);
-//   localIP.fromString(localIPString.c_str());
-//   gatewayIP.fromString(gatewayIPString.c_str());
-//   dnsIP.fromString(dnsIPString.c_str());
-//   subnetMask.fromString(subnetMaskString.c_str());
-// }
-
 void resetStaticIPSettings() {
   Serial.println("=== Clear IP Settings");
   deleteFile(connectionFile);  
@@ -282,41 +243,6 @@ void resetStaticIPSettings() {
   localIP.fromString("");  //reset local setting
 }
 
-// void resetStaticIPSettings() {
-//   Serial.println("=== Clear Settings");
-//   boolean success = preferences.begin("settings", false);  //read&write
-//   Serial.println("preferences.begin Success = " + String(success));
-//   //  preferences.remove("localIP"); // could also reset all parameters, however localIP is used to detect if static addresses set
-//   success = preferences.putString("localIP", " ");
-//   Serial.println("preferences.putString(localIP) Success = " + String(success));
-//   success = preferences.putInt("connectionFailed", 0);
-//   Serial.println("preferences.putInt(connectionFailed) Success = " + String(success));
-//   //preferences.clear();  //does not work???
-//   String localIPString = preferences.getString("localIP");
-//   Serial.println("localIPString = " + localIPString);
-//   String gatewayIPString = preferences.getString("gatewayIP");
-//   Serial.println("gatewayIPString = " + gatewayIPString);
-//   preferences.end();
-//   localIP.fromString("");  //reset local setting
-//   Serial.println("=== End Clear");
-// }
-
 void saveParamsCallback() {  //gets called when in the Captive Portal the "Speichern & Verbinden" ausgewählt wird
   saveSaveAndConnectState(1);
-  //  String ipString = customIp.getValue();
-  //  IPAddress ip;
-  //  if (ip.fromString(ipString.c_str())) {  // try to parse into the IPAddress
-  //    Serial.println("INFO: Successfully received custom IP: " + ipString);
-  //    wm.disconnect();
-  //    IPAddress gateway(192, 168, 29, 1);
-  //    IPAddress subnet(255, 255, 255, 0);
-  //    IPAddress dns(8, 8, 8, 8);
-  //    wm.setSTAStaticIPConfig(ip, gateway, subnet, dns);
-  //    wm.autoConnect("TrashReminder");
-  //IPAddress ip(192, 168, 29, 15);
-  //WiFi.config(ip, dns, gateway, subnet);
-  //WiFi.begin(WiFi.SSID(), WiFi.psk());
-  //  } else {
-  //Serial.println("Invalid IP: " + ipString);
-  //  }
 }

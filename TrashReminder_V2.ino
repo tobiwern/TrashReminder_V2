@@ -43,7 +43,6 @@ const char* ipTimezoneServer = "https://ipapi.co/utc_offset";
 #define WM_STRINGS_FILE "wm_strings_de.h"
 #include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager
 WiFiManager wm;
-//WiFiManagerParameter customIp("str", "Feste IP (optional, Format: 192.168.178.123):", "", 20);
 
 #define DEBUG true  //set to true for debug output, false for no debug output
 #define DEBUG_SERIAL \
@@ -150,20 +149,6 @@ int demoCurrTask = 0;
 const int demoNumberOfTasks = 5;
 epochTask demoTaskDict[demoNumberOfTasks];
 int offDuration = 5 * 1000;  // 5 sec after trashcan was lifted the blinking starts again
-
-/*
-class IPAddressParameter : public WiFiManagerParameter {
-public:
-  IPAddressParameter(const char* id, const char* placeholder, IPAddress address)
-    : WiFiManagerParameter("") {
-    init(id, placeholder, address.toString().c_str(), 16, "", WFM_LABEL_BEFORE);
-  }
-
-  bool getValue(IPAddress& ip) {
-    return ip.fromString(WiFiManagerParameter::getValue());
-  }
-};
-*/
 
 void setup() {
   setupHardware();

@@ -63,23 +63,23 @@ function addFavicon() {
     $favicon = document.createElement("link")
     $favicon.rel = "icon"
     $favicon.type = "image/png"
-    $favicon.href = "favicon.ico"
+    $favicon.href = "https://tobiwern.github.io/TrashReminder_V2/favicon.ico"
     document.head.appendChild($favicon)
     $shortcut = document.createElement("link")
     $shortcut.rel = "apple-touch-icon"
-    $shortcut.href = "shortcut.png"
+    $shortcut.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.png"
     $shortcut.sizes = "152x152"
     document.head.appendChild($shortcut)
     $shortcut1 = document.createElement("link")
     $shortcut1.rel = "shortcut icon"
     $shortcut1.type = "image/x-icon"
-    $shortcut1.href = "shortcut.png"
+    $shortcut1.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.png"
     $shortcut1.sizes = "152x152"
     document.head.appendChild($shortcut1)
     $shortcut2 = document.createElement("link")
     $shortcut2.rel = "mask-icon"
     $shortcut2.color = "#1599ff"
-    $shortcut2.href = "shortcut.svg"
+    $shortcut2.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.svg"
     document.head.appendChild($shortcut2)
 }
 

@@ -60,6 +60,7 @@ function toggleDemo() {
 }
 
 function addFavicon() {
+    document.title = "Trash Reminder"
     $favicon = document.createElement("link")
     $favicon.rel = "icon"
     $favicon.type = "image/png"

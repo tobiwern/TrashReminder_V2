@@ -664,7 +664,7 @@ function showMessage(msgType, message, receiver = "buttonMessage", hideDelayInSe
 function createWebpage() {
     var innerHTML = `
     <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true'
-        alt='Trash Reminder' width='400' height='185'>
+        alt='Trash Reminder' width='380' height='185'>
     <h1>M&uuml;ll-Erinnerung Einstellungen</h1>
     <form name='config'>
         <div class=frame>

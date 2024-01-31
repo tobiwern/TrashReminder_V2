@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://tobiwern.github.io/TrashReminder_V2/TrashReminder.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {box-sizing: border-box}
@@ -62,7 +63,7 @@ body, html {
 <body>
     <div>
     <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true'
-    alt='Trash Reminder' width='380' height='185'>
+    alt='Trash Reminder' width='100%' >
 </div>
 <button class="tablink" onclick="openPage('tab1', this, 'green')" id="defaultOpen"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck.svg><br>Abholtermine</button>
 <button class="tablink" onclick="openPage('tab2', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg><br>Daten</button>
@@ -70,6 +71,7 @@ body, html {
 <button class="tablink" onclick="openPage('tab4', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help-circle.svg><br>Hilfe</button>
 
 <div id="tab1" class="tabcontent">
+    <div class=frame>
   In den folgenden zwei Untergruppen kann ausgewählt werden, an welche <b>Abfallart</b> sie erinnert werden wollen und es werden die <b>abgespeicherten Termine</b> angezeigt.
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
   <div id='taskTypes'></div>
@@ -77,8 +79,10 @@ body, html {
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
   <div id='taskDates'></div>
 </div>
+</div>
 
 <div id="tab2" class="tabcontent">
+    <div class=frame>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Neue Abfuhrtermine laden (ICS/ICAL)</div></h3>
   <p>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</p>
   <p>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
@@ -111,10 +115,10 @@ body, html {
       </tr>
   </table>
   </div>
+  </div>
 </div>
 
 <div id="tab3" class="tabcontent">
-  <h1>M&uuml;ll-Erinnerung Einstellungen</h1>
   <form name='config'>
       <div class=frame>
           <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h2>
@@ -136,8 +140,10 @@ body, html {
 </div>
 
 <div id="tab4" class="tabcontent">
+    <div class=frame>
   <h3>Kontakt</h3>
   <p>Tobias Werner, Erfindungen aller Art</p>
+</div>
 </div>
 
 <script>

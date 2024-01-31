@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #6b6b6b;
+  color: white;
+  float: left;
+  border-width: 1px 1px 10px 1px;
+  border-color: white;
+  border-top-right-radius: 10px; 
+  border-top-left-radius: 10px; 
+  /*display: flex;*/
+   vertical-align: text-bottom;
+/*   display: inline-flex;
+   flex-wrap: wrap;
+  align-content: space-around;*/
+  align-items:center;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  padding: 5px 5px 5px 5px;
+  font-size: 17px;
+  width: 25%;
+  height: 90px;
+}
+
+.icon {
+    padding: 2px;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  padding: 20px 20px;
+  height: 100%;
+  overflow:scroll; 
+}
+
+#tab1 {background-color: white;}
+#tab2 {background-color: white;}
+#tab3 {background-color: white;}
+#tab4 {background-color: white;}
+</style>
+</head>
+<body>
+    <div>
+    <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true'
+    alt='Trash Reminder' width='380' height='185'>
+</div>
+<button class="tablink" onclick="openPage('tab1', this, 'green')" id="defaultOpen"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck.svg><br>Abholtermine</button>
+<button class="tablink" onclick="openPage('tab2', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg><br>Daten</button>
+<button class="tablink" onclick="openPage('tab3', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings.svg><br>Einstellungen</button>
+<button class="tablink" onclick="openPage('tab4', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help-circle.svg><br>Hilfe</button>
+
+<div id="tab1" class="tabcontent">
+  In den folgenden zwei Untergruppen kann ausgewählt werden, an welche <b>Abfallart</b> sie erinnert werden wollen und es werden die <b>abgespeicherten Termine</b> angezeigt.
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
+  <div id='taskTypes'></div>
+  <div id='messageTaskTypes'></div>
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
+  <div id='taskDates'></div>
+</div>
+
+<div id="tab2" class="tabcontent">
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Neue Abfuhrtermine laden (ICS/ICAL)</div></h3>
+  <p>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</p>
+  <p>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
+  angeboten und müssen zuerst heruntergeladen werden.</p>
+  <p>Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
+  <ul>
+      <li><a href='https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/' target='_blank'>https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/</a></li>
+      <li><a href='https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html'  target='_blank'>https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html</a></li>
+  </ul>
+  </p>
+  <p>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den untenstehenden Button "Durchsuchen..." auswählen und auf die "Müll-Erinnerung" laden. 
+      Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</p>
+  <hr>
+  <table>
+      <tr>
+          <td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td>
+      </tr>
+      <tr>
+          <td><input type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple><br><br></td>
+      </tr>
+      <tr>
+          <td>
+              <div id='tasks'></div>
+          </td>
+      </tr>
+      <tr>
+          <td>
+              <div id='message'></div>
+          </td>
+      </tr>
+  </table>
+  </div>
+</div>
+
+<div id="tab3" class="tabcontent">
+  <h1>M&uuml;ll-Erinnerung Einstellungen</h1>
+  <form name='config'>
+      <div class=frame>
+          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h2>
+          <table>
+              <tr>
+                  <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
+                  <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
+              </tr>
+              <tr>
+                  <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
+                  <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
+              </tr>
+          </table>
+          <br>
+          <div id='messageTime'></div>
+      </div>
+      <br>
+  </form>
+</div>
+
+<div id="tab4" class="tabcontent">
+  <h3>Kontakt</h3>
+  <p>Tobias Werner, Erfindungen aller Art</p>
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+   
+</body>
+</html> 

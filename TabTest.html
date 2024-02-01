@@ -79,16 +79,17 @@ body, html {
     <div>
     <img stlye='padding: 2px;' src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
 </div>
-<button class="tablink" onclick="openPage('tab1', this, '#4CAF50')" id="defaultOpen"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
-<button class="tablink" onclick="openPage('tab3', this, '#4CAF50')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
-<button class="tablink" onclick="openPage('tab2', this, '#4CAF50')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
-<button class="tablink" onclick="openPage('tab4', this, '#4CAF50')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
+<button class="tablink" onclick="openPage('tab1', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+<button class="tablink" onclick="openPage('tab3', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+<button class="tablink" onclick="openPage('tab2', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+<button class="tablink" onclick="openPage('tab4', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
 
 <div id="tab1" class="tabcontent">
     <div class=frame>
-        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'> Abfuhrtermine</div></h2>
-        In den folgenden zwei Untergruppen kann ausgewählt werden, an welche <b>Abfallart</b> sie erinnert werden wollen und es werden die <b>abgespeicherten Termine</b> angezeigt.
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
+        In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.
+        Neue Termine können über <a href="#" onclick="document.getElementById('download').click();"><img src="https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg"></a> auf die "Müll-Erinnerung" geladen werden.
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Termine</div></h3>
     <div id='taskDates'></div>
     </div>
 </div>
@@ -185,7 +186,7 @@ function openPage(pageName,elmnt,color) {
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+document.getElementById("dates").click();
 </script>
    
 </body>

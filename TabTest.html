@@ -78,7 +78,7 @@ body, html {
 <body id='body' onload="setDummyData();">
     <div>
     <img stlye='padding: 2px;' src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
-</div>
+    </div>
 <button class="tablink" onclick="openPage('tab1', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
 <button class="tablink" onclick="openPage('tab3', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
 <button class="tablink" onclick="openPage('tab2', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
@@ -88,9 +88,9 @@ body, html {
     <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
         In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.<br>
-        Neue Termine können über <a href="#" onclick="document.getElementById('download').click();"><img src="https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg"></a> auf die "Müll-Erinnerung" geladen werden.
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Termine</div></h3>
-    <div id='taskDates'></div>
+        Neue Termine können über <a href="#" onclick="document.getElementById('download').click();"><img src="https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg"></a> auf die "Müll-Erinnerung" geladen werden.<br><br>
+        <button class="button" onclick="acknowledge()">M&uuml;llabholung best&auml;tigen</button><br><br>
+        <div id='taskDates'></div>
     </div>
 </div>
 
@@ -98,7 +98,9 @@ body, html {
 <div id="tab3" class="tabcontent">
   <form name='config'>
       <div class=frame> 
-          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>     
+          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>    
+          Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
+          <div class=frame>
           <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
           <table>
               <tr>
@@ -112,10 +114,31 @@ body, html {
           </table>
           <br>
           <div id='messageTime'></div>
+          </div><br>
+          <div class=frame>
           <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
           <div id='taskTypes'></div>
           <div id='messageTaskTypes'></div>
-  
+          <em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br><br></em>
+        </div><br>
+        <div class=frame>
+            <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeitzone</div></h3>
+            <table width="80%">
+                <tr>
+                    <td class=description><label for="start">Zeitzone:</label></td>
+                    <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP("start")'></select></td>
+                </tr>
+            </table>
+        </div><br>
+        <div class=frame>
+            <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/server.svg?raw=true'>Zeit-Server</div></h3>
+            <table width="80%">
+                <tr>
+                    <td class=description><label for="start">Zeit-Server:</label></td>
+                    <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
+                </tr>
+            </table>
+        </div><br>        
       </div>
       <br>
   </form>
@@ -155,7 +178,11 @@ body, html {
           </td>
       </tr>
   </table>
+  <div id='buttonMessage'></div>
+  <button class="button" onclick="deleteTasksOnESP()">Abfuhrtermine l&ouml;schen</button>
+  <br>
   </div>
+
   </div>
 </div>
 
@@ -164,6 +191,10 @@ body, html {
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
         Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
         <br><br>
+        <div id='buttonMessage'></div>
+        <button class="button" onclick="fireworks()">Feuerwerk</button>
+        <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
+        <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
 
   <h3>Kontakt</h3>
   <p>Tobias Werner, Erfindungen aller Art</p>

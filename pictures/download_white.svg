@@ -40,16 +40,16 @@
   <path
      d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
      id="path33672"
-     style="fill:#ffffff;stroke:#ffffff" />
+     style="fill:none;stroke:#ffffff" />
   <polyline
      points="7 10 12 15 17 10"
      id="polyline33674"
-     style="fill:#ffffff;stroke:#ffffff" />
+     style="fill:none;stroke:#ffffff" />
   <line
      x1="12"
      y1="15"
      x2="12"
      y2="3"
      id="line33676"
-     style="fill:#ffffff;stroke:#ffffff" />
+     style="fill:none;stroke:#ffffff" />
 </svg>

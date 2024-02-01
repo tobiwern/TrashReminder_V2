@@ -30,7 +30,7 @@ body, html {
 
 /* Style tab links */
 .tablink {
-  background-color: #6b6b6b;
+  background-color: #939393;
   color: white;
   float: left;
   border-width: 1px 1px 10px 1px;
@@ -77,25 +77,52 @@ body, html {
 </head>
 <body id='body' onload="setDummyData();">
     <div>
-    <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true'
-    alt='Trash Reminder' width='100%' >
+    <img stlye='padding: 2px;' src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
 </div>
-<button class="tablink" onclick="openPage('tab1', this, 'green')" id="defaultOpen"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck.svg></button>
-<button class="tablink" onclick="openPage('tab3', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings.svg></button>
-<button class="tablink" onclick="openPage('tab2', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg></button>
-<button class="tablink" onclick="openPage('tab4', this, 'green')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help-circle.svg></button>
+<button class="tablink" onclick="openPage('tab1', this, '#4CAF50')" id="defaultOpen"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+<button class="tablink" onclick="openPage('tab3', this, '#4CAF50')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+<button class="tablink" onclick="openPage('tab2', this, '#4CAF50')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+<button class="tablink" onclick="openPage('tab4', this, '#4CAF50')"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help-circle_white.svg></button>
 
 <div id="tab1" class="tabcontent">
     <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'> Abfuhrtermine</div></h2>
-  In den folgenden zwei Untergruppen kann ausgewählt werden, an welche <b>Abfallart</b> sie erinnert werden wollen und es werden die <b>abgespeicherten Termine</b> angezeigt.
-  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
-  <div id='taskDates'></div>
+        In den folgenden zwei Untergruppen kann ausgewählt werden, an welche <b>Abfallart</b> sie erinnert werden wollen und es werden die <b>abgespeicherten Termine</b> angezeigt.
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Termine</div></h3>
+    <div id='taskDates'></div>
+    </div>
 </div>
+
+
+<div id="tab3" class="tabcontent">
+  <form name='config'>
+      <div class=frame> 
+          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>     
+          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
+          <table>
+              <tr>
+                  <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
+                  <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
+              </tr>
+              <tr>
+                  <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
+                  <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
+              </tr>
+          </table>
+          <br>
+          <div id='messageTime'></div>
+          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
+          <div id='taskTypes'></div>
+          <div id='messageTaskTypes'></div>
+  
+      </div>
+      <br>
+  </form>
 </div>
 
 <div id="tab2" class="tabcontent">
     <div class=frame>
+        
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Neue Abfuhrtermine laden (ICS/ICAL)</div></h3>
   <p>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</p>
   <p>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
@@ -129,31 +156,6 @@ body, html {
   </table>
   </div>
   </div>
-</div>
-
-<div id="tab3" class="tabcontent">
-  <form name='config'>
-      <div class=frame>      
-          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h2>
-          <table>
-              <tr>
-                  <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
-                  <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
-              </tr>
-              <tr>
-                  <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
-                  <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
-              </tr>
-          </table>
-          <br>
-          <div id='messageTime'></div>
-          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h2>
-          <div id='taskTypes'></div>
-          <div id='messageTaskTypes'></div>
-  
-      </div>
-      <br>
-  </form>
 </div>
 
 <div id="tab4" class="tabcontent">

@@ -193,7 +193,7 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
         hideDelay = 2;
     } else {
         receiver = "message";
-        message = "Übertragen der Daten war erfolgreich und Abfuhrtermine werden oben angezeigt.";
+        message = "Übertragen der Daten war erfolgreich.";
         hideDelay = 5;
     }
     var xhttp = new XMLHttpRequest();
@@ -765,7 +765,6 @@ function createWebpage() {
           <tr><td><div id='buttonDeleteTasks'></div></td></tr>
           <tr><td><div id='message'></div></td></tr>
         </table>
-        <br>
       </div>
     </div>
 

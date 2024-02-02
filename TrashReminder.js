@@ -762,8 +762,8 @@ function createWebpage() {
           <tr><td><input type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple><br><br></td></tr>
           <tr><td><div id='tasks'></div></td></tr>
         </table>
-        <div id='buttonDeleteTasks'></div><b>>
-        <div id='message'>
+        <div id='buttonDeleteTasks'></div><br>
+        <div id='message'></div>
     </div>
     </div>
 

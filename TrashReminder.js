@@ -176,6 +176,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
                 refreshTaskTypesAndDates(response);
             } else { //500
                 showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "taskDates");
+                showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "taskTypes");
                 if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
                 document.getElementById("taskTypes").innerHTML = "";
                 document.getElementById("download").click();
@@ -367,6 +368,7 @@ function refreshTaskTypes() {
         text += "</tr>";
     }
     text += "</table>";
+    text += "<br><em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br></em>"
     document.getElementById("taskTypes").innerHTML = text + "<br>";
     refreshColorPickerColors("colorPickerTask");
 }
@@ -695,7 +697,6 @@ function createWebpage() {
     </div>
 
     <div id="tab_settings" class="tabcontent">
-      <form name='config'>
         <div class=frame> 
           <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>    
           Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
@@ -717,7 +718,6 @@ function createWebpage() {
           <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
           <div id='taskTypes'></div>
           <div id='messageTaskTypes'></div>
-          <em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br><br></em>
 
           <hr>
           <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeitzone</div></h3>
@@ -739,7 +739,6 @@ function createWebpage() {
           </table><br>
           <div id='messageTimeServer'></div>
         </div>        
-      </form>
     </div>
 
     <div id="tab_download" class="tabcontent">
@@ -762,9 +761,9 @@ function createWebpage() {
           <tr><td><input type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple><br><br></td></tr>
           <tr><td><div id='tasks'></div></td></tr>
         </table>
-        <div id='buttonDeleteTasks'></div><br>
+        <div id='buttonDeleteTasks'></div>
         <div id='message'></div>
-    </div>
+      </div>
     </div>
 
     <div id="tab_help" class="tabcontent">

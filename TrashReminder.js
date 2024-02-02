@@ -761,10 +761,10 @@ function createWebpage() {
           <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
           <tr><td><input type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple><br><br></td></tr>
           <tr><td><div id='tasks'></div></td></tr>
-          <tr><td><div id='buttonDeleteTasks'></div></td></tr>
-          <tr><td><div id='message'></div></td></tr>
         </table>
-      </div>
+        <div id='buttonDeleteTasks'></div><b>>
+        <div id='message'>
+    </div>
     </div>
 
     <div id="tab_help" class="tabcontent">
@@ -778,7 +778,6 @@ function createWebpage() {
         <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
         <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
         <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
-
         <h3>Kontakt</h3>
         <p>Tobias Werner, Erfindungen aller Art</p>
       </div>

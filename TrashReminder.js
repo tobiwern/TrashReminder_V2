@@ -175,7 +175,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
             if (this.status == 200) {
                 refreshTaskTypesAndDates(response);
             } else { //500
-                showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert! Bitte laden sie wie nachfolgend beschrieben die Abfuhrtermine herunter.", "taskDates");
+                showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "taskDates");
                 if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
                 document.getElementById("taskTypes").innerHTML = "";
                 document.getElementById("download").click();

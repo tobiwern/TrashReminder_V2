@@ -738,8 +738,7 @@ function createWebpage() {
             </tr>
           </table><br>
           <div id='messageTimeServer'></div>
-        </div><br>        
-        <br>
+        </div>        
       </form>
     </div>
 

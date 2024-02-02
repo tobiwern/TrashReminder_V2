@@ -18,73 +18,16 @@
             refreshTaskTypesAndDates(response);
         }
     </script>
-<style>
-* {box-sizing: border-box}
-
-/* Set height of body and the document to 100% */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial;
-}
-
-/* Style tab links */
-.tablink {
-  background-color: #b7b7b7;
-  color: white;
-  float: left;
-  border-width: 1px 1px 10px 1px;
-  border-color: white;
-  border-top-right-radius: 10px; 
-  border-top-left-radius: 10px; 
-  /*display: flex;*/
-   vertical-align: text-bottom;
-/*   display: inline-flex;
-   flex-wrap: wrap;
-  align-content: space-around;*/
-  align-items:center;
-  text-align: center;
-  outline: none;
-  cursor: pointer;
-  padding: 2px 2px 2px 2px;
-  font-size: 17px;
-  width: 25%;
-  height: 60px;
-}
-
-.icon {
-    padding: 8px;
-}
-
-.tablink:hover {
-  background-color: #8e8e8e;
-}
-
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  color: black;
-  display: none;
-  padding: 10px 10px;
-  height: 80%;
-  overflow:scroll; 
-}
-
-#tab1 {background-color: white;}
-#tab2 {background-color: white;}
-#tab3 {background-color: white;}
-#tab4 {background-color: white;}
-</style>
 </head>
-<body id='body' onload="setDummyData();">
-    <div>
-    <img stlye='padding: 2px;' src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
-    </div>
-<button class="tablink" onclick="openPage('tab1', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
-<button class="tablink" onclick="openPage('tab3', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
-<button class="tablink" onclick="openPage('tab2', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
-<button class="tablink" onclick="openPage('tab4', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
 
-<div id="tab1" class="tabcontent">
+<body id='body' onload="setDummyData();">
+    <div><img stlye='padding: 2px;' src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
+    <button class="tablink" onclick="openPage('tab_dates', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_settings', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_download', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_help', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
+
+<div id="tab_dates" class="tabcontent">
     <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
         In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.<br>
@@ -94,8 +37,7 @@ body, html {
     </div>
 </div>
 
-
-<div id="tab3" class="tabcontent">
+<div id="tab_settings" class="tabcontent">
   <form name='config'>
       <div class=frame> 
           <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>    
@@ -144,7 +86,7 @@ body, html {
   </form>
 </div>
 
-<div id="tab2" class="tabcontent">
+<div id="tab_download" class="tabcontent">
     <div class=frame>
         
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Neue Abfuhrtermine laden (ICS/ICAL)</div></h3>
@@ -186,7 +128,7 @@ body, html {
   </div>
 </div>
 
-<div id="tab4" class="tabcontent">
+<div id="tab_help" class="tabcontent">
     <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
         Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
@@ -201,20 +143,6 @@ body, html {
 </div>
 </div>
 
-<script>
-function openPage(pageName,elmnt,color) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].style.backgroundColor = "";
-  }
-  document.getElementById(pageName).style.display = "block";
-  elmnt.style.backgroundColor = color;
-}
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("dates").click();

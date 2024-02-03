@@ -398,12 +398,12 @@ function refreshTaskDates() { //show TaskDates on Webpage
                 selectedTaskIds.push(taskId);
             }
         }
-        if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { textColor = "black"; } else { textColor = "lightgrey"; } //+1 day (in ms)
-        if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; textColor = "#4CAF50"}
+        if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; } //+1 day (in ms)
+        if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; }
         if (selectedTaskIds.length >= 1) {
             text += "<tr>"
-            text += "<td class=description nowrap style='color: " + textColor + ";'>" + epochToDateString(epoch) + "</td>";
-            text += "<td style='color: " + textColor + ";'>";
+            text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
+            text += "<td style='" + style + "'>";
             for (const taskId of selectedTaskIds) {
                 text += "<div class=taskType><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
                 text += " " + gDataTasks[taskId] + "</div>";
@@ -683,6 +683,10 @@ function openPage(pageName,elmnt,color) {
   document.getElementById(pageName).style.display = "block";
   elmnt.style.backgroundColor = color;
 }
+
+(function blink() { 
+  $('.blink').fadeOut(500).fadeIn(500, blink); 
+})();
 
 function createWebpage() {
     var innerHTML = `

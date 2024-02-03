@@ -285,7 +285,7 @@ function deleteTasksOnESP() {
     if (this.readyState == 4) {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
-        requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
+//        requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
       } else { //500
         showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault);
       }
@@ -306,7 +306,7 @@ function resetWifiSettingsOnESP() {
         if (this.readyState == 4) {
             if (this.status == 200) {
                 showMessage("I", "Löschen der WLAN Einstellungen war erfolgreich!", "buttonMessage", gHideDelayDefault);
-                requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
+//                requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
             } else { //500
                 showMessage("E", "ERROR: Löschen der WLAN Einstellungen fehlgeschlagen!", "buttonMessage", gHideDelayDefault);
             }

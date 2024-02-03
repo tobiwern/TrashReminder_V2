@@ -428,7 +428,6 @@ function refreshTaskDates() { //show TaskDates on Webpage
     }
     text += "</table>";
     document.getElementById("taskDates").innerHTML = text;
-    document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";    
   }
 }
 
@@ -703,7 +702,7 @@ function openPage(pageName,elmnt,color) {
   $('.blink').fadeOut(500).fadeIn(500, blink); 
 })();
 
-function refreshDescriptions(){
+function refreshTabs(){
   // Description DATES /////////////////////////////////////
   var description = "";
   if(gNoDates){
@@ -716,6 +715,10 @@ function refreshDescriptions(){
   if(gOptionShowPastDates){ description +=  " Bereits verstrichene Termine werden ausgegraut dargestellt.";}
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   document.getElementById("descriptionDates").innerHTML = description;
+
+  // Description DATA /////////////////////////////////////
+  if(!gNoDates){document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";}    
+
 }
 
 function createWebpage() {
@@ -821,5 +824,5 @@ function createWebpage() {
     document.getElementById("body").innerHTML = innerHTML;
     addFavicon();
     document.getElementById("dates").click();
-    refreshDescriptions();
+    refreshTabs();
 }

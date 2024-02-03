@@ -268,17 +268,17 @@ function sendDropDownStateToESP(dropdown) {
 function deleteTasksOnESP() {
   const response = confirm("Wollen Sie wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
   if (!response) {
-    showMessage("I", "Löschen der Daten abgebrochen.", "buttonMessage", gHideDelayDefault);
+    showMessage("I", "Löschen der Daten abgebrochen.", "messageDeleteTasks", gHideDelayDefault);
     return;
   }
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
-        showMessage("I", "Löschen der Daten war erfolgreich!", "buttonMessage", gHideDelayDefault);
+        showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
         requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
       } else { //500
-        showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault);
+        showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault);
       }
     }
   };
@@ -317,7 +317,7 @@ var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
 var gOptionShowPastDates = true;
-var gNoDates = false;
+Boolean gNoDates = false;
 var gFutureDates = 0;
 
 function initDataFromJson(jsonObject) {
@@ -733,9 +733,9 @@ function refreshTabs(){
   // Description DATES /////////////////////////////////////
   var description = "";
   if(gNoDates){
-    description += "<div style='color: orange'>Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!</div><br>";
+    description += "<div style='color: orange'>Es sind noch keine Abholtermine gespeichert!</div><br>";
   } else if(gFutureDates == 0){
-    description += "<div style='color: orange'>Es liegen keine zukünftigen Abholtermine auf der \"Müll-Erinnerung\" vor.</div><br>";
+    description += "<div style='color: orange'>Es liegen keine zukünftigen Abholtermine vor.</div><br>";
   } else {    
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
   }

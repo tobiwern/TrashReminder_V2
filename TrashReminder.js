@@ -768,6 +768,7 @@ function createWebpage() {
 
           <hr>
           <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeit Einstellungen</div></h3>
+          Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.
           <table width="80%">
             <tr>
               <td class=description><label for="start">Zeitzone:</label></td>

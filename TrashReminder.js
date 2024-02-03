@@ -832,6 +832,7 @@ function createWebpage() {
           <tr><td><div id='tasks'></div></td></tr>
         </table>
 
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
         <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
         angeboten und müssen zuerst heruntergeladen werden.</div>
         <div>Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:

@@ -185,6 +185,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
                 if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
                 document.getElementById("taskTypes").innerHTML = "";
                 document.getElementById("download").click();
+                gNoDates = true;
             }
         }
     };
@@ -316,6 +317,7 @@ var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
 var gOptionShowPastDates = false;
+var gNoDates = false;
 var gFutureDates = 0;
 
 function initDataFromJson(jsonObject) {
@@ -384,7 +386,7 @@ function refreshTaskTypes() {
 }
 
 function refreshTaskDates() { //show TaskDates on Webpage
-    var text = Object.keys(gDataEpochTaskDict).length + " Abholtermine sind verfügbar.<br><br>";
+    var text = gFutureDates + " Abholtermine stehen noch an.<br><br>";
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     text += "<table id=epochTasks>"
     text += "<tr><th>Datum der Abholung</th><th>Müllart</th></tr>"
@@ -700,10 +702,15 @@ function openPage(pageName,elmnt,color) {
 })();
 
 function refreshDescriptions(){
-  // Description DATES
-  var description = "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt."
+  // Description DATES /////////////////////////////////////
+  var description = "";
+  if(gNoDates){
+    description += "<div style='color: orange'>Es liegen keine Abholdaten vor.</div>";
+  } else {  
+    description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.";
+  }
   if(gOptionShowPastDates){ description +=  " Bereits verstrichene Termine werden ausgegraut dargestellt.";}
-  if(gFutureDates == 0){"<br>Neue Termine können über <a href='#' onclick="document.getElementById('download').click();"><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die "Müll-Erinnerung" geladen werden.<br><br>"}
+  if(gFutureDates == 0){"<br>Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   document.getElementById("descriptionDates").innerHTML = description;
 }
 
@@ -816,4 +823,5 @@ function createWebpage() {
     document.getElementById("body").innerHTML = innerHTML;
     addFavicon();
     document.getElementById("dates").click();
+    refreshDescriptions();
 }

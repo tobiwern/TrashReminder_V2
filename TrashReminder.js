@@ -757,7 +757,7 @@ function blockAction(){
   //Draw rectangle
   context.rect(0, 0, screen.width, screen.height);
   context.fillStyle = 'white';
-  context.globalAlpha = 0.2;
+  context.globalAlpha = 0.5;
   context.fill();
   setTimeout(function () { allowAction(); }, 3 *1000);
 }

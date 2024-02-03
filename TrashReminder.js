@@ -416,7 +416,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
       var show = true;
       if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; show = gOptionShowPastDates;} 
       if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
-      if ((selectedTaskIds.length >= 1) && show) {
+      if ((selectedTaskIds.length >= 1)) {  //&& show
         gFutureDates++;
         text += "<tr>"
         text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";

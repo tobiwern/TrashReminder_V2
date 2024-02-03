@@ -402,30 +402,32 @@ function refreshTaskDates() { //show TaskDates on Webpage
     var endHour = parseInt(document.getElementById("end").value);
     gAlarm = false;
     gFutureDates = 0;
+    gNoDates = true;
     for (const epoch of epochs) {  //epoch in seconds
-        var dictEpoch = new Date(epoch * 1000); //Date uses miliseconds
-        var taskIds = gDataEpochTaskDict[epoch];
-        selectedTaskIds = [];
-        for (const taskId of taskIds) {
-          if (taskIdEnableValue[taskId]) {
-            selectedTaskIds.push(taskId);
-          }
+      gNoDates = false;
+      var dictEpoch = new Date(epoch * 1000); //Date uses miliseconds
+      var taskIds = gDataEpochTaskDict[epoch];
+      selectedTaskIds = [];
+      for (const taskId of taskIds) {
+        if (taskIdEnableValue[taskId]) {
+          selectedTaskIds.push(taskId);
         }
-        var show = true;
-        if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; show = gOptionShowPastDates;} 
-        if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
-        if ((selectedTaskIds.length >= 1) && show) {
-          gFutureDates++;
-          text += "<tr>"
-          text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
-          text += "<td style='" + style + "'>";
-          for (const taskId of selectedTaskIds) {
-            text += "<div class=taskType><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
-            text += " " + gDataTasks[taskId] + "</div>";
-          }
-          text += "</td>";
-          text += "</tr>";
+      }
+      var show = true;
+      if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; show = gOptionShowPastDates;} 
+      if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
+      if ((selectedTaskIds.length >= 1) && show) {
+        gFutureDates++;
+        text += "<tr>"
+        text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
+        text += "<td style='" + style + "'>";
+        for (const taskId of selectedTaskIds) {
+          text += "<div class=taskType><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
+          text += " " + gDataTasks[taskId] + "</div>";
         }
+        text += "</td>";
+        text += "</tr>";
+      }
     }
     text += "</table>";
     document.getElementById("taskDates").innerHTML = text;

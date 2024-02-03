@@ -174,7 +174,9 @@ function requestSettingsFromESP() {
 
 function requestTasksFromESP(show = true) { //send the ESP data to the webpage
   var xhttp = new XMLHttpRequest();
+  blockAction();
   xhttp.onreadystatechange = function () {
+    allowAction();
     if (this.readyState == 4) {
       response = this.responseText;
       if (this.status == 200) {
@@ -204,8 +206,10 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
         hideDelay = 5;
     }
     var xhttp = new XMLHttpRequest();
+    blockAction();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
+      allowAction();
+      if (this.readyState == 4) {
             if (this.status == 200) {
                 showMessage("I", message, receiver, hideDelay);
                 requestTasksFromESP(); //if storing the values on the ESP was successful => refresh the "current values" on the webpage
@@ -222,14 +226,14 @@ function sendValidTaskTypesToESP() {
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
     var validTaskIds = [];
     for (let i = 0; i < taskTypeCheckBoxes.length; i++) {
-        checkBox = taskTypeCheckBoxes[i];
-        if (checkBox.checked) {
-            validTaskIds.push(i);
-        }
+      checkBox = taskTypeCheckBoxes[i];
+      if (checkBox.checked) {
+        validTaskIds.push(i);
+      }
     }
     if (validTaskIds.length == 0) {
-        showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
-        return;
+      showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
+      return;
     }
     gDataValidTaskIds = validTaskIds; //update in global Setup
     sendCurrentDataToESP(); //send updated data
@@ -274,7 +278,9 @@ function deleteTasksOnESP() {
     return;
   }
   var xhttp = new XMLHttpRequest();
+  blockAction();
   xhttp.onreadystatechange = function () {
+    allowAction();
     if (this.readyState == 4) {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);

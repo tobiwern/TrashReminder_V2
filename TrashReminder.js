@@ -24,6 +24,7 @@ function acknowledge() {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "Mülleimer steht draussen bestätigt!", "messageAcknowledge", gHideDelayDefault);
             document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>"
+            gAcknowledge = true;
         }
     };
     xhttp.open("GET", "acknowledge", true);
@@ -90,6 +91,8 @@ function restartTrashReminder() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "TrashReminder wurde neu gestartet!", "buttonMessage", gHideDelayDefault);
+            if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"}
+            gAcknowledge = false;
         }
     };
     xhttp.open("GET", "close", true);
@@ -310,6 +313,7 @@ var gDataColors = [];
 var gDataTasks = [];
 var gDataValidTaskIds = [];
 var gAlarm = false;
+var gAcknowledge = false;
 
 function initDataFromJson(jsonObject) {
     var epochTasks = jsonObject["epochTasks"];
@@ -400,7 +404,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
             }
         }
         if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; } //+1 day (in ms)
-        if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold; animation: blinker 1s linear infinite;"; }
+        if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
         if (selectedTaskIds.length >= 1) {
             text += "<tr>"
             text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";

@@ -93,6 +93,7 @@ function restartTrashReminder() {
             showMessage("I", "TrashReminder wurde neu gestartet!", "buttonMessage", gHideDelayDefault);
             if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"}
             gAcknowledge = false;
+            refreshTaskDates();
         }
     };
     xhttp.open("GET", "close", true);

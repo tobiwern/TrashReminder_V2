@@ -180,7 +180,6 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
       if (this.status == 200) {
         refreshTaskTypesAndDates(response);
       } else { //500
-        showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "taskDates");
         showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
@@ -709,9 +708,9 @@ function refreshTabs(){
   // Description DATES /////////////////////////////////////
   var description = "";
   if(gNoDates){
-    description += "<div style='color: orange'>Es liegen keine Abholdaten vor.</div><br>";
+    description += "<div style='color: orange'>Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!</div><br>";
   } else if(gFutureDates == 0){
-    description += "<div style='color: orange'>Es liegen keine zukünftigen Abholdaten vor.</div><br>";
+    description += "<div style='color: orange'>Es liegen keine zukünftigen Abholtermine auf der \"Müll-Erinnerung\" vor.</div><br>";
   } else {    
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
   }

@@ -173,24 +173,25 @@ function requestSettingsFromESP() {
 }
 
 function requestTasksFromESP(show = true) { //send the ESP data to the webpage
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            response = this.responseText;
-            if (this.status == 200) {
-                refreshTaskTypesAndDates(response);
-            } else { //500
-                showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "taskDates");
-                showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
-                if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
-                document.getElementById("taskTypes").innerHTML = "";
-                document.getElementById("download").click();
-                gNoDates = true;
-            }
-        }
-    };
-    xhttp.open("GET", "request_tasks", true);
-    xhttp.send();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      response = this.responseText;
+      if (this.status == 200) {
+        refreshTaskTypesAndDates(response);
+      } else { //500
+        showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "taskDates");
+        showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
+        if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
+        document.getElementById("taskTypes").innerHTML = "";
+        document.getElementById("download").click();
+        gNoDates = true;
+      }
+      updateTabs();
+    }
+  };
+  xhttp.open("GET", "request_tasks", true);
+  xhttp.send();
 }
 
 function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to the ESP to be stored in LittleFS
@@ -266,24 +267,24 @@ function sendDropDownStateToESP(dropdown) {
 }
 
 function deleteTasksOnESP() {
-    const response = confirm("Wollen Sie wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
-    if (!response) {
-        showMessage("I", "Löschen der Daten abgebrochen.", "buttonMessage", gHideDelayDefault);
-        return;
+  const response = confirm("Wollen Sie wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
+  if (!response) {
+    showMessage("I", "Löschen der Daten abgebrochen.", "buttonMessage", gHideDelayDefault);
+    return;
+  }
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        showMessage("I", "Löschen der Daten war erfolgreich!", "buttonMessage", gHideDelayDefault);
+        requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
+      } else { //500
+        showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault);
+      }
     }
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                showMessage("I", "Löschen der Daten war erfolgreich!", "buttonMessage", gHideDelayDefault);
-                requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
-            } else { //500
-                showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault);
-            }
-        }
-    };
-    xhttp.open("GET", "delete_tasks", true);
-    xhttp.send();
+  };
+  xhttp.open("GET", "delete_tasks", true);
+  xhttp.send();
 }
 
 function resetWifiSettingsOnESP() {

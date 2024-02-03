@@ -186,3 +186,7 @@
           height: 80%;
           overflow: scroll;
         }
+
+        @keyframes blinker {  
+          50% { opacity: 0; }
+        }

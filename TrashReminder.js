@@ -748,14 +748,13 @@ function refreshTabs(){
   refreshOptionShowPastDates();
 
   // Description DATA /////////////////////////////////////
+  var description = "";
+  var buttonDelete = "";
   if(!gNoDates){
-    var description = `
+    description += `
     <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abholtermine</div></h3> 
     Über den nachstehenden Button können alle Abholtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>`;
     buttonDelete = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";
-  } else {   
-    description = "";
-    buttonDelete = "";
   }
   document.getElementById("descriptionData").innerHTML = description;
   document.getElementById("buttonDeleteTasks").innerHTML = buttonDelete;

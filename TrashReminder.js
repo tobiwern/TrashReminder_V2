@@ -834,7 +834,7 @@ function createWebpage() {
 
         <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
         <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
-        angeboten und müssen zuerst heruntergeladen werden.</div>
+        angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. "Abfuhrtermine Weil im Schönbuch".</div><br>
         <div>Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
         <ul>
           <li><a href='https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/' target='_blank'>https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/</a></li>
@@ -842,9 +842,9 @@ function createWebpage() {
         </ul>
         </div>
         <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
-        Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div><br>
+        Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
         
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/delete.svg?raw=true'> Löschen der Abholtermine</div></h3>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true'> Löschen der Abholtermine</div></h3>
         Über den nachstehenden Button können alle Abholtermine von der "Müll-Erinnerung" gelöscht werden:<br><br>
         <div id='buttonDeleteTasks'></div><br>
         <div id='messageDeleteTasks'></div>

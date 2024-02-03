@@ -681,11 +681,13 @@ function openPage(pageName,elmnt,color) {
 function createWebpage() {
     var innerHTML = `
     <div><img stlye='padding: 2px;' src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
-    <button class="tablink" onclick="openPage('tab_dates', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_settings', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_download', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_help', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
-
+    <div class=tabbackground>
+      <button class="tablink" onclick="openPage('tab_dates', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+      <button class="tablink" onclick="openPage('tab_settings', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+      <button class="tablink" onclick="openPage('tab_download', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+      <button class="tablink" onclick="openPage('tab_help', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
+    </div>
+    
     <div id="tab_dates" class="tabcontent">
       <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>

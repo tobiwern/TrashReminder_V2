@@ -795,7 +795,7 @@ function createWebpage() {
         <div id='messageTaskTypes'></div>
 
         <hr>
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Optionen</div></h3>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Optionen</div></h3>
         <table width="80%">
           <tr>
           <td><input type='checkbox' id="optionShowPastDates" onchange='handleOptionShowPastDates()'>
@@ -805,7 +805,7 @@ function createWebpage() {
         <div id='messageOptions'></div>
 
         <hr>
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeit Einstellungen</div></h3>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Zeit Einstellungen</div></h3>
         Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
         <table width="80%">
           <tr>
@@ -823,8 +823,15 @@ function createWebpage() {
 
     <div id="tab_download" class="tabcontent">
       <div class=frame>      
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine (ICS/ICAL)</div></h3>
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
         <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
+        <hr>
+        <table>
+          <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
+          <tr><td><label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label><br><br></td></tr>
+          <tr><td><div id='tasks'></div></td></tr>
+        </table>
+
         <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
         angeboten und müssen zuerst heruntergeladen werden.</div>
         <div>Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
@@ -833,15 +840,12 @@ function createWebpage() {
           <li><a href='https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html'  target='_blank'>https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html</a></li>
         </ul>
         </div>
-        <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den untenstehenden Button "Durchsuchen..." auswählen und auf die "Müll-Erinnerung" laden. 
-          Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
-        <hr>
-        <table>
-          <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
-          <tr><td><input type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple><br><br></td></tr>
-          <tr><td><div id='tasks'></div></td></tr>
-        </table>
-        <div id='buttonDeleteTasks'></div>
+        <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
+        Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div><br>
+        
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/delete.svg?raw=true'> Löschen der Abholtermine</div></h3>
+        Über den nachstehenden Button können alle Abholtermine von der "Müll-Erinnerung" gelöscht werden:<br><br>
+        <div id='buttonDeleteTasks'></div><br>
         <div id='messageDeleteTasks'></div>
       </div>
     </div>

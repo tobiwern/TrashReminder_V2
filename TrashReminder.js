@@ -317,7 +317,7 @@ var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
 var gOptionShowPastDates = true;
-Boolean gNoDates = false;
+var gNoDates = false;
 var gFutureDates = 0;
 
 function initDataFromJson(jsonObject) {

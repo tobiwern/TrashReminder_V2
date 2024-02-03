@@ -764,7 +764,7 @@ function blockAction(){
 
 function allowAction(){
   context.clearRect(0, 0 , screen.width,screen.height);
-  context.style.pointerEvents='none';
+  canvas.style.pointerEvents='none';
 }
 
 function refreshTabs(){

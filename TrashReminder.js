@@ -23,7 +23,7 @@ function acknowledge() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "Mülleimer steht draussen bestätigt!", "messageAcknowledge", gHideDelayDefault);
-            document.getElementById("buttonAcknowledge").innerHTML = "Mülleimer steht doch nicht draussen.";
+            document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br></br>"
         }
     };
     xhttp.open("GET", "acknowledge", true);

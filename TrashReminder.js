@@ -316,6 +316,7 @@ var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
 var gOptionShowPastDates = false;
+var gFutureDates = 0;
 
 function initDataFromJson(jsonObject) {
     var epochTasks = jsonObject["epochTasks"];
@@ -396,28 +397,30 @@ function refreshTaskDates() { //show TaskDates on Webpage
     var startHour = parseInt(document.getElementById("start").value);
     var endHour = parseInt(document.getElementById("end").value);
     gAlarm = false;
+    gFutureDates = 0;
     for (const epoch of epochs) {  //epoch in seconds
         var dictEpoch = new Date(epoch * 1000); //Date uses miliseconds
         var taskIds = gDataEpochTaskDict[epoch];
         selectedTaskIds = [];
         for (const taskId of taskIds) {
-            if (taskIdEnableValue[taskId]) {
-                selectedTaskIds.push(taskId);
-            }
+          if (taskIdEnableValue[taskId]) {
+            selectedTaskIds.push(taskId);
+          }
         }
         var show = true;
         if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; show = gOptionShowPastDates;} 
         if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
         if ((selectedTaskIds.length >= 1) && show) {
-            text += "<tr>"
-            text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
-            text += "<td style='" + style + "'>";
-            for (const taskId of selectedTaskIds) {
-                text += "<div class=taskType><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
-                text += " " + gDataTasks[taskId] + "</div>";
-            }
-            text += "</td>";
-            text += "</tr>";
+          gFutureDates++;
+          text += "<tr>"
+          text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
+          text += "<td style='" + style + "'>";
+          for (const taskId of selectedTaskIds) {
+            text += "<div class=taskType><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
+            text += " " + gDataTasks[taskId] + "</div>";
+          }
+          text += "</td>";
+          text += "</tr>";
         }
     }
     text += "</table>";
@@ -696,6 +699,14 @@ function openPage(pageName,elmnt,color) {
   $('.blink').fadeOut(500).fadeIn(500, blink); 
 })();
 
+function refreshDescriptions(){
+  // Description DATES
+  var description = "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt."
+  if(gOptionShowPastDates){ description +=  " Bereits verstrichene Termine werden ausgegraut dargestellt.";}
+  if(gFutureDates == 0){"<br>Neue Termine können über <a href='#' onclick="document.getElementById('download').click();"><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die "Müll-Erinnerung" geladen werden.<br><br>"}
+  document.getElementById("descriptionDates").innerHTML = description;
+}
+
 function createWebpage() {
     var innerHTML = `
     <div><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
@@ -709,8 +720,7 @@ function createWebpage() {
     <div id="tab_dates" class="tabcontent">
       <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
-        In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.<br>
-        Neue Termine können über <a href="#" onclick="document.getElementById('download').click();"><img src="https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg"></a> auf die "Müll-Erinnerung" geladen werden.<br><br>
+        <div id='descriptionDates'></div>
         <div id='buttonAcknowledge'></div>
         <div id='messageAcknowledge'></div>
         <div id='taskDates'></div>

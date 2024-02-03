@@ -386,6 +386,7 @@ function refreshTaskTypes() {
 }
 
 function refreshTaskDates() { //show TaskDates on Webpage
+  if(gFutureDates !=0){  
     var text = gFutureDates + " Abholtermine stehen noch an.<br><br>";
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     text += "<table id=epochTasks>"
@@ -428,6 +429,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
     text += "</table>";
     document.getElementById("taskDates").innerHTML = text;
     document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";    
+  }
 }
 
 /// ICS/iCAL Processing ////////////////////////////////////////////////////////////////////
@@ -705,12 +707,14 @@ function refreshDescriptions(){
   // Description DATES /////////////////////////////////////
   var description = "";
   if(gNoDates){
-    description += "<div style='color: orange'>Es liegen keine Abholdaten vor.</div>";
-  } else {  
-    description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.";
+    description += "<div style='color: orange'>Es liegen keine Abholdaten vor.</div><br>";
+  } else if(gFutureDates == 0){
+    description += "<div style='color: orange'>Es liegen keine zukünftigen Abholdaten vor.</div><br>";
+  } else {    
+    description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
   }
   if(gOptionShowPastDates){ description +=  " Bereits verstrichene Termine werden ausgegraut dargestellt.";}
-  if(gFutureDates == 0){"<br>Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
+  if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   document.getElementById("descriptionDates").innerHTML = description;
 }
 
@@ -758,24 +762,18 @@ function createWebpage() {
           <div id='messageTaskTypes'></div>
 
           <hr>
-          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeitzone</div></h3>
+          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeit Einstellungen</div></h3>
           <table width="80%">
             <tr>
               <td class=description><label for="start">Zeitzone:</label></td>
-              <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP("start")'></select></td>
+              <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP()'></select></td>
             </tr>
-          </table><br>
-          <div id='messageTimeZone'></div>
-
-          <hr>
-          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/server.svg?raw=true'>Zeit-Server</div></h3>
-          <table width="80%">
             <tr>
-              <td class=description><label for="start">Zeit-Server:</label></td>
+              <td class=description><label for="start">NTP Zeit-Server:</label></td>
               <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
             </tr>
           </table><br>
-          <div id='messageTimeServer'></div>
+          <div id='messageTime'></div>
         </div>        
     </div>
 

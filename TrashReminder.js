@@ -836,7 +836,7 @@ function createWebpage() {
         <hr>
         <table>
           <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
-          <tr><td><label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label><br><br></td></tr>
+          <tr><td><label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label><br></td></tr>
           <tr><td><div id='tasks'></div></td></tr>
         </table>
 

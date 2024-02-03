@@ -747,7 +747,14 @@ function refreshTabs(){
   refreshOptionShowPastDates();
 
   // Description DATA /////////////////////////////////////
-  if(!gNoDates){document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";}    
+  if(!gNoDates){
+    var description = `
+    <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abholtermine</div></h3> 
+    Über den nachstehenden Button können alle Abholtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>`;
+
+    document.getElementById("descriptionData").innerHTML = description;
+    document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";
+  }    
 
 }
 
@@ -843,11 +850,9 @@ function createWebpage() {
         </div>
         <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
         Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
-        
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true'> Löschen der Abholtermine</div></h3>
-        Über den nachstehenden Button können alle Abholtermine von der "Müll-Erinnerung" gelöscht werden:<br><br>
+        <div id='descriptionData'></div> 
         <div id='buttonDeleteTasks'></div><br>
-        <div id='messageDeleteTasks'></div>
+        <div id='messageDeleteTasks'></div>           
       </div>
     </div>
 

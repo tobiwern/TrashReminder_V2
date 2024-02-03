@@ -308,6 +308,7 @@ var gDataEpochTaskDict = {};
 var gDataColors = [];
 var gDataTasks = [];
 var gDataValidTaskIds = [];
+var gAlarm = false;
 
 function initDataFromJson(jsonObject) {
     var epochTasks = jsonObject["epochTasks"];
@@ -349,6 +350,7 @@ function refreshTaskTypesAndDates(response) {
         initDataFromJson(jsonObject);
         refreshTaskTypes();
         refreshTaskDates();
+        if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>M&uuml;llabholung best&auml;tigen</button><br><br></br>"}
     } catch (e) {
         showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
         document.getElementById("taskDates").innerHTML = response;
@@ -383,9 +385,12 @@ function refreshTaskDates() { //show TaskDates on Webpage
     for (checkBox of taskTypeCheckBoxes) {
         taskIdEnableValue.push(checkBox.checked);
     }
-    var now = Date.now();
+    var nowEpoch = Date.now();
+    var startHour = parseInt(document.getElementById("start").value);
+    var endHour = parseInt(document.getElementById("end").value);
+    gAlarm = false;
     for (const epoch of epochs) {  //epoch in seconds
-        var dateTime = new Date(epoch * 1000); //Date uses miliseconds
+        var dictEpoch = new Date(epoch * 1000); //Date uses miliseconds
         var taskIds = gDataEpochTaskDict[epoch];
         selectedTaskIds = [];
         for (const taskId of taskIds) {
@@ -393,7 +398,8 @@ function refreshTaskDates() { //show TaskDates on Webpage
                 selectedTaskIds.push(taskId);
             }
         }
-        if (dateTime.valueOf()+24*60*60*1000 > now) { textColor = "black"; } else { textColor = "lightgrey"; } //+1 day (in ms)
+        if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { textColor = "black"; } else { textColor = "lightgrey"; } //+1 day (in ms)
+        if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; textColor = "#4CAF50"}
         if (selectedTaskIds.length >= 1) {
             text += "<tr>"
             text += "<td class=description nowrap style='color: " + textColor + ";'>" + epochToDateString(epoch) + "</td>";
@@ -628,12 +634,12 @@ function refreshColorPickerColors(idName) {
 
 /// Utility Functions
 function epochToDateString(epoch, dateType = "long") {
-    var dateTime = new Date(epoch * 1000);
+    var dictEpoch = new Date(epoch * 1000);
     var timeStamp = "";
     if (dateType == "long") {
-        timeStamp += dateTime.toLocaleString("de", { weekday: "long" }) + ", ";
+        timeStamp += dictEpoch.toLocaleString("de", { weekday: "long" }) + ", ";
     }
-    timeStamp += ("00" + dateTime.getDate()).slice(-2) + "." + ("00" + dateTime.toLocaleString("de", { month: "numeric" })).slice(-2) + "." + dateTime.getFullYear();
+    timeStamp += ("00" + dictEpoch.getDate()).slice(-2) + "." + ("00" + dictEpoch.toLocaleString("de", { month: "numeric" })).slice(-2) + "." + dictEpoch.getFullYear();
     return (timeStamp);
 }
 
@@ -693,7 +699,7 @@ function createWebpage() {
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
         In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.<br>
         Neue Termine können über <a href="#" onclick="document.getElementById('download').click();"><img src="https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg"></a> auf die "Müll-Erinnerung" geladen werden.<br><br>
-        <button class="button" onclick="acknowledge()">M&uuml;llabholung best&auml;tigen</button><br><br>
+        <div id='buttonAcknowledge'></div>
         <div id='taskDates'></div>
       </div>
     </div>

@@ -231,6 +231,7 @@ function sendValidTaskTypesToESP() {
         validTaskIds.push(i);
       }
     }
+showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageTaskTypes");
     if (validTaskIds.length == 0) {
       showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
       return;

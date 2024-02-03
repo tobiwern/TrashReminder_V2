@@ -316,7 +316,7 @@ var gDataTasks = [];
 var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
-var gOptionShowPastDates = false;
+var gOptionShowPastDates = true;
 var gNoDates = false;
 var gFutureDates = 0;
 
@@ -387,7 +387,7 @@ function refreshTaskTypes() {
 }
 
 function refreshTaskDates() { //show TaskDates on Webpage
-  if(gFutureDates !=0){  
+  if(gFutureDates != 0){  
     var text = gFutureDates + " Abholtermine stehen noch an.<br><br>";
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     text += "<table id=epochTasks>"
@@ -395,7 +395,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
     taskIdEnableValue = [];
     for (checkBox of taskTypeCheckBoxes) {
-        taskIdEnableValue.push(checkBox.checked);
+      taskIdEnableValue.push(checkBox.checked);
     }
     var nowEpoch = Date.now();
     var startHour = parseInt(document.getElementById("start").value);
@@ -704,6 +704,28 @@ function openPage(pageName,elmnt,color) {
   $('.blink').fadeOut(500).fadeIn(500, blink); 
 })();
 
+function refreshOptionShowPastDates(){
+  document.getElementById("optionShowPastDates").checked = gOptionShowPastDates;
+}
+
+function handleOptionShowPastDates(){
+  gOptionShowPastDates = document.getElementById("optionShowPastDates").checked;
+  refreshTaskDates(false);
+  //sendOptionShowPastDatesToESP();
+}
+
+function sendOptionShowPastDatesToESP(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          response = this.responseText;
+          showMessage("I", response, "messageOptions", gHideDelayDefault);
+      }
+  };
+  xhttp.open("GET", "optionShowPastDates?value=" + gOptionShowPastDates?0:1, true);  //convert bool to int
+  xhttp.send();
+}
+
 function refreshTabs(){
   // Description DATES /////////////////////////////////////
   var description = "";
@@ -714,9 +736,13 @@ function refreshTabs(){
   } else {    
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
   }
-  if(gOptionShowPastDates){ description +=  " Bereits verstrichene Termine werden ausgegraut dargestellt.";}
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
+  if(gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br>";}
+
   document.getElementById("descriptionDates").innerHTML = description;
+
+  // Description SETTINGS ////////////////////////////////
+  refreshOptionShowPastDates();
 
   // Description DATA /////////////////////////////////////
   if(!gNoDates){document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";}    
@@ -744,43 +770,53 @@ function createWebpage() {
     </div>
 
     <div id="tab_settings" class="tabcontent">
-        <div class=frame> 
-          <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>    
-          Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
-          <hr>
-          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
-          <table>
-            <tr>
-              <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
-              <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
-            </tr>
-            <tr>
-              <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
-              <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
-            </tr>
-          </table><br>
-          <div id='messageTime'></div>
+      <div class=frame> 
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>    
+        Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
+        <hr>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
+        <table>
+          <tr>
+            <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
+            <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
+          </tr>
+          <tr>
+            <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
+            <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
+          </tr>
+        </table><br>
+        <div id='messageTime'></div>
 
-          <hr>
-          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
-          <div id='taskTypes'></div>
-          <div id='messageTaskTypes'></div>
+        <hr>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
+        <div id='taskTypes'></div>
+        <div id='messageTaskTypes'></div>
 
-          <hr>
-          <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeit Einstellungen</div></h3>
-          Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.
-          <table width="80%">
-            <tr>
-              <td class=description><label for="start">Zeitzone:</label></td>
-              <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP()'></select></td>
-            </tr>
-            <tr>
-              <td class=description><label for="start">NTP Zeit-Server:</label></td>
-              <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
-            </tr>
-          </table><br>
-          <div id='messageTime'></div>
-        </div>        
+        <hr>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Optionen</div></h3>
+        <table width="80%">
+          <tr>
+          <td><input type='checkbox' id="optionShowPastDates" onchange='handleOptionShowPastDates()'>
+          <label for="optionShowPastDates">Vergangene Termine anzeigen</label></td>
+          </tr>
+        </table><br>
+        <div id='messageOptions'></div>
+
+        <hr>
+        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'>Zeit Einstellungen</div></h3>
+        Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
+        <table width="80%">
+          <tr>
+            <td class=description><label for="start">Zeitzone:</label></td>
+            <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP()'></select></td>
+          </tr>
+          <tr>
+            <td class=description><label for="start">NTP Zeit-Server:</label></td>
+            <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
+          </tr>
+        </table><br>
+        <div id='messageTime'></div>
+      </div>        
     </div>
 
     <div id="tab_download" class="tabcontent">

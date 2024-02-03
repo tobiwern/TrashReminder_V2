@@ -396,7 +396,7 @@ function refreshTaskTypes() {
 
 function refreshTaskDates() { //show TaskDates on Webpage 
   var text = "";
-  text += "<div id='futureDates'</div>";
+  text += "<div id='futureDates'></div>";
   var epochs = Object.keys(gDataEpochTaskDict).sort();
   text += "<table id=epochTasks>"
   text += "<tr><th>Datum der Abholung</th><th>Müllart</th></tr>"
@@ -759,7 +759,7 @@ function blockAction(){
   context.fillStyle = 'white';
   context.globalAlpha = 0.5;
   context.fill();
-  setTimeout(function () { allowAction(); }, 3 *1000);
+//  setTimeout(function () { allowAction(); }, 3 *1000);
 }
 
 function allowAction(){

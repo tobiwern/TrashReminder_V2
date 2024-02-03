@@ -181,7 +181,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         refreshTaskTypesAndDates(response);
       } else { //500
         showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
-        if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "buttonMessage", gHideDelayDefault); }
+        if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
         document.getElementById("download").click();
         gNoDates = true;
@@ -199,7 +199,7 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
         message = "Neue Auswahl gespeichert.";
         hideDelay = 2;
     } else {
-        receiver = "message";
+        receiver = "messageDeleteTasks";
         message = "Übertragen der Daten war erfolgreich.";
         hideDelay = 5;
     }
@@ -345,7 +345,7 @@ function sendCurrentDataToESP() { //send currently set data to ESP
         const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
         sendTasksToESP(jsonText, true);
     } catch (e) {
-        showMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>", "message");
+        showMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>", "messageDeleteTasks");
         return;
     }
 }
@@ -528,23 +528,23 @@ function genJson() {
     var entries = [];
     var epochs = Object.keys(gEpochTaskDict);
     for (epoch of epochs) {
-        var tasks = gEpochTaskDict[epoch]["tasks"];
-        var taskIds = getTaskIds(tasks);
-        var date = gEpochTaskDict[epoch]["date"];
-        if (gDebug) {
-            entries.push('{"' + epoch + '"' + ":" + '{"date":"' + date + '","tasks":["' + tasks.join('","') + '"],"taskIds":[' + taskIds.join(',') + ']}}');
-        } else {
-            entries.push('{"' + epoch + '":[' + taskIds.join(',') + ']}');
-        }
+      var tasks = gEpochTaskDict[epoch]["tasks"];
+      var taskIds = getTaskIds(tasks);
+      var date = gEpochTaskDict[epoch]["date"];
+      if (gDebug) {
+        entries.push('{"' + epoch + '"' + ":" + '{"date":"' + date + '","tasks":["' + tasks.join('","') + '"],"taskIds":[' + taskIds.join(',') + ']}}');
+      } else {
+        entries.push('{"' + epoch + '":[' + taskIds.join(',') + ']}');
+      }
     }
 
     var jsonText = '{"tasks":["' + gTasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';
     console.log(jsonText);
     try {
-        const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
+      const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
     } catch (e) {
-        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "message");
-        return;
+      showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "messageDeleteTasks");
+      return;
     }
     sendTasksToESP(jsonText);
 }
@@ -567,7 +567,7 @@ function checkMaxNumberOfEntries() {
     }
     if (text != "") {
         text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>!";
-        showMessage("W", text, "message");
+        showMessage("W", text, "messageDeleteTasks");
     }
 }
 
@@ -585,7 +585,7 @@ function showCheckBoxes(items) {
     text += "<br><button class=button onclick='genJson()'>Abfuhrtermine speichern</button><br><br>";
     document.getElementById("tasks").innerHTML = text;
     refreshColorPickerColors("colorPickerIcs");
-    document.getElementById("message").innerHTML = "";
+    document.getElementById("messageDeleteTasks").innerHTML = "";
 }
 
 function genCheckBoxes(tasks, colors, validTaskIds = []) {
@@ -604,7 +604,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
 }
 
 function send(number) {//debug
-    showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "message");
+    showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "messageDeleteTasks");
 }
 
 /// ColorPicker          green      blue       yellow     white      orange     pink       purple    iceblue    icegreen
@@ -840,7 +840,7 @@ function createWebpage() {
           <tr><td><div id='tasks'></div></td></tr>
         </table>
         <div id='buttonDeleteTasks'></div>
-        <div id='message'></div>
+        <div id='messageDeleteTasks'></div>
       </div>
     </div>
 

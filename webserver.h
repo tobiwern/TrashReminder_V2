@@ -125,7 +125,6 @@ void initStartEndTimes() {
 void sendTasksToWebpage() {  //transfering ESP data to the Webpage
   String value = readFile(dataFile);
   if (value != "") {
-    DEBUG_SERIAL.println("Received:" + value);
     DEBUG_SERIAL.println("Sending taks: " + value);
     server.send(200, "text/plane", value);
   } else {
@@ -137,7 +136,6 @@ void sendTasksToWebpage() {  //transfering ESP data to the Webpage
 void sendLogToWebpage() {  //transfering ESP data to the Webpage
   String value = readFile(logFile);
   if (value != "") {
-    DEBUG_SERIAL.println("Received:" + value);
     DEBUG_SERIAL.println("Sending log: " + value);
     server.send(200, "text/plane", value);
   } else {

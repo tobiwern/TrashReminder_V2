@@ -384,6 +384,7 @@ function refreshTaskTypes() {
 function refreshTaskDates() { //show TaskDates on Webpage
     var text = Object.keys(gDataEpochTaskDict).length + " Abholtermine sind derzeit verfügbar.<br><br>";
     var epochs = Object.keys(gDataEpochTaskDict).sort();
+    text += "<div id='scrollable'>"
     text += "<table id=epochTasks>"
     text += "<tr><th>Datum der Abholung</th><th>Müllart</th></tr>"
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
@@ -419,6 +420,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
         }
     }
     text += "</table>";
+    text += "</div>";
     document.getElementById("taskDates").innerHTML = text;
     document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";    
 }

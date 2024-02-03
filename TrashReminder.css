@@ -187,6 +187,10 @@
           overflow: scroll;
         }
 
+        .scrollable {
+          overflow: auto;
+        }
+
         @keyframes blinker {  
           50% { opacity: 0; }
         }

@@ -212,7 +212,7 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
       if (this.readyState == 4) {
             if (this.status == 200) {
                 showMessage("I", message, receiver, hideDelay);
-                requestTasksFromESP(); //if storing the values on the ESP was successful => refresh the "current values" on the webpage
+//                requestTasksFromESP(); //if storing the values on the ESP was successful => refresh the "current values" on the webpage
             } else { //500
                 showMessage("E", "ERROR: Übertragen der Daten fehlgeschlagen!", receiver, gHideDelayDefault);
             }

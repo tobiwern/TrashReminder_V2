@@ -759,6 +759,7 @@ function blockAction(){
   context.fillStyle = 'white';
   context.globalAlpha = 0.2;
   context.fill();
+  setTimeout(function () { allowAction(); }, 3 *1000);
 }
 
 function allowAction(){

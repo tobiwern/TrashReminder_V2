@@ -360,6 +360,7 @@ function refreshTaskTypesAndDates(response) {
         initDataFromJson(jsonObject);
         refreshTaskTypes();
         refreshTaskDates();
+        refreshTabs();
         if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"}
     } catch (e) {
         showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
@@ -696,6 +697,7 @@ function openPage(pageName,elmnt,color) {
   }
   document.getElementById(pageName).style.display = "block";
   elmnt.style.backgroundColor = color;
+  refreshTabs();
 }
 
 (function blink() { 

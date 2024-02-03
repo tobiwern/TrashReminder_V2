@@ -325,7 +325,7 @@ var gDataTasks = [];
 var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
-var gOptionShowPastDates = true;
+var gOptionShowPastDates = false;
 var gNoDates = false;
 var gFutureDates = 0;
 

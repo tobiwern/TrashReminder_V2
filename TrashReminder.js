@@ -186,7 +186,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         document.getElementById("download").click();
         gNoDates = true;
       }
-      refreshTabs();
+//      refreshTabs();
     }
   };
   xhttp.open("GET", "request_tasks", true);
@@ -238,8 +238,10 @@ function sendValidTaskTypesToESP() {
 function sendDropDownStateToESP(dropdown) {
     var value = parseInt(document.getElementById(dropdown).value);
     var xhttp = new XMLHttpRequest();
+    blockAction();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+      allowAction();
+      if (this.readyState == 4 && this.status == 200) {
             response = this.responseText;
             showMessage("I", response, "messageTime", gHideDelayDefault);
         }
@@ -728,6 +730,36 @@ function sendOptionShowPastDatesToESP(){
   };
   xhttp.open("GET", "optionShowPastDates?value=" + gOptionShowPastDates?0:1, true);  //convert bool to int
   xhttp.send();
+}
+
+var canvas = document.createElement('canvas'); //Create a canvas element
+var context = canvas.getContext('2d');
+
+function blockAction(){
+  //Set canvas width/height
+  canvas.style.width='100%';
+  canvas.style.height='100%';
+  //Set canvas drawing area width/height
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  //Position canvas
+  canvas.style.position='absolute';
+  canvas.style.left=0;
+  canvas.style.top=0;
+  canvas.style.zIndex=100000;
+  //canvas.style.pointerEvents='none'; //Make sure you can click 'through' the canvas
+  document.body.appendChild(canvas); //Append canvas to body element
+  
+  //Draw rectangle
+  context.rect(0, 0, screen.width, screen.height);
+  context.fillStyle = 'white';
+  context.globalAlpha = 0.2;
+  context.fill();
+}
+
+function allowAction(){
+  context.clearRect(0, 0 , screen.width,screen.height);
+  context.style.pointerEvents='none';
 }
 
 function refreshTabs(){

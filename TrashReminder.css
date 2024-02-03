@@ -189,6 +189,7 @@
 
         .scrollable {
           overflow: auto;
+          height: 50%;
         }
 
         @keyframes blinker {  

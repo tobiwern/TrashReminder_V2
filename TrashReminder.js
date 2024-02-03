@@ -315,6 +315,7 @@ var gDataTasks = [];
 var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
+var gOptionShowPastDates = false;
 
 function initDataFromJson(jsonObject) {
     var epochTasks = jsonObject["epochTasks"];
@@ -382,9 +383,8 @@ function refreshTaskTypes() {
 }
 
 function refreshTaskDates() { //show TaskDates on Webpage
-    var text = Object.keys(gDataEpochTaskDict).length + " Abholtermine sind derzeit verfügbar.<br><br>";
+    var text = Object.keys(gDataEpochTaskDict).length + " Abholtermine sind verfügbar.<br><br>";
     var epochs = Object.keys(gDataEpochTaskDict).sort();
-    text += "<div id='scrollable'>"
     text += "<table id=epochTasks>"
     text += "<tr><th>Datum der Abholung</th><th>Müllart</th></tr>"
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
@@ -405,9 +405,10 @@ function refreshTaskDates() { //show TaskDates on Webpage
                 selectedTaskIds.push(taskId);
             }
         }
-        if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; } //+1 day (in ms)
+        var show = true;
+        if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; } else { style = "color: lightgrey;"; show = gOptionShowPastDates;} 
         if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
-        if (selectedTaskIds.length >= 1) {
+        if ((selectedTaskIds.length >= 1) && show) {
             text += "<tr>"
             text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
             text += "<td style='" + style + "'>";
@@ -420,7 +421,6 @@ function refreshTaskDates() { //show TaskDates on Webpage
         }
     }
     text += "</table>";
-    text += "</div>";
     document.getElementById("taskDates").innerHTML = text;
     document.getElementById("buttonDeleteTasks").innerHTML = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";    
 }

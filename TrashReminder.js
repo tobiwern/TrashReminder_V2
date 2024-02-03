@@ -22,7 +22,8 @@ function acknowledge() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "Müllabholung bestätigt!", "buttonMessage", gHideDelayDefault);
+            showMessage("I", "Mülleimer steht draussen bestätigt!", "messageAcknowledge", gHideDelayDefault);
+            document.getElementById("buttonAcknowledge").innerHTML = "Mülleimer steht doch nicht draussen.";
         }
     };
     xhttp.open("GET", "acknowledge", true);
@@ -350,7 +351,7 @@ function refreshTaskTypesAndDates(response) {
         initDataFromJson(jsonObject);
         refreshTaskTypes();
         refreshTaskDates();
-        if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>M&uuml;llabholung best&auml;tigen</button><br><br></br>"}
+        if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br></br>"}
     } catch (e) {
         showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
         document.getElementById("taskDates").innerHTML = response;
@@ -704,6 +705,7 @@ function createWebpage() {
         In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.<br>
         Neue Termine können über <a href="#" onclick="document.getElementById('download').click();"><img src="https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg"></a> auf die "Müll-Erinnerung" geladen werden.<br><br>
         <div id='buttonAcknowledge'></div>
+        <div id='messageAcknowledge'></div>
         <div id='taskDates'></div>
       </div>
     </div>

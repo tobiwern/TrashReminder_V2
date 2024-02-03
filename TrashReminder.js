@@ -739,7 +739,7 @@ function refreshTabs(){
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
   }
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
-  if(gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br>";}
+  if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br>";}
 
   document.getElementById("descriptionDates").innerHTML = description;
 

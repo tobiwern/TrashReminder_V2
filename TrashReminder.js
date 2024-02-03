@@ -389,7 +389,8 @@ function refreshTaskTypes() {
 function refreshTaskDates() { //show TaskDates on Webpage
 //  
     var text = "";
-    if(gFutureDates != 0){ text += gFutureDates + " Abholtermine stehen noch an.<br><br>";}
+    //if(gFutureDates != 0){ 
+      text += gFutureDates + " Abholtermine stehen noch an.<br><br>"; //}
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     text += "<table id=epochTasks>"
     text += "<tr><th>Datum der Abholung</th><th>Müllart</th></tr>"

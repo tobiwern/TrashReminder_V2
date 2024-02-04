@@ -225,14 +225,11 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
 
 function sendValidTaskTypesToESP() {
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
-console.log("length= " + taskTypeCheckBoxes.length);
-console.log("taskTypeCheckBoxes = " + taskTypeCheckBoxes);    
     var validTaskIds = [];
     for (let i = 0; i < taskTypeCheckBoxes.length; i++) {
       var checkBox = taskTypeCheckBoxes[i];
       if (checkBox.checked) {
         validTaskIds.push(i);
-console.log("i = " + i + ", validTaskIds = " + validTaskIds);        
       }
     }
 //showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageTaskTypes");
@@ -240,7 +237,6 @@ console.log("i = " + i + ", validTaskIds = " + validTaskIds);
       showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
       return;
     }
-console.log("validTaskIds = " +validTaskIds );
     gDataValidTaskIds = validTaskIds; //update in global Setup
     sendCurrentDataToESP(); //send updated data
 }

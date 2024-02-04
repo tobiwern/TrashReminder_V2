@@ -230,6 +230,7 @@ function sendValidTaskTypesToESP() {
       checkBox = taskTypeCheckBoxes[i];
       if (checkBox.checked) {
         validTaskIds.push(i);
+console.log("i = " + i + ", validTaskIds = " + validTaskIds);        
       }
     }
 //showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageTaskTypes");

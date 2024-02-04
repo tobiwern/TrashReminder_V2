@@ -966,7 +966,7 @@ function buildTab_DATA(){
   <div id='buttonDeleteTasks'></div><br>
   <div id='messageDeleteTasks'></div>           
   `;
-  document.getElementById("content_DATA").innerHTML = description;
+  document.getElementById("content_DATA").innerHTML = content;
 }
 
 function refreshTab_DATA(){

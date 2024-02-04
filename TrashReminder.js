@@ -865,6 +865,8 @@ function refreshTab_DATES(){
   }else{
     document.getElementById("buttonAcknowledge").innerHTML =""
   }
+  //handle data
+  refreshTaskDates();
 }
 
 // Description SETTINGS ////////////////////////////////
@@ -921,6 +923,8 @@ function refreshTab_SETTINGS(){
   `;
   document.getElementById("description_SETTINGS").innerHTML = description;
   refreshOptionShowPastDates();
+  //handle data
+  refreshTaskTypes();
 }
 
 // Description DATA /////////////////////////////////////

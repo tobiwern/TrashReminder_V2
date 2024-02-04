@@ -51,7 +51,8 @@ WiFiManager wm;
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
 //NTPClient timeClient(ntpUDP, "pool.ntp.org");
-NTPClient timeClient(ntpUDP, "ntp.se");
+const char* ntpServer = "ntp.se";
+NTPClient timeClient(ntpUDP, ntpServer);
 unsigned int nowEpoch = 0;  //global since only querying every minute
 unsigned int timeEpochLast = 0;
 int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference

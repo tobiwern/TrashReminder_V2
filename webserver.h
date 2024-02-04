@@ -100,7 +100,7 @@ boolean initDataFromFile() {
 }
 
 //settings
-void initStartEndTimes() {
+void initSettingsFromFile() {
   if (!startLittleFS()) { return; }
   DEBUG_SERIAL.printf("INFO: Reading file: %s\n", settingsFile);
   File file = LittleFS.open(settingsFile, "r");
@@ -118,6 +118,7 @@ void initStartEndTimes() {
   }
   startHour = doc["startHour"];
   endHour = doc["endHour"];
+  showPastDates = doc["showPastDates"];
   file.close();
   endLittleFS();
 }
@@ -145,7 +146,7 @@ void sendLogToWebpage() {  //transfering ESP data to the Webpage
 
 void sendSettingsToWebpage() {  //transferring ESP settings => Webpage
   String value;
-  value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds + "," + ntpServer + "," + ipTimezoneServer + "," + timeOffset;
+  value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds + "," + ntpServer + "," + timezoneServer + "," + timeOffset + "," + showPastDates;
   DEBUG_SERIAL.println("Sending settings: " + value);
   server.send(200, "text/plane", value);
 }
@@ -160,13 +161,18 @@ void handleRoot() {
   server.send(200, "text/html", s);
 }
 
-void writeStartEndTimes() {
-  String jsonText = "";
-  jsonText = "{\"startHour\":" + String(startHour) + ",\"endHour\":" + String(endHour) + "}";
+void writeSettingsToFile() {
+  String jsonText = ""; 
+  jsonText = "{\"startHour\":" + String(startHour) 
+  + ",\"endHour\":" + String(endHour)
+  + ",\"ntpServer\":" + String(ntpServer)
+  + ",\"timezoneServer\":" + String(timezoneServer)
+  + ",\"timeOffset\":" + String(timeOffset) 
+  + ",\"showPastDates\":" + String(showPastDates) + "}";
   DEBUG_SERIAL.println("Writing settings: " + jsonText);
   writeFile(settingsFile, jsonText.c_str());
   showFSInfo();
-  initStartEndTimes();
+  initSettingsFromFile();
 }
 
 void setStartHour() {
@@ -175,7 +181,7 @@ void setStartHour() {
   startHour = hour.toInt();
   acknowledgeBlink();
   server.send(200, "text/plane", "Neuer Startzeitpunkt gespeichert.");
-  writeStartEndTimes();
+  writeSettingsToFile();
 }
 
 void setEndHour() {
@@ -184,7 +190,43 @@ void setEndHour() {
   endHour = hour.toInt();
   acknowledgeBlink();
   server.send(200, "text/plane", "Neuer Endzeitpunkt gespeichert.");
-  writeStartEndTimes();
+  writeSettingsToFile();
+}
+
+void setNtpServer() {
+  String value = server.arg("value");
+  DEBUG_SERIAL.println("Setting ntpServer = " + value);
+  ntpServer = value.c_str();
+  acknowledgeBlink();
+  server.send(200, "text/plane", "NTP Server gespeichert.");
+  writeSettingsToFile();
+}
+
+void setTimezoneServer() {
+  String value = server.arg("value");
+  DEBUG_SERIAL.println("Setting timezoneServer = " + value);
+  timezoneServer = value.c_str();
+  acknowledgeBlink();
+  server.send(200, "text/plane", "Timezone Server gespeichert.");
+  writeSettingsToFile();
+}
+
+void setTimeOffset() {
+  String value = server.arg("value");
+  DEBUG_SERIAL.println("Setting timeOffset = " + value);
+  timeOffset = value.toInt();
+  acknowledgeBlink();
+  server.send(200, "text/plane", "Time Offset gespeichert.");
+  writeSettingsToFile();
+}
+
+void setShowPastDates() {
+  String value = server.arg("value");
+  DEBUG_SERIAL.println("Setting showPastDates = " + value);
+  showPastDates = value.toInt();
+  acknowledgeBlink();
+  server.send(200, "text/plane", "Show Past Dates gespeichert.");
+  writeSettingsToFile();
 }
 
 void receiveFromWebpage_Tasks() {
@@ -273,6 +315,10 @@ void startWebServer() {
   server.on("/", handleRoot);
   server.on("/set_start", setStartHour);
   server.on("/set_end", setEndHour);
+  server.on("/set_ntp_server", setNtpServer);
+  server.on("/set_timezone_server", setTimezoneServer);
+  server.on("/set_time_offset", setTimeOffset);
+  server.on("/set_show_past_dates", setShowPastDates);
   server.on("/request_settings", sendSettingsToWebpage);
   server.on("/request_tasks", sendTasksToWebpage);     //ESP => webpage
   server.on("/request_log", sendLogToWebpage);         //ESP => webpage

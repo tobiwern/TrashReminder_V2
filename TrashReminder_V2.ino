@@ -36,8 +36,11 @@ Helpful:
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-const char* ipTimezoneServer = "https://ipapi.co/utc_offset";
+const char* timezoneServer = "https://ipapi.co/utc_offset";
 int timeOffset;
+
+//options 
+boolean showPastDates = 0;
 
 #include <WiFiUdp.h>
 #define WM_DEBUG_LEVEL DEBUG_NOTIFY
@@ -311,8 +314,8 @@ int getTimeOffsetFromPublicIP() {
   WiFiClientSecure client;
   String payload;
   client.setInsecure();
-  client.connect(ipTimezoneServer, 443);
-  http.begin(client, ipTimezoneServer);
+  client.connect(timezoneServer, 443);
+  http.begin(client, timezoneServer);
   int httpCode = http.GET();
   if (httpCode == 200) {
     payload = http.getString();
@@ -576,7 +579,7 @@ void handleState() {
       memset(colorIds, -1, sizeof(colorIds));
       memset(colorIdsLast, -1, sizeof(colorIdsLast));
       //      listDir("/"); //ToDo1
-      initStartEndTimes();  //initializes startHour and endHour
+      initSettingsFromFile();  //initializes startHour and endHour
       initDataFromFile();
       nowEpoch = getDominantTimeEpoch(3);  //making sure that the very first time stamp is correct
       STATE_NEXT = STATE_QUERY;

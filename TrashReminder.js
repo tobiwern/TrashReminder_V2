@@ -171,8 +171,9 @@ function requestSettingsFromESP() {
             gNTPServer = tokens[5]; 
             gTimezoneServer = tokens[6]; 
             gTimeOffset = tokens[7];
-console.log(gNTPServer);            
-        }
+            gOptionShowPastDates = tokens[8];
+console.log("gNTPServer = " + gNTPServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gOptionShowPastDates = " + gOptionShowPastDates);            
+          }
     };
     xhttp.open("GET", "request_settings", true);
     xhttp.send();
@@ -194,6 +195,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         document.getElementById("data").click();
         gNoDates = true;
       }
+console.log("requestTasksFromESP returned");      
 //      refreshTabs();
     }
   };
@@ -734,7 +736,7 @@ var canvas = document.createElement('canvas'); //Create a canvas element
 var context = canvas.getContext('2d');
 
 function blockAction(){
-  console.log("Blocking Action");
+//console.log("Blocking Action");
   //Set canvas width/height
   canvas.style.width='100%';
   canvas.style.height='100%';
@@ -758,7 +760,7 @@ function blockAction(){
 }
 
 function allowAction(){
-  console.log("Allowing Action");
+//console.log("Allowing Action");
   context.clearRect(0, 0 , screen.width,screen.height);
   canvas.style.pointerEvents='none';
 }
@@ -909,6 +911,9 @@ function refreshTab_SETTINGS(){
     <tr>
       <td class=description><label for="start">NTP Zeit-Server:</label></td>
       <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
+    </tr>
+    <tr>
+    <td colspan=2>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</td>
     </tr>
   </table><br>
   <div id='messageTime'></div>

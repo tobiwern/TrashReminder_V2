@@ -729,7 +729,7 @@ function sendOptionShowPastDatesToESP(){
           showMessage("I", response, "messageOptions", gHideDelayDefault);
       }
   };
-  xhttp.open("GET", "set_show_past_dates?value=" + (gOptionShowPastDates?0:1), true);  //convert bool to int
+  xhttp.open("GET", "set_show_past_dates?value=" + (gOptionShowPastDates?1:0), true);  //convert bool to int
   xhttp.send();
 }
 

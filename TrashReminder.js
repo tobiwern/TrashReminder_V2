@@ -238,6 +238,7 @@ function sendValidTaskTypesToESP() {
       return;
     }
     gDataValidTaskIds = validTaskIds; //update in global Setup
+//    refreshTabs();
     sendCurrentDataToESP(); //send updated data
 }
 
@@ -371,7 +372,6 @@ function refreshTaskTypesAndDates(response) {
         refreshTaskTypes();
         refreshTaskDates();
         refreshTabs();
-        if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"}
     } catch (e) {
         showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
         document.getElementById("taskDates").innerHTML = response;
@@ -698,21 +698,6 @@ function showMessage(msgType, message, receiver = "buttonMessage", hideDelayInSe
     if(receiver == "buttonMessage"){window.scrollTo(0, document.body.scrollHeight);}
 }
 
-function openPage(pageName,elmnt,color) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].style.backgroundColor = "";
-  }
-  document.getElementById(pageName).style.display = "block";
-  elmnt.style.backgroundColor = color;
-  refreshTabs();
-}
-
 (function blink() { 
   $('.blink').fadeOut(500).fadeIn(500, blink); 
 })();
@@ -772,6 +757,21 @@ function allowAction(){
   canvas.style.pointerEvents='none';
 }
 
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+  refreshTabs();
+}
+
 function refreshTabs(){
   // Description DATES /////////////////////////////////////
   var description = "";
@@ -784,6 +784,11 @@ function refreshTabs(){
   }
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
+  if(gAlarm){
+    document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"
+  }else{
+    document.getElementById("buttonAcknowledge").innerHTML =""
+  }
 
   document.getElementById("descriptionDates").innerHTML = description;
 //ToDo +: Move button handling here

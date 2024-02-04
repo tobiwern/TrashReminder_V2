@@ -729,7 +729,7 @@ function sendOptionShowPastDatesToESP(){
           showMessage("I", response, "messageOptions", gHideDelayDefault);
       }
   };
-  xhttp.open("GET", "set_show_past_dates?value=" + gOptionShowPastDates?0:1, true);  //convert bool to int
+  xhttp.open("GET", "set_show_past_dates?value=" + (gOptionShowPastDates?0:1), true);  //convert bool to int
   xhttp.send();
 }
 
@@ -919,12 +919,16 @@ function buildTab_SETTINGS(){
   Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
   <table width="80%">
     <tr>
-      <td class=description><label for="start">Zeitzone:</label></td>
-      <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP()'></select></td>
+      <td class=description><label for="timeoffset">Zeitzone:</label></td>
+      <td class=value><select id="timeoffset" name="timeoffset" onchange='sendTimeOffsetToESP()'></select></td>
     </tr>
     <tr>
-      <td class=description><label for="start">NTP Zeit-Server:</label></td>
-      <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
+      <td class=description><label for="timezoneserver">Zeitzonen Server:</label></td>
+      <td class=value><input type="text" id="timezoneserver" name="timezoneserver" onfocusout='sendTimezoneServerToESP()''></td>
+    </tr>
+    <tr>
+      <td class=description><label for="ntpserver">NTP Zeit-Server:</label></td>
+      <td class=value><input type="text" id="ntpserver" name="ntpserver" onfocusout='sendNtpServerToESP()''></td>
     </tr>
     <tr>
     <td colspan=2>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</td>

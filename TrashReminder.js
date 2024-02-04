@@ -196,9 +196,8 @@ console.log("response = " + response);
         document.getElementById("taskTypes").innerHTML = "";
         document.getElementById("data").click();
         gNoDates = true;
+        refreshTabs();
       }
-console.log("requestTasksFromESP returned");      
-//      refreshTabs();
     }
   };
   xhttp.open("GET", "request_tasks", true);
@@ -391,6 +390,7 @@ function refreshTaskTypesAndDates(response) {
 function refreshTaskTypes() {
     var text = "Sie werden an folgende Abfallarten erinnert:<br><br>";
     text += "<table>";
+console.log("RefreshTaskTypes: gDataTasks.length = " + gDataTasks.length);    
     for (let i = 0; i < gDataTasks.length; i++) {
         checked = (gDataValidTaskIds.length == 0 || gDataValidTaskIds.includes(i)) ? "checked" : "";
         text += "<tr>"

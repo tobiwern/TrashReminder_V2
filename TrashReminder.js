@@ -35,7 +35,7 @@ function fireworks() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "FEUERWERK!", "buttonMessage", gHideDelayDefault);
+            showMessage("I", "FEUERWERK!", "messageButton", gHideDelayDefault);
         }
     };
     xhttp.open("GET", "fireworks", true);
@@ -47,10 +47,10 @@ function toggleDemo() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if(this.responseText == "DemoOn"){
-                showMessage("I", "Demo Mode gestartet!" , "buttonMessage", gHideDelayDefault);
+                showMessage("I", "Demo Mode gestartet!" , "messageButton", gHideDelayDefault);
                 document.getElementById("demoButton").innerHTML = "Demo Mode beenden";
             } else {
-                showMessage("I", "Demo Mode beendet!" , "buttonMessage", gHideDelayDefault);
+                showMessage("I", "Demo Mode beendet!" , "messageButton", gHideDelayDefault);
                 document.getElementById("demoButton").innerHTML = "Demo Mode starten";
             }
         }
@@ -90,7 +90,7 @@ function restartTrashReminder() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "TrashReminder wurde neu gestartet!", "buttonMessage", gHideDelayDefault);
+            showMessage("I", "TrashReminder wurde neu gestartet!", "messageButton", gHideDelayDefault);
             gAcknowledge = false;
             refreshTaskDates();
             refreshTabs();
@@ -111,7 +111,7 @@ function requestLogFromESP() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", this.responseText.replaceAll("\n", "<br>"), "buttonMessage"); //show continuous
+            showMessage("I", this.responseText.replaceAll("\n", "<br>"), "messageButton"); //show continuous
         }
     };
     xhttp.open("GET", "request_log", true);
@@ -121,16 +121,16 @@ function requestLogFromESP() {
 function deleteLogOnESP() {
     const response = confirm("Wollen Sie wirklich das Logfile löschen?");
     if (!response) {
-        showMessage("I", "Löschen des Logfiles abgebrochen.", "buttonMessage", gHideDelayDefault);
+        showMessage("I", "Löschen des Logfiles abgebrochen.", "messageButton", gHideDelayDefault);
         return;
     }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                showMessage("I", "Logfile gelöscht.", "buttonMessage", gHideDelayDefault);   
+                showMessage("I", "Logfile gelöscht.", "messageButton", gHideDelayDefault);   
             } else { //500
-                showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "buttonMessage", gHideDelayDefault); 
+                showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "messageButton", gHideDelayDefault); 
             }      
         }
     };
@@ -310,17 +310,17 @@ function deleteTasksOnESP() {
 function resetWifiSettingsOnESP() {
     const response = confirm("Wollen Sie wirklich die WLAN Einstellungen löschen?");
     if (!response) {
-        showMessage("I", "Löschen der WLAN Einstellungen abgebrochen.", "buttonMessage", gHideDelayDefault);
+        showMessage("I", "Löschen der WLAN Einstellungen abgebrochen.", "messageButton", gHideDelayDefault);
         return;
     }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                showMessage("I", "Löschen der WLAN Einstellungen war erfolgreich!", "buttonMessage", gHideDelayDefault);
+                showMessage("I", "Löschen der WLAN Einstellungen war erfolgreich!", "messageButton", gHideDelayDefault);
 //                requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
             } else { //500
-                showMessage("E", "ERROR: Löschen der WLAN Einstellungen fehlgeschlagen!", "buttonMessage", gHideDelayDefault);
+                showMessage("E", "ERROR: Löschen der WLAN Einstellungen fehlgeschlagen!", "messageButton", gHideDelayDefault);
             }
         }
     };
@@ -681,7 +681,7 @@ function epochToDateString(epoch, dateType = "long") {
 }
 
 let timeoutID;
-function showMessage(msgType, message, receiver = "buttonMessage", hideDelayInSec = 0) {
+function showMessage(msgType, message, receiver = "messageButton", hideDelayInSec = 0) {
     document.getElementById(receiver).innerHTML = message + "<br><br>";
     switch (msgType) {
         case "D":
@@ -704,7 +704,7 @@ function showMessage(msgType, message, receiver = "buttonMessage", hideDelayInSe
     } else {
         clearTimeout(timeoutID);
     }
-    if(receiver == "buttonMessage"){window.scrollTo(0, document.body.scrollHeight);}
+    if(receiver == "messageButton"){window.scrollTo(0, document.body.scrollHeight);}
 }
 
 (function blink() { 
@@ -785,34 +785,34 @@ function createWebpage() {
   var innerHTML = `
   <div><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
   <div class=tabbackground >
-    <button class="tablink" onclick="openPage('tab_dates', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_settings', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_data', this, '#4CAF50')" id="data"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_help', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_DATES', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_SETTINGS', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_DATA', this, '#4CAF50')" id="data"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_HELP', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
   </div>
 
-  <div id="tab_dates" class="tabcontent">
+  <div id="tab_DATES" class="tabcontent">
     <div class=frame>
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
       <div id='description_DATES'></div>
     </div>
   </div>
 
-  <div id="tab_settings" class="tabcontent">
+  <div id="tab_SETTINGS" class="tabcontent">
     <div class=frame> 
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>
       <div id='description_SETTINGS'></div>    
     </div>        
   </div>
 
-  <div id="tab_data" class="tabcontent">
+  <div id="tab_DATA" class="tabcontent">
     <div class=frame>      
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
       <div id='description_DATA'></div> 
     </div>
   </div>
 
-  <div id="tab_help" class="tabcontent">
+  <div id="tab_HELP" class="tabcontent">
     <div class=frame>
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
       <div id='description_HELP'></div> 
@@ -969,7 +969,7 @@ function refreshTab_HELP(){
   description += `
   Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
   <br><br>
-  <div id='buttonMessage'></div>
+  <div id='messageButton'></div>
   <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
   <button class="button" onclick="fireworks()">Feuerwerk</button>
   <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>

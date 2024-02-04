@@ -717,7 +717,7 @@ function refreshOptionShowPastDates(){
 function handleOptionShowPastDates(){
   gOptionShowPastDates = document.getElementById("optionShowPastDates").checked;
   refreshTaskDates(false);
-  //sendOptionShowPastDatesToESP();
+  sendOptionShowPastDatesToESP();
 }
 
 function sendOptionShowPastDatesToESP(){
@@ -728,7 +728,7 @@ function sendOptionShowPastDatesToESP(){
           showMessage("I", response, "messageOptions", gHideDelayDefault);
       }
   };
-  xhttp.open("GET", "optionShowPastDates?value=" + gOptionShowPastDates?0:1, true);  //convert bool to int
+  xhttp.open("GET", "set_show_past_dates?value=" + gOptionShowPastDates?0:1, true);  //convert bool to int
   xhttp.send();
 }
 

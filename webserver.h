@@ -152,7 +152,7 @@ void sendSettingsToWebpage() {  //transferring ESP settings => Webpage
 }
 
 void notFound() {
-  DEBUG_SERIAL.println("Not found");
+  DEBUG_SERIAL.println("WARNING: Not found: Request was \"" + server.uri() + "\"");
   server.send(404, "text/plain", "Not found");
 }
 

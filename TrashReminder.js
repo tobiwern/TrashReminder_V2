@@ -185,7 +185,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
-        document.getElementById("download").click();
+        document.getElementById("data").click();
         gNoDates = true;
       }
 //      refreshTabs();
@@ -772,8 +772,64 @@ function openPage(pageName,elmnt,color) {
   refreshTabs();
 }
 
+function createWebpage() {
+  var innerHTML = `
+  <div><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
+  <div class=tabbackground >
+    <button class="tablink" onclick="openPage('tab_dates', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_settings', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_data', this, '#4CAF50')" id="data"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+    <button class="tablink" onclick="openPage('tab_help', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
+  </div>
+
+  <div id="tab_dates" class="tabcontent">
+    <div class=frame>
+      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
+      <div id='description_DATES'></div>
+    </div>
+  </div>
+
+  <div id="tab_settings" class="tabcontent">
+    <div class=frame> 
+      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>
+      <div id='description_SETTINGS'></div>    
+    </div>        
+  </div>
+
+  <div id="tab_data" class="tabcontent">
+    <div class=frame>      
+      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
+      <div id='description_DATA'></div> 
+    </div>
+  </div>
+
+  <div id="tab_help" class="tabcontent">
+    <div class=frame>
+      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
+      <div id='description_HELP'></div> 
+    </div>
+  </div>
+  `;
+  document.getElementById("body").innerHTML = innerHTML;
+  addFavicon();
+  refreshTabs();
+  handleTabSelection();
+}
+
 function refreshTabs(){
-  // Description DATES /////////////////////////////////////
+  refreshTab_DATES();
+  refreshTab_SETTINGS();
+  refreshTab_DATA();
+  refreshTab_HELP();
+}
+
+// Tab HANDLING  /////////////////////////////////////
+function handleTabSelection(){
+  document.getElementById("dates").click();
+}
+
+// Description DATES /////////////////////////////////////
+function refreshTab_DATES(){
   var description = "";
   if(gNoDates){
     description += "<div style='color: orange'>Es sind noch keine Abholtermine gespeichert!</div><br>";
@@ -782,8 +838,15 @@ function refreshTabs(){
   } else {    
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
   }
-  if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
+  if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
+  description +=`
+  <div id='buttonAcknowledge'></div>
+  <div id='messageAcknowledge'></div>
+  <div id='taskDates'></div>
+  `;
+  document.getElementById("description_DATES").innerHTML = description;  
+  // handle buttons
   if(gAlarm){
     if(gAcknowledge){
       document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>"
@@ -793,142 +856,115 @@ function refreshTabs(){
   }else{
     document.getElementById("buttonAcknowledge").innerHTML =""
   }
+}
 
-  document.getElementById("descriptionDates").innerHTML = description;
-//ToDo +: Move button handling here
+// Description SETTINGS ////////////////////////////////
+function refreshTab_SETTINGS(){
+  var description = "";
+  description = `
+  Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
+  <hr>
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
+  <table>
+    <tr>
+      <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
+      <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
+    </tr>
+    <tr>
+      <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
+      <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
+    </tr>
+  </table><br>
+  <div id='messageTime'></div>
 
-  // Description SETTINGS ////////////////////////////////
+  <hr>
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
+  <div id='taskTypes'></div>
+  <div id='messageTaskTypes'></div>
+
+  <hr>
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Optionen</div></h3>
+  <table width="80%">
+    <tr>
+    <td><input type='checkbox' id="optionShowPastDates" onchange='handleOptionShowPastDates()'>
+    <label for="optionShowPastDates">Vergangene Termine anzeigen</label></td>
+    </tr>
+  </table><br>
+  <div id='messageOptions'></div>
+
+  <hr>
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Zeit Einstellungen</div></h3>
+  Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
+  <table width="80%">
+    <tr>
+      <td class=description><label for="start">Zeitzone:</label></td>
+      <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP()'></select></td>
+    </tr>
+    <tr>
+      <td class=description><label for="start">NTP Zeit-Server:</label></td>
+      <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
+    </tr>
+  </table><br>
+  <div id='messageTime'></div>
+  `;
+  document.getElementById("description_SETTINGS").innerHTML = description;
   refreshOptionShowPastDates();
+}
 
-  // Description DATA /////////////////////////////////////
+// Description DATA /////////////////////////////////////
+function refreshTab_DATA(){
   var description = "";
   var buttonDelete = "";
+  description += `
+  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
+  <hr>
+  <table>
+    <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
+    <tr><td><label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label><br></td></tr>
+    <tr><td><div id='tasks'></div></td></tr>
+  </table>
+
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
+  <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
+  angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. "Abfuhrtermine Weil im Schönbuch".</div><br>
+  <div>Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
+  <ul>
+    <li><a href='https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/' target='_blank'>https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/</a></li>
+    <li><a href='https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html'  target='_blank'>https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html</a></li>
+  </ul>
+  </div>
+  <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
+  Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
+  `;
   if(!gNoDates){
     description += `
     <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abholtermine</div></h3> 
-    Über den nachstehenden Button können alle Abholtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>`;
+    Über den nachstehenden Button können alle Abholtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>
+    `;
     buttonDelete = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";
   }
-  document.getElementById("descriptionData").innerHTML = description;
+  description += `
+  <div id='buttonDeleteTasks'></div><br>
+  <div id='messageDeleteTasks'></div>           
+  `
+  document.getElementById("description_DATA").innerHTML = description;
   document.getElementById("buttonDeleteTasks").innerHTML = buttonDelete;
 }
 
-function createWebpage() {
-    var innerHTML = `
-    <div><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
-    <div class=tabbackground >
-      <button class="tablink" onclick="openPage('tab_dates', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
-      <button class="tablink" onclick="openPage('tab_settings', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
-      <button class="tablink" onclick="openPage('tab_download', this, '#4CAF50')" id="download"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
-      <button class="tablink" onclick="openPage('tab_help', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
-    </div>
-
-    <div id="tab_dates" class="tabcontent">
-      <div class=frame>
-        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
-        <div id='descriptionDates'></div>
-        <div id='buttonAcknowledge'></div>
-        <div id='messageAcknowledge'></div>
-        <div id='taskDates'></div>
-      </div>
-    </div>
-
-    <div id="tab_settings" class="tabcontent">
-      <div class=frame> 
-        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>    
-        Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
-        <hr>
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
-        <table>
-          <tr>
-            <td class=description><label for="start">Start der Erinnerung<br>(am Vortag der Abholung):</label></td>
-            <td class=value><select id="start" name="start" onchange='sendDropDownStateToESP("start")'></select></td>
-          </tr>
-          <tr>
-            <td class=description><label class='fancy-input' for="end">Ende der Erinnerung<br>(am Tag der Abholung):</label></td>
-            <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
-          </tr>
-        </table><br>
-        <div id='messageTime'></div>
-
-        <hr>
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
-        <div id='taskTypes'></div>
-        <div id='messageTaskTypes'></div>
-
-        <hr>
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Optionen</div></h3>
-        <table width="80%">
-          <tr>
-          <td><input type='checkbox' id="optionShowPastDates" onchange='handleOptionShowPastDates()'>
-          <label for="optionShowPastDates">Vergangene Termine anzeigen</label></td>
-          </tr>
-        </table><br>
-        <div id='messageOptions'></div>
-
-        <hr>
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Zeit Einstellungen</div></h3>
-        Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
-        <table width="80%">
-          <tr>
-            <td class=description><label for="start">Zeitzone:</label></td>
-            <td class=value><select id="timezone" name="timezone" onchange='sendTimeZoneToESP()'></select></td>
-          </tr>
-          <tr>
-            <td class=description><label for="start">NTP Zeit-Server:</label></td>
-            <td class=value><input type="text" id="timeserver" name="timeserver" onchange='sendTimeServerToESP()''></td>
-          </tr>
-        </table><br>
-        <div id='messageTime'></div>
-      </div>        
-    </div>
-
-    <div id="tab_download" class="tabcontent">
-      <div class=frame>      
-        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
-        <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
-        <hr>
-        <table>
-          <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
-          <tr><td><label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label><br></td></tr>
-          <tr><td><div id='tasks'></div></td></tr>
-        </table>
-
-        <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
-        <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
-        angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. "Abfuhrtermine Weil im Schönbuch".</div><br>
-        <div>Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
-        <ul>
-          <li><a href='https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/' target='_blank'>https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/</a></li>
-          <li><a href='https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html'  target='_blank'>https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html</a></li>
-        </ul>
-        </div>
-        <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
-        Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
-        <div id='descriptionData'></div> 
-        <div id='buttonDeleteTasks'></div><br>
-        <div id='messageDeleteTasks'></div>           
-      </div>
-    </div>
-
-    <div id="tab_help" class="tabcontent">
-      <div class=frame>
-        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
-        Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
-        <br><br>
-        <div id='buttonMessage'></div>
-        <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
-        <button class="button" onclick="fireworks()">Feuerwerk</button>
-        <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
-        <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
-        <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
-        <h3>Kontakt</h3>
-        <p>Tobias Werner, Erfindungen aller Art</p>
-      </div>
-    </div>
-    `;
-    document.getElementById("body").innerHTML = innerHTML;
-    addFavicon();
-    document.getElementById("dates").click();
-    refreshTabs();
+// Description HELP /////////////////////////////////////
+function refreshTab_HELP(){
+  var description = "";
+  description += `
+  Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
+  <br><br>
+  <div id='buttonMessage'></div>
+  <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
+  <button class="button" onclick="fireworks()">Feuerwerk</button>
+  <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>
+  <button class="button" onclick="requestLogFromESP()"  ondblclick="deleteLogOnESP()">Logfile anzeigen</button>
+  <button class="button" onclick="resetWifiSettingsOnESP()">WLAN Einstellungen löschen</button>
+  <h3>Kontakt</h3>
+  <p>Tobias Werner, Erfindungen aller Art</p>
+  `;
+  document.getElementById("description_HELP").innerHTML = description;
 }

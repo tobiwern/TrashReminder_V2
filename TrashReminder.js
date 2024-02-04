@@ -196,7 +196,7 @@ console.log("response = " + response);
         document.getElementById("taskTypes").innerHTML = "";
         document.getElementById("data").click();
         gNoDates = true;
-        refreshTabs();
+//        refreshTabs();
       }
     }
   };
@@ -794,35 +794,43 @@ function createWebpage() {
   <div id="tab_DATES" class="tabcontent">
     <div class=frame>
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
-      <div id='description_DATES'></div>
+      <div id='content_DATES'></div>
     </div>
   </div>
 
   <div id="tab_SETTINGS" class="tabcontent">
     <div class=frame> 
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>
-      <div id='description_SETTINGS'></div>    
+      <div id='content_SETTINGS'></div>    
     </div>        
   </div>
 
   <div id="tab_DATA" class="tabcontent">
     <div class=frame>      
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
-      <div id='description_DATA'></div> 
+      <div id='content_DATA'></div> 
     </div>
   </div>
 
   <div id="tab_HELP" class="tabcontent">
     <div class=frame>
       <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
-      <div id='description_HELP'></div> 
+      <div id='content_HELP'></div> 
     </div>
   </div>
   `;
   document.getElementById("body").innerHTML = innerHTML;
   addFavicon();
+  buildTabs();
   refreshTabs();
   handleTabSelection();
+}
+
+function buildTabs(){
+  buildTab_DATES();
+  buildTab_SETTINGS();
+  buildTab_DATA();
+  buildTab_HELP();
 }
 
 function refreshTabs(){
@@ -837,7 +845,17 @@ function handleTabSelection(){
   document.getElementById("dates").click();
 }
 
-// Description DATES /////////////////////////////////////
+// DATES /////////////////////////////////////
+function buildTab_DATES(){
+  var content =`
+  <div id='descriptionDates'></div>
+  <div id='buttonAcknowledge'></div>
+  <div id='messageAcknowledge'></div>
+  <div id='taskDates'></div>
+  `;
+  document.getElementById("content_DATES").innerHTML = content;  
+}
+
 function refreshTab_DATES(){
   var description = "";
   if(gNoDates){
@@ -849,12 +867,7 @@ function refreshTab_DATES(){
   }
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
-  description +=`
-  <div id='buttonAcknowledge'></div>
-  <div id='messageAcknowledge'></div>
-  <div id='taskDates'></div>
-  `;
-  document.getElementById("description_DATES").innerHTML = description;  
+  document.getElementById("descriptionDates").innerHTML = description;  
   // handle buttons
   if(gAlarm){
     if(gAcknowledge){
@@ -865,14 +878,12 @@ function refreshTab_DATES(){
   }else{
     document.getElementById("buttonAcknowledge").innerHTML =""
   }
-  //handle data
-  refreshTaskDates();
 }
 
-// Description SETTINGS ////////////////////////////////
-function refreshTab_SETTINGS(){
-  var description = "";
-  description = `
+// SETTINGS ////////////////////////////////
+function buildTab_SETTINGS(){
+  var content = "";
+  content = `
   Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
@@ -921,17 +932,17 @@ function refreshTab_SETTINGS(){
   </table><br>
   <div id='messageTime'></div>
   `;
-  document.getElementById("description_SETTINGS").innerHTML = description;
-  refreshOptionShowPastDates();
-  //handle data
-  refreshTaskTypes();
+  document.getElementById("content_SETTINGS").innerHTML = content;
 }
 
-// Description DATA /////////////////////////////////////
-function refreshTab_DATA(){
-  var description = "";
-  var buttonDelete = "";
-  description += `
+function refreshTab_SETTINGS(){
+  refreshOptionShowPastDates();
+}
+
+// DATA /////////////////////////////////////
+function buildTab_DATA(){
+  var content = "";
+  content += `
   <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
   <hr>
   <table>
@@ -951,7 +962,16 @@ function refreshTab_DATA(){
   </div>
   <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
   Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
+  <div id='descriptionData'></div> 
+  <div id='buttonDeleteTasks'></div><br>
+  <div id='messageDeleteTasks'></div>           
   `;
+  document.getElementById("content_DATA").innerHTML = description;
+}
+
+function refreshTab_DATA(){
+  var description = "";
+  var buttonDelete = "";
   if(!gNoDates){
     description += `
     <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abholtermine</div></h3> 
@@ -959,18 +979,13 @@ function refreshTab_DATA(){
     `;
     buttonDelete = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";
   }
-  description += `
-  <div id='buttonDeleteTasks'></div><br>
-  <div id='messageDeleteTasks'></div>           
-  `
-  document.getElementById("description_DATA").innerHTML = description;
+  document.getElementById("descriptionData").innerHTML = description;
   document.getElementById("buttonDeleteTasks").innerHTML = buttonDelete;
 }
 
-// Description HELP /////////////////////////////////////
-function refreshTab_HELP(){
-  var description = "";
-  description += `
+// HELP /////////////////////////////////////
+function buildTab_HELP(){
+  var content = `
   Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
   <br><br>
   <div id='messageButton'></div>
@@ -982,5 +997,8 @@ function refreshTab_HELP(){
   <h3>Kontakt</h3>
   <p>Tobias Werner, Erfindungen aller Art</p>
   `;
-  document.getElementById("description_HELP").innerHTML = description;
+  document.getElementById("content_HELP").innerHTML = content;
+}
+
+function refreshTab_HELP(){
 }

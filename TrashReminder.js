@@ -225,9 +225,10 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
 
 function sendValidTaskTypesToESP() {
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
+console.log("length= " + taskTypeCheckBoxes.length);    
     var validTaskIds = [];
     for (let i = 0; i < taskTypeCheckBoxes.length; i++) {
-      checkBox = taskTypeCheckBoxes[i];
+      var checkBox = taskTypeCheckBoxes[i];
       if (checkBox.checked) {
         validTaskIds.push(i);
 console.log("i = " + i + ", validTaskIds = " + validTaskIds);        

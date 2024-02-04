@@ -225,7 +225,8 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
 
 function sendValidTaskTypesToESP() {
     const taskTypeCheckBoxes = document.getElementsByClassName("taskType");
-console.log("length= " + taskTypeCheckBoxes.length);    
+console.log("length= " + taskTypeCheckBoxes.length);
+console.log("taskTypeCheckBoxes = " + taskTypeCheckBoxes);    
     var validTaskIds = [];
     for (let i = 0; i < taskTypeCheckBoxes.length; i++) {
       var checkBox = taskTypeCheckBoxes[i];
@@ -239,7 +240,7 @@ console.log("i = " + i + ", validTaskIds = " + validTaskIds);
       showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
       return;
     }
-    console.log("validTaskIds = " +validTaskIds );
+console.log("validTaskIds = " +validTaskIds );
     gDataValidTaskIds = validTaskIds; //update in global Setup
     sendCurrentDataToESP(); //send updated data
 }
@@ -436,7 +437,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
       text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
       text += "<td style='" + style + "'>";
       for (const taskId of selectedTaskIds) {
-        text += "<div class=taskType><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
+        text += "<div class=taskTypeTbl><div style='background-color: " + gDataColors[taskId].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div>";
         text += " " + gDataTasks[taskId] + "</div>";
       }
       text += "</td>";

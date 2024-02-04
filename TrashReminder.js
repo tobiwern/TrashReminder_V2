@@ -172,7 +172,8 @@ function requestSettingsFromESP() {
             gTimezoneServer = tokens[6]; 
             gTimeOffset = tokens[7];
             gOptionShowPastDates = tokens[8];
-console.log("gNTPServer = " + gNTPServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gOptionShowPastDates = " + gOptionShowPastDates);            
+            gAcknowledge = tokens[9];
+console.log("gNTPServer = " + gNTPServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gOptionShowPastDates = " + gOptionShowPastDates + ", acknowledge = " + gAcknowledge);            
           }
     };
     xhttp.open("GET", "request_settings", true);
@@ -187,6 +188,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
     if (this.readyState == 4) {
       response = this.responseText;
       if (this.status == 200) {
+console.log("response = " + response);        
         refreshTaskTypesAndDates(response);
       } else { //500
         showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
@@ -370,7 +372,6 @@ function sendCurrentDataToESP() { //send currently set data to ESP
 }
 
 function refreshTaskTypesAndDates(response) {
-    //    const jsonObject = JSON.parse(response);
     try {
         const jsonObject = JSON.parse(response);
         document.getElementById("taskDates").style.color = "black";

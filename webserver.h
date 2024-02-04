@@ -146,7 +146,7 @@ void sendLogToWebpage() {  //transfering ESP data to the Webpage
 
 void sendSettingsToWebpage() {  //transferring ESP settings => Webpage
   String value;
-  value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds + "," + ntpServer + "," + timezoneServer + "," + timeOffset + "," + showPastDates;
+  value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds + "," + ntpServer + "," + timezoneServer + "," + String(timeOffset) + "," + String(showPastDates) + "," + String(acknowledge);
   DEBUG_SERIAL.println("Sending settings: " + value);
   server.send(200, "text/plane", value);
 }

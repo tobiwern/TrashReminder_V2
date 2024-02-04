@@ -37,6 +37,7 @@ Helpful:
 #include <WiFiClient.h>
 
 const char* ipTimezoneServer = "https://ipapi.co/utc_offset";
+int timeOffset;
 
 #include <WiFiUdp.h>
 #define WM_DEBUG_LEVEL DEBUG_NOTIFY
@@ -176,7 +177,8 @@ void setupHardware() {
 
 void setupTimeClient() {
   timeClient.begin();
-  timeClient.setTimeOffset(getTimeOffsetFromPublicIP());  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
+  timeOffset = getTimeOffsetFromPublicIP();
+  timeClient.setTimeOffset(timeOffset);  //Autodetected from the IP! in seconds GMT+2 Berlin, GMT-4 NY => -3600*4 - UTC_offset * 3600
 }
 
 void setupWifiManager() {

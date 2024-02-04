@@ -139,6 +139,7 @@ function deleteLogOnESP() {
 }
 
 var gNTPServer;
+var gTimezoneServer;
 function requestSettingsFromESP() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -167,7 +168,9 @@ function requestSettingsFromESP() {
             gMaxNumberOfEpochs = tokens[2];
             gMaxNumberOfTasksPerDay = tokens[3]; //tasks per day
             gMaxNumberOfTaskIds = tokens[4]; //different tasks
-            gNTPServer = tokens[5]; //different tasks
+            gNTPServer = tokens[5]; 
+            gTimezoneServer = tokens[6]; 
+            gTimeOffset = tokens[7];
 console.log(gNTPServer);            
         }
     };

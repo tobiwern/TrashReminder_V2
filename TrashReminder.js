@@ -23,9 +23,9 @@ function acknowledge() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "Mülleimer steht draussen bestätigt!", "messageAcknowledge", gHideDelayDefault);
-            document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>"
             gAcknowledge = true;
-        }
+            refreshTabs();
+          }
     };
     xhttp.open("GET", "acknowledge", true);
     xhttp.send();
@@ -91,9 +91,9 @@ function restartTrashReminder() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "TrashReminder wurde neu gestartet!", "buttonMessage", gHideDelayDefault);
-            if(gAlarm){document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"}
             gAcknowledge = false;
             refreshTaskDates();
+            refreshTabs();
         }
     };
     xhttp.open("GET", "close", true);
@@ -785,7 +785,11 @@ function refreshTabs(){
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('download').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
   if(gAlarm){
-    document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"
+    if(gAcknowledge){
+      document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>"
+    } else {
+      document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"
+    }
   }else{
     document.getElementById("buttonAcknowledge").innerHTML =""
   }

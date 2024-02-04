@@ -63,7 +63,7 @@
           gap: 6px;
         }
 
-        div.taskType {
+        div.taskTypeTbl {
           display: flex;
           justify-content: left;
           align-items: center;

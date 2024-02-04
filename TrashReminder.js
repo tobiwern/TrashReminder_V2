@@ -205,6 +205,7 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
         message = "Übertragen der Daten war erfolgreich.";
         hideDelay = 5;
     }
+    console.log("jsonText = " + jsonText);
     var xhttp = new XMLHttpRequest();
     blockAction();
     xhttp.onreadystatechange = function () {
@@ -231,11 +232,12 @@ function sendValidTaskTypesToESP() {
         validTaskIds.push(i);
       }
     }
-showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageTaskTypes");
+//showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageTaskTypes");
     if (validTaskIds.length == 0) {
       showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
       return;
     }
+    console.log("validTaskIds = " +validTaskIds );
     gDataValidTaskIds = validTaskIds; //update in global Setup
     sendCurrentDataToESP(); //send updated data
 }
@@ -536,7 +538,7 @@ function getMatchingColor(task) {
 
 function genJson() {
     validTaskIds = getValidTaskIds();
-    console.log(validTaskIds);
+    console.log("validTaskIds = " + validTaskIds);
     var entries = [];
     var epochs = Object.keys(gEpochTaskDict);
     for (epoch of epochs) {
@@ -742,6 +744,7 @@ var canvas = document.createElement('canvas'); //Create a canvas element
 var context = canvas.getContext('2d');
 
 function blockAction(){
+  console.log("Blocking Action");
   //Set canvas width/height
   canvas.style.width='100%';
   canvas.style.height='100%';
@@ -765,6 +768,7 @@ function blockAction(){
 }
 
 function allowAction(){
+  console.log("Allowing Action");
   context.clearRect(0, 0 , screen.width,screen.height);
   canvas.style.pointerEvents='none';
 }

@@ -138,7 +138,7 @@ function deleteLogOnESP() {
     xhttp.send();
 }
 
-var gNTPServer;
+var gNtpServer;
 var gTimezoneServer;
 function requestSettingsFromESP() {
   var xhttp = new XMLHttpRequest();
@@ -168,12 +168,12 @@ function requestSettingsFromESP() {
       gMaxNumberOfEpochs = tokens[2];
       gMaxNumberOfTasksPerDay = tokens[3]; //tasks per day
       gMaxNumberOfTaskIds = tokens[4]; //different tasks
-      gNTPServer = tokens[5]; 
+      gNtpServer = tokens[5]; 
       gTimezoneServer = tokens[6]; 
-      gTimeOffset = tokens[7];
-      gOptionShowPastDates = tokens[8];
+      gtimeOffset = tokens[7];
+      gShowPastDates = tokens[8];
       gAcknowledge = tokens[9];
-console.log("gNTPServer = " + gNTPServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gOptionShowPastDates = " + gOptionShowPastDates + ", acknowledge = " + gAcknowledge);            
+console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gtimeOffset = " + gtimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);            
     }
   };
   xhttp.open("GET", "request_settings", true);
@@ -336,7 +336,7 @@ var gDataTasks = [];
 var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
-var gOptionShowPastDates = false;
+var gShowPastDates = false;
 var gNoDates = false;
 var gFutureDates = 0;
 
@@ -434,7 +434,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
     }
     var show = true;
     futureDate = false;
-    if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; futureDate=true;} else { style = "color: lightgrey;"; show = gOptionShowPastDates;} 
+    if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; futureDate=true;} else { style = "color: lightgrey;"; show = gShowPastDates;} 
     if ((selectedTaskIds.length >= 1) && show) {
       if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
       if(futureDate){gFutureDates++;}
@@ -711,18 +711,30 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
   $('.blink').fadeOut(500).fadeIn(500, blink); 
 })();
 
-function refreshOptionShowPastDates(){
-console.log("refreshOptionShowPastDates: gOptionShowPastDates = " + gOptionShowPastDates);  
-  document.getElementById("optionShowPastDates").checked = gOptionShowPastDates;
+function refreshShowPastDates(){
+console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
+  document.getElementById("showPastDates").checked = gShowPastDates;
 }
 
-function handleOptionShowPastDates(){
-  gOptionShowPastDates = document.getElementById("optionShowPastDates").checked;
+function refreshNtpServer(){
+  document.getElementById("ntpServer").text = gNtpServer;
+}
+
+function refreshTimezoneServer(){
+  document.getElementById("timezoneServer").text = gTimezoneServer;
+}
+
+function refreshtimeOffset(){
+  document.getElementById("timeOffset").text = (gTimeOffset>=0?"+":"-") + gtimeOffset/3600;
+}
+
+function handleShowPastDates(){
+  gShowPastDates = document.getElementById("showPastDates").checked;
   refreshTaskDates(false);
-  sendOptionShowPastDatesToESP();
+  sendShowPastDatesToESP();
 }
 
-function sendOptionShowPastDatesToESP(){
+function sendShowPastDatesToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -730,7 +742,7 @@ function sendOptionShowPastDatesToESP(){
           showMessage("I", response, "messageOptions", gHideDelayDefault);
       }
   };
-  xhttp.open("GET", "set_show_past_dates?value=" + (gOptionShowPastDates?1:0), true);  //convert bool to int
+  xhttp.open("GET", "set_show_past_dates?value=" + (gShowPastDates?1:0), true);  //convert bool to int
   xhttp.send();
 }
 
@@ -867,7 +879,7 @@ function refreshTab_DATES(){
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
-  if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
+  if(!gNoDates && gShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
   document.getElementById("descriptionDates").innerHTML = description;  
   // handle buttons
   if(gAlarm){
@@ -909,8 +921,8 @@ function buildTab_SETTINGS(){
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Optionen</div></h3>
   <table width="80%">
     <tr>
-    <td><input type='checkbox' id="optionShowPastDates" onchange='handleOptionShowPastDates()'>
-    <label for="optionShowPastDates">Vergangene Termine anzeigen</label></td>
+    <td><input type='checkbox' id="showPastDates" onchange='handleShowPastDates()'>
+    <label for="showPastDates">Vergangene Termine anzeigen</label></td>
     </tr>
   </table><br>
   <div id='messageOptions'></div>
@@ -920,16 +932,16 @@ function buildTab_SETTINGS(){
   Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
   <table width="80%">
     <tr>
-      <td class=description><label for="timeoffset">Zeitzone:</label></td>
-      <td class=value><select id="timeoffset" name="timeoffset" onchange='sendTimeOffsetToESP()'></select></td>
+      <td class=description><label for="timeOffset">Zeitzone:</label></td>
+      <td class=value><input type="text" id="timeOffset" name="timeOffset" onfocusout='sendTimeOffsetToESP()'></td>
     </tr>
     <tr>
-      <td class=description><label for="timezoneserver">Zeitzonen Server:</label></td>
-      <td class=value><input type="text" id="timezoneserver" name="timezoneserver" onfocusout='sendTimezoneServerToESP()''></td>
+      <td class=description><label for="timezoneServer">Zeitzonen Server:</label></td>
+      <td class=value><input type="text" id="timezoneServer" name="timezoneServer" onfocusout='sendTimezoneServerToESP()'></td>
     </tr>
     <tr>
-      <td class=description><label for="ntpserver">NTP Zeit-Server:</label></td>
-      <td class=value><input type="text" id="ntpserver" name="ntpserver" onfocusout='sendNtpServerToESP()''></td>
+      <td class=description><label for="ntpServer">NTP Zeit-Server:</label></td>
+      <td class=value><input type="text" id="ntpServer" name="ntpServer" onfocusout='sendNtpServerToESP()'></td>
     </tr>
     <tr>
     <td colspan=2>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</td>
@@ -941,7 +953,10 @@ function buildTab_SETTINGS(){
 }
 
 function refreshTab_SETTINGS(){
-  refreshOptionShowPastDates();
+  refreshShowPastDates();
+  refreshNtpServer();
+  refreshTimezoneServer();
+  refreshtimeOffset();
 }
 
 // DATA /////////////////////////////////////

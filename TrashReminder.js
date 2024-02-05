@@ -140,6 +140,7 @@ function deleteLogOnESP() {
 
 var gNtpServer;
 var gTimezoneServer;
+var gTimeOffset;
 function requestSettingsFromESP() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -170,10 +171,10 @@ function requestSettingsFromESP() {
       gMaxNumberOfTaskIds = tokens[4]; //different tasks
       gNtpServer = tokens[5]; 
       gTimezoneServer = tokens[6]; 
-      gtimeOffset = tokens[7];
+      gTimeOffset = tokens[7];
       gShowPastDates = (tokens[8]==1?true:false);
       gAcknowledge = tokens[9];
-console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gtimeOffset = " + gtimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);            
+console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);            
     }
   };
   xhttp.open("GET", "request_settings", true);
@@ -711,29 +712,59 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
   $('.blink').fadeOut(500).fadeIn(500, blink); 
 })();
 
-function refreshShowPastDates(){
-console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
-  document.getElementById("showPastDates").checked = gShowPastDates;
-}
-
 function refreshNtpServer(){
   document.getElementById("ntpServer").value = gNtpServer;
+}
+
+function sendNtpServerToESP(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          response = this.responseText;
+          showMessage("I", response, "messageOptions", gHideDelayDefault);
+      }
+  };
+  xhttp.open("GET", "set_ntp_server?value=" + document.getElementById("ntpServer").value, true);
+  xhttp.send();
 }
 
 function refreshTimezoneServer(){
   document.getElementById("timezoneServer").value = gTimezoneServer;
 }
 
+function sendTimezoneServerToESP(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          response = this.responseText;
+          showMessage("I", response, "messageOptions", gHideDelayDefault);
+      }
+  };
+  xhttp.open("GET", "set_time_zone_server?value=" + document.getElementById("timezoneServer").value, true);
+  xhttp.send();
+}
+
 function refreshtimeOffset(){
-  document.getElementById("timeOffset").value = (gTimeOffset>=0?"+":"-") + gtimeOffset/3600;
+  document.getElementById("timeOffset").value = (gTimeOffset>=0?"+":"-") + gTimeOffset/3600;
 }
 
-function handleShowPastDates(){
-  gShowPastDates = document.getElementById("showPastDates").checked;
-  refreshTaskDates(false);
-  sendShowPastDatesToESP();
+function sendTimeOffsetToESP(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          response = this.responseText;
+          showMessage("I", response, "messageOptions", gHideDelayDefault);
+      }
+  };
+  xhttp.open("GET", "set_time_offset?value=" + document.getElementById("timeOffset").value*3600, true); 
+  xhttp.send();
 }
 
+function refreshShowPastDates(){
+  console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
+    document.getElementById("showPastDates").checked = gShowPastDates;
+  }
+  
 function sendShowPastDatesToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -744,6 +775,12 @@ function sendShowPastDatesToESP(){
   };
   xhttp.open("GET", "set_show_past_dates?value=" + (gShowPastDates?1:0), true);  //convert bool to int
   xhttp.send();
+}
+
+function handleShowPastDates(){ //page update
+  gShowPastDates = document.getElementById("showPastDates").checked;
+  refreshTaskDates(false);
+  sendShowPastDatesToESP();
 }
 
 var canvas = document.createElement('canvas'); //Create a canvas element

@@ -171,7 +171,7 @@ function requestSettingsFromESP() {
       gNtpServer = tokens[5]; 
       gTimezoneServer = tokens[6]; 
       gtimeOffset = tokens[7];
-      gShowPastDates = tokens[8];
+      gShowPastDates = (tokens[8]==1?true:false);
       gAcknowledge = tokens[9];
 console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gtimeOffset = " + gtimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);            
     }
@@ -713,7 +713,7 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
 
 function refreshShowPastDates(){
 console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
-  document.getElementById("showPastDates").checked = (gShowPastDates==1?true:false);
+  document.getElementById("showPastDates").checked = gShowPastDates;
 }
 
 function refreshNtpServer(){

@@ -36,7 +36,7 @@ Helpful:
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-const char* timezoneServer = "https://ipapi.co/utc_offset";
+String timezoneServer = "https://ipapi.co/utc_offset";
 int timeOffset;
 
 //options 
@@ -55,8 +55,8 @@ WiFiManager wm;
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
 //NTPClient timeClient(ntpUDP, "pool.ntp.org");
-const char* ntpServer = "ntp.se";
-NTPClient timeClient(ntpUDP, ntpServer);
+String ntpServer = "ntp.se";
+NTPClient timeClient(ntpUDP, ntpServer.c_str());
 unsigned int nowEpoch = 0;  //global since only querying every minute
 unsigned int timeEpochLast = 0;
 int maxTimeEpochDelta = 60 * 60;  //in seconds => 1 hour difference
@@ -314,7 +314,7 @@ int getTimeOffsetFromPublicIP() {
   WiFiClientSecure client;
   String payload;
   client.setInsecure();
-  client.connect(timezoneServer, 443);
+  client.connect(timezoneServer.c_str(), 443);
   http.begin(client, timezoneServer);
   int httpCode = http.GET();
   if (httpCode == 200) {

@@ -103,6 +103,7 @@ boolean initDataFromFile() {
 void initSettingsFromFile() {
   if (!startLittleFS()) { return; }
   DEBUG_SERIAL.printf("INFO: Reading file: %s\n", settingsFile);
+//  Serial.println("TOBI: File = " + String(readFile(settingsFile)));
   File file = LittleFS.open(settingsFile, "r");
   if (!file) {
     DEBUG_SERIAL.println("INFO: Failed to open file " + String(settingsFile) + " for reading!");
@@ -118,7 +119,11 @@ void initSettingsFromFile() {
   }
   startHour = doc["startHour"];
   endHour = doc["endHour"];
+  ntpServer = String(doc["ntpServer"]);
+  timezoneServer = String(doc["timezoneServer"]);
+  timeOffset = doc["timeOffset"];
   showPastDates = doc["showPastDates"];
+  Serial.println("Read Settings: startHour=" + String(startHour) + ", endHour=" + String(endHour) + ", ntpServer=" + ntpServer + ", timezoneServer=" + timezoneServer + ", timeOffset=" + String(timeOffset) + ", showPastDates=" + String(showPastDates));
   file.close();
   endLittleFS();
 }
@@ -165,12 +170,13 @@ void writeSettingsToFile() {
   String jsonText = ""; 
   jsonText = "{\"startHour\":" + String(startHour) 
   + ",\"endHour\":" + String(endHour)
-  + ",\"ntpServer\":" + String(ntpServer)
-  + ",\"timezoneServer\":" + String(timezoneServer)
+  + ",\"ntpServer\":\"" + String(ntpServer) + "\""
+  + ",\"timezoneServer\":\"" + String(timezoneServer) + "\""
   + ",\"timeOffset\":" + String(timeOffset) 
   + ",\"showPastDates\":" + String(showPastDates) + "}";
   DEBUG_SERIAL.println("Writing settings: " + jsonText);
   writeFile(settingsFile, jsonText.c_str());
+Serial.println(String(readFile(settingsFile)));
   showFSInfo();
   initSettingsFromFile();
 }
@@ -283,6 +289,7 @@ void deleteTasks() {
 
 void deleteLog() {
   DEBUG_SERIAL.println("Delete Logfile.");
+  deleteFile(settingsFile);
   if (deleteFile(logFile)) {
     server.send(200, "text/plane", "OK");
   } else {

@@ -141,43 +141,43 @@ function deleteLogOnESP() {
 var gNTPServer;
 var gTimezoneServer;
 function requestSettingsFromESP() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            //populate options
-            const dropdowns = ["start", "end"];
-            dropdowns.forEach(function (item) {
-                for (var i = 0; i <= 23; i++) {
-                    var el = document.createElement("option");
-                    el.textContent = i + " Uhr";
-                    el.value = i;
-                    document.getElementById(item).appendChild(el);
-                }
-            });
-            value = this.responseText;
-            tokens = value.split(",");
-            document.getElementById("start").value = tokens[0];
-            document.getElementById("end").value = tokens[1];
-            // document.addEventListener('DOMContentLoaded', function () {
-            //     enableEventListener('start');
-            //     enableEventListener('end');
-            // });
-            // function enableEventListener(dropdown) {
-            //     document.getElementById(dropdown).addEventListener('change', function () { sendDropDownStateToESP(dropdown); });
-            // }
-            gMaxNumberOfEpochs = tokens[2];
-            gMaxNumberOfTasksPerDay = tokens[3]; //tasks per day
-            gMaxNumberOfTaskIds = tokens[4]; //different tasks
-            gNTPServer = tokens[5]; 
-            gTimezoneServer = tokens[6]; 
-            gTimeOffset = tokens[7];
-            gOptionShowPastDates = tokens[8];
-            gAcknowledge = tokens[9];
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      //populate options
+      const dropdowns = ["start", "end"];
+      dropdowns.forEach(function (item) {
+        for (var i = 0; i <= 23; i++) {
+          var el = document.createElement("option");
+          el.textContent = i + " Uhr";
+          el.value = i;
+          document.getElementById(item).appendChild(el);
+        }
+      });
+      value = this.responseText;
+      tokens = value.split(",");
+      document.getElementById("start").value = tokens[0];
+      document.getElementById("end").value = tokens[1];
+      // document.addEventListener('DOMContentLoaded', function () {
+      //     enableEventListener('start');
+      //     enableEventListener('end');
+      // });
+      // function enableEventListener(dropdown) {
+      //     document.getElementById(dropdown).addEventListener('change', function () { sendDropDownStateToESP(dropdown); });
+      // }
+      gMaxNumberOfEpochs = tokens[2];
+      gMaxNumberOfTasksPerDay = tokens[3]; //tasks per day
+      gMaxNumberOfTaskIds = tokens[4]; //different tasks
+      gNTPServer = tokens[5]; 
+      gTimezoneServer = tokens[6]; 
+      gTimeOffset = tokens[7];
+      gOptionShowPastDates = tokens[8];
+      gAcknowledge = tokens[9];
 console.log("gNTPServer = " + gNTPServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gOptionShowPastDates = " + gOptionShowPastDates + ", acknowledge = " + gAcknowledge);            
-          }
-    };
-    xhttp.open("GET", "request_settings", true);
-    xhttp.send();
+    }
+  };
+  xhttp.open("GET", "request_settings", true);
+  xhttp.send();
 }
 
 function requestTasksFromESP(show = true) { //send the ESP data to the webpage
@@ -712,6 +712,7 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
 })();
 
 function refreshOptionShowPastDates(){
+console.log("refreshOptionShowPastDates: gOptionShowPastDates = " + gOptionShowPastDates);  
   document.getElementById("optionShowPastDates").checked = gOptionShowPastDates;
 }
 
@@ -863,7 +864,7 @@ function refreshTab_DATES(){
   } else if(gFutureDates == 0){
     description += "<div style='color: orange'>Es liegen keine zukünftigen Abholtermine vor.</div><br>";
   } else {    
-    description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br>";
+    description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   if(!gNoDates && gOptionShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}

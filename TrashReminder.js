@@ -713,7 +713,7 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
 
 function refreshShowPastDates(){
 console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
-  document.getElementById("showPastDates").checked = gShowPastDates;
+  document.getElementById("showPastDates").checked = (gShowPastDates==1?true:false);
 }
 
 function refreshNtpServer(){

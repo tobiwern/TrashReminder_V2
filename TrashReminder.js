@@ -717,15 +717,15 @@ console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);
 }
 
 function refreshNtpServer(){
-  document.getElementById("ntpServer").text = gNtpServer;
+  document.getElementById("ntpServer").value = gNtpServer;
 }
 
 function refreshTimezoneServer(){
-  document.getElementById("timezoneServer").text = gTimezoneServer;
+  document.getElementById("timezoneServer").value = gTimezoneServer;
 }
 
 function refreshtimeOffset(){
-  document.getElementById("timeOffset").text = (gTimeOffset>=0?"+":"-") + gtimeOffset/3600;
+  document.getElementById("timeOffset").value = (gTimeOffset>=0?"+":"-") + gtimeOffset/3600;
 }
 
 function handleShowPastDates(){

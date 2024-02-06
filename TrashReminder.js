@@ -173,7 +173,7 @@ function requestSettingsFromESP() {
       gTimezoneServer = tokens[6]; 
       gTimeOffset = tokens[7];
       gShowPastDates = (tokens[8]==1?true:false);
-      gAcknowledge = tokens[9];
+      gAcknowledge = (tokens[9]==1?true:false);
 console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);            
     }
   };
@@ -922,8 +922,10 @@ function refreshTab_DATES(){
   if(gAlarm){
     if(gAcknowledge){
       document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>"
+      document.getElementById("buttonAcknowledge").background-color = "#d7c775"
     } else {
       document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"
+      document.getElementById("buttonAcknowledge").background-color = "#4CAF50"
     }
   }else{
     document.getElementById("buttonAcknowledge").innerHTML =""

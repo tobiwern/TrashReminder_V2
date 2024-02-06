@@ -92,7 +92,7 @@ function restartTrashReminder() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "TrashReminder wurde neu gestartet!", "messageButton", gHideDelayDefault);
-            showMessage("I", Erinnerung wieder eingeschaltet!", "messageAcknowledge", gHideDelayDefault);
+            showMessage("I", "Erinnerung wieder eingeschaltet!", "messageAcknowledge", gHideDelayDefault);
             gAcknowledge = false;
             refreshTaskDates();
             refreshTabs();

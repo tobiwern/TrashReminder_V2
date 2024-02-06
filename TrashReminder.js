@@ -574,8 +574,9 @@ function genJson() {
       return;
     }
     sendTasksToESP(jsonText);
+    refreshTabs();
     gFilesLoaded = false;
-    refreshTab_DATA();
+    gTasksAvailable = true;
 }
 
 function checkMaxNumberOfEntries() {
@@ -1032,6 +1033,7 @@ function buildTab_DATA(){
 }
 
 gFilesLoaded = false;
+gTasksAvailable = false;
 function refreshTab_DATA(){
   var downloadButton = "";
   if(!gFilesLoaded){
@@ -1041,7 +1043,9 @@ function refreshTab_DATA(){
     `;
   } else {
     document.getElementById("tasks").innerHTML = "";
-//    document.getElementById("dates").click();
+    if(gTasksAvailable){
+      document.getElementById("dates").click();
+    }
   }
   document.getElementById("buttonDownload").innerHTML = downloadButton;
 

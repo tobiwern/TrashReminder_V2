@@ -495,6 +495,8 @@ function processFiles() {
             }
             showCheckBoxes(gTasks); //executed multiple times per loaded file, however ok
             checkMaxNumberOfEntries();
+            gFilesLoaded = true;
+            refreshTab_DATA();
         }; //on load
         reader.readAsText(file);
     }
@@ -571,6 +573,8 @@ function genJson() {
       return;
     }
     sendTasksToESP(jsonText);
+    gFilesLoaded = false;
+    refreshTab_DATA();
 }
 
 function checkMaxNumberOfEntries() {
@@ -1005,12 +1009,9 @@ function buildTab_DATA(){
   content += `
   <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
   <hr>
-  <table>
-    <tr><td><label for="start">Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:</label><br><br></td></tr>
-    <tr><td><label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label><br></td></tr>
-    <tr><td><div id='tasks'></div></td></tr>
-  </table>
-
+  <div id='buttonDownload'></div>
+  <div id='tasks'></div>
+  
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
   <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
   angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. "Abfuhrtermine Weil im Schönbuch".</div><br>
@@ -1029,7 +1030,17 @@ function buildTab_DATA(){
   document.getElementById("content_DATA").innerHTML = content;
 }
 
+gFilesLoaded = false;
 function refreshTab_DATA(){
+  var downloadButton = "";
+  if(!gFilesLoaded){
+    downloadButton = `
+    Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:
+    <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
+    `;
+  }
+  document.getElementById("buttonDownload").innerHTML = downloadButton;
+
   var description = "";
   var buttonDelete = "";
   if(!gNoDates){

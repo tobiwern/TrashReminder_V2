@@ -289,7 +289,7 @@ void deleteTasks() {
 
 void deleteLog() {
   DEBUG_SERIAL.println("Delete Logfile.");
-  deleteFile(settingsFile);
+//  deleteFile(settingsFile);
   if (deleteFile(logFile)) {
     server.send(200, "text/plane", "OK");
   } else {

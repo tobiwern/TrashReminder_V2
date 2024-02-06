@@ -1041,7 +1041,7 @@ function refreshTab_DATA(){
     `;
   } else {
     document.getElementById("tasks").innerHTML = "";
-    document.getElementById("dates").click();
+//    document.getElementById("dates").click();
   }
   document.getElementById("buttonDownload").innerHTML = downloadButton;
 

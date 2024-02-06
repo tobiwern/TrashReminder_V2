@@ -298,6 +298,7 @@ function deleteTasksOnESP() {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
         requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
+        refreshTab_DATA();
       } else { //500
         showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault);
       }
@@ -1040,7 +1041,7 @@ function refreshTab_DATA(){
     `;
   } else {
     document.getElementById("tasks").innerHTML = "";
-    document.getElementById("data").click();
+    document.getElementById("dates").click();
   }
   document.getElementById("buttonDownload").innerHTML = downloadButton;
 

@@ -338,8 +338,9 @@ var gDataValidTaskIds = [];
 var gAlarm = false;
 var gAcknowledge = false;
 var gShowPastDates = false;
-var gNoDates = false;
+var gNoDates = true;
 var gFutureDates = 0;
+var gInitialized = false;
 
 function initDataFromJson(jsonObject) {
     var epochTasks = jsonObject["epochTasks"];
@@ -872,7 +873,7 @@ function createWebpage() {
   document.getElementById("body").innerHTML = innerHTML;
   addFavicon();
   buildTabs();
-  refreshTabs();
+//  refreshTabs();
   handleTabSelection();
 }
 

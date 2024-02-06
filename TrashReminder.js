@@ -298,6 +298,7 @@ function deleteTasksOnESP() {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
         gNoDates = true;
+        gFutureDates = 0;
         requestTasksFromESP(false); //ToDo: better delete data locally - if deleting the values on the ESP was successful => refresh the "current values" on the webpage
         document.getElementById("taskDates").innerHTML = "";
         refreshTabs();

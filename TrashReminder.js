@@ -22,7 +22,7 @@ function acknowledge() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "Mülleimer steht draussen bestätigt!", "messageAcknowledge", gHideDelayDefault);
+            showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
             gAcknowledge = true;
             refreshTabs();
           }

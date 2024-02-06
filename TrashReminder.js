@@ -1042,8 +1042,8 @@ function refreshTab_DATA(){
     <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
     `;
   } else {
-    document.getElementById("tasks").innerHTML = "";
     if(gTasksAvailable){
+      document.getElementById("tasks").innerHTML = "";
       document.getElementById("dates").click();
     }
   }

@@ -195,7 +195,7 @@ console.log("response = " + response);
         showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
-        document.getElementById("data").click();
+//        document.getElementById("data").click();
         gNoDates = true;
 //        refreshTabs();
       }

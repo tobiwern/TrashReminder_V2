@@ -298,7 +298,7 @@ function deleteTasksOnESP() {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
         gNoDates = true;
-        requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
+        requestTasksFromESP(false); //ToDo: better delete data locally - if deleting the values on the ESP was successful => refresh the "current values" on the webpage
         document.getElementById("taskDates").innerHTML = "";
         refreshTabs();
       } else { //500
@@ -576,10 +576,11 @@ function genJson() {
       return;
     }
     sendTasksToESP(jsonText);
-    document.getElementById("tasks").innerHTML = "";
+    initDataFromJson(obj);
     refreshTaskTypes();
     refreshTaskDates();
     refreshTabs();
+    document.getElementById("tasks").innerHTML = ""; //deleteTaskType selection 
     document.getElementById("dates").click();
     gFilesLoaded = false;
 }

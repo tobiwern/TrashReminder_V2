@@ -24,6 +24,7 @@ function acknowledge() {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
             gAcknowledge = true;
+            refreshTaskDates();
             refreshTabs();
           }
     };

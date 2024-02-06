@@ -574,7 +574,7 @@ function genJson() {
     var jsonText = '{"tasks":["' + gTasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';
     console.log(jsonText);
     try {
-      const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
+      var obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
     } catch (e) {
       showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "messageDeleteTasks");
       return;
@@ -587,6 +587,7 @@ function genJson() {
     document.getElementById("tasks").innerHTML = ""; //deleteTaskType selection 
     document.getElementById("dates").click();
     gFilesLoaded = false;
+
 }
 
 function checkMaxNumberOfEntries() {

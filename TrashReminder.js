@@ -1009,7 +1009,7 @@ function refreshTab_SETTINGS(){
 function buildTab_DATA(){
   var content = "";
   content += `
-  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
+  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder neu Termine (z.B. für das nächste Jahr) gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
   <hr>
   <div id='buttonDownload'></div>
   <div id='tasks'></div>

@@ -1035,9 +1035,12 @@ function refreshTab_DATA(){
   var downloadButton = "";
   if(!gFilesLoaded){
     downloadButton = `
-    Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:
+    Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:<br>
     <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
     `;
+  } else {
+    document.getElementById("tasks").innerHTML = "";
+    document.getElementById("data").click();
   }
   document.getElementById("buttonDownload").innerHTML = downloadButton;
 

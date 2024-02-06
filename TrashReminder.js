@@ -576,8 +576,10 @@ function genJson() {
     }
     sendTasksToESP(jsonText);
     document.getElementById("tasks").innerHTML = "";
-    document.getElementById("dates").click();
+    refreshTaskTypes();
+    refreshTaskDates();
     refreshTabs();
+    document.getElementById("dates").click();
     gFilesLoaded = false;
 }
 
@@ -1011,7 +1013,7 @@ function refreshTab_SETTINGS(){
 function buildTab_DATA(){
   var content = "";
   content += `
-  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder neue Termine (z.B. für das nächste Jahr) gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. Hierbei werden die bestehenden Daten <b>überschrieben</b>!</div>
+  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder neue Termine (z.B. für das nächste Jahr) gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden. (Hierbei werden bestehenden Daten überschrieben.)</div>
   <hr>
   <div id='buttonDownload'></div>
   <div id='tasks'></div>

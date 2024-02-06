@@ -297,6 +297,7 @@ function deleteTasksOnESP() {
     if (this.readyState == 4) {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
+        gNoDates = true;
         requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
         refreshTabs();
       } else { //500
@@ -574,9 +575,10 @@ function genJson() {
       return;
     }
     sendTasksToESP(jsonText);
+    document.getElementById("tasks").innerHTML = "";
+    document.getElementById("dates").click();
     refreshTabs();
     gFilesLoaded = false;
-    gTasksAvailable = true;
 }
 
 function checkMaxNumberOfEntries() {
@@ -1033,7 +1035,6 @@ function buildTab_DATA(){
 }
 
 gFilesLoaded = false;
-gTasksAvailable = false;
 function refreshTab_DATA(){
   var downloadButton = "";
   if(!gFilesLoaded){
@@ -1041,11 +1042,6 @@ function refreshTab_DATA(){
     Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:<br><br>
     <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
     `;
-  } else {
-    if(gTasksAvailable){
-      document.getElementById("tasks").innerHTML = "";
-      document.getElementById("dates").click();
-    }
   }
   document.getElementById("buttonDownload").innerHTML = downloadButton;
 

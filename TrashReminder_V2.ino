@@ -8,6 +8,7 @@ ESP:
   - Should we have a logFile that is overwritten when running out of space? Could help debug - Or have a "Send/Delete Logfile" option in the GUI 
   - "Not found" when opening page in browser?
   - How can we go in demoMode without configuring WiFi?
+  - delete settingsFile when json deserialization is unsuccessful
 - NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
   - update() =>  @return true on success, false on failure
   - if glitch => first wait for a minute, then query again
@@ -157,7 +158,7 @@ int offDuration = 5 * 1000;  // 5 sec after trashcan was lifted the blinking sta
 
 void setup() {
   setupHardware();
-  //deleteFile("nvs");
+  //deleteFile(settingsFile);
   setupWifiManager();
   setupTimeClient();
   showFSInfo();

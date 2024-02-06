@@ -919,16 +919,17 @@ function refreshTab_DATES(){
   if(!gNoDates && gShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
   document.getElementById("descriptionDates").innerHTML = description;  
   // handle buttons
+  document.getElementById("buttonAcknowledge").background-color = "#4CAF50"; //reset color
   if(gAlarm){
     if(gAcknowledge){
       document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>";
       document.getElementById("buttonAcknowledge").background-color = "#d7c775";
     } else {
       document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>";
-      document.getElementById("buttonAcknowledge").background-color = "#4CAF50";
     }
   }else{
     document.getElementById("buttonAcknowledge").innerHTML ="";
+    
   }
 }
 

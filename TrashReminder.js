@@ -974,17 +974,17 @@ function buildTab_SETTINGS(){
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Zeit Einstellungen</div></h3>
   Die folgenden Einstellungen werden normalerweise automatisch ermittelt, können aber hier überschrieben werden.<br><br>
-  <table width="80%">
+  <table width="100%">
     <tr>
-      <td class=description><label for="timeOffset">Zeitzone:</label></td>
+      <td class=value><label for="timeOffset">Zeitzone:</label></td>
       <td class=value><input type="text" id="timeOffset" name="timeOffset" onfocusout='sendTimeOffsetToESP()'></td>
     </tr>
     <tr>
-      <td class=description><label for="timezoneServer">Zeitzonen Server:</label></td>
+      <td class=value><label for="timezoneServer">Zeitzonen Server:</label></td>
       <td class=value><input type="text" id="timezoneServer" name="timezoneServer" onfocusout='sendTimezoneServerToESP()'></td>
     </tr>
     <tr>
-      <td class=description><label for="ntpServer">NTP Zeit-Server:</label></td>
+      <td class=value><label for="ntpServer">NTP Zeit-Server:</label></td>
       <td class=value><input type="text" id="ntpServer" name="ntpServer" onfocusout='sendNtpServerToESP()'></td>
     </tr>
     <tr>

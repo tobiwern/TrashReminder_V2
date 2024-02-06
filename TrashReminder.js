@@ -297,7 +297,7 @@ function deleteTasksOnESP() {
     if (this.readyState == 4) {
       if (this.status == 200) {
         showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
-//        requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
+        requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
       } else { //500
         showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault);
       }
@@ -921,14 +921,14 @@ function refreshTab_DATES(){
   // handle buttons
   if(gAlarm){
     if(gAcknowledge){
-      document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>"
-      document.getElementById("buttonAcknowledge").background-color = "#d7c775"
+      document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>";
+      document.getElementById("buttonAcknowledge").background-color = "#d7c775";
     } else {
-      document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>"
-      document.getElementById("buttonAcknowledge").background-color = "#4CAF50"
+      document.getElementById("buttonAcknowledge").innerHTML ="<button class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>";
+      document.getElementById("buttonAcknowledge").background-color = "#4CAF50";
     }
   }else{
-    document.getElementById("buttonAcknowledge").innerHTML =""
+    document.getElementById("buttonAcknowledge").innerHTML ="";
   }
 }
 

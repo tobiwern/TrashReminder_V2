@@ -197,7 +197,9 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
+        document.getElementById("taskDates").innerHTML = "";
         gNoDates = true;
+        refreshTabs();
       }        
     }
   };

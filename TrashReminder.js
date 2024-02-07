@@ -906,7 +906,7 @@ function refreshTabs(){
     refreshTab_DATA();
     refreshTab_HELP();
   } else {
-    document.getElementById("taskDates").innerHTML = "<div style='animation: blinker 1s linear infinite;"'>Lade Abfuhrtermine...</div><br>";
+    document.getElementById("taskDates").innerHTML = "<div style='animation: blinker 1s linear infinite;'>Lade Abfuhrtermine...</div><br>";
   }
 }
 

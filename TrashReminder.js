@@ -194,7 +194,7 @@ console.log("response = " + response);
         gInitialized = true;        
         refreshTaskTypesAndDates(response);
       } else { //500
-        showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
+        showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
 //        document.getElementById("data").click();
@@ -460,7 +460,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
   }
   text += "</table>";
   document.getElementById("taskDates").innerHTML = text;
-  document.getElementById("futureDates").innerHTML = gFutureDates + " Abholtermine stehen noch an.<br><br>";
+  document.getElementById("futureDates").innerHTML = gFutureDates + " Abfuhrtermine stehen noch an.<br><br>";
 }
 
 /// ICS/iCAL Processing ////////////////////////////////////////////////////////////////////
@@ -597,7 +597,7 @@ function checkMaxNumberOfEntries() {
     }
     var epochs = Object.keys(gEpochTaskDict);
     if (epochs.length > gMaxNumberOfEpochs) {
-        text += "Anzahl der Abholtermine ist " + epochs.length + ". Es werden maximal " + gMaxNumberOfEpochs + " <b>Abholtermine</b> unterstützt!<br>";
+        text += "Anzahl der Abfuhrtermine ist " + epochs.length + ". Es werden maximal " + gMaxNumberOfEpochs + " <b>Abfuhrtermine</b> unterstützt!<br>";
     }
     for (const epoch of epochs) {
         var tasks = gEpochTaskDict[epoch]["tasks"];
@@ -614,7 +614,7 @@ function checkMaxNumberOfEntries() {
 
 function showCheckBoxes(items) {
     var i = 0;
-    var text = "<i>Es wurden " + Object.keys(gEpochTaskDict).length + " Abholtermine in ";
+    var text = "<i>Es wurden " + Object.keys(gEpochTaskDict).length + " Abfuhrtermine in ";
     if (document.getElementById('files').files.length > 1) {
         text += "den Dateien gefunden.</i>";
     } else {
@@ -907,6 +907,8 @@ function refreshTabs(){
     refreshTab_SETTINGS();
     refreshTab_DATA();
     refreshTab_HELP();
+  } else {
+    document.getElementById("taskDates").innerHTML = "Lade Abfuhrtermine...";
   }
 }
 
@@ -929,9 +931,9 @@ function buildTab_DATES(){
 function refreshTab_DATES(){
   var description = "";
   if(gNoDates){
-    description += "<div style='color: orange'>Es sind noch keine Abholtermine gespeichert!</div><br>";
+    description += "<div style='color: orange'>Es sind noch keine Abfuhrtermine gespeichert!</div><br>";
   } else if(gFutureDates == 0){
-    description += "<div style='color: orange'>Es liegen keine zukünftigen Abholtermine vor.</div><br>";
+    description += "<div style='color: orange'>Es liegen keine zukünftigen Abfuhrtermine vor.</div><br>";
   } else {    
     description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }
@@ -1058,8 +1060,8 @@ function refreshTab_DATA(){
   var buttonDelete = "";
   if(!gNoDates){
     description += `
-    <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abholtermine</div></h3> 
-    Über den nachstehenden Button können alle Abholtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>
+    <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abfuhrtermine</div></h3> 
+    Über den nachstehenden Button können alle Abfuhrtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>
     `;
     buttonDelete = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";
   }
@@ -1070,7 +1072,7 @@ function refreshTab_DATA(){
 // HELP /////////////////////////////////////
 function buildTab_HELP(){
   var content = `
-  Mehr Infos zur "Müll-Erinnerung gibt es unter <a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
+  Mehr Infos zur "Müll-Erinnerung gibt es unter<br><a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
   <br><br>
   <div id='messageButton'></div>
   <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>

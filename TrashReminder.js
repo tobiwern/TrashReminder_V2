@@ -22,7 +22,7 @@ function acknowledge() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
+//            showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
             gAcknowledge = true;
             refreshTaskDates();
             refreshTabs();
@@ -92,7 +92,7 @@ function restartTrashReminder() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "TrashReminder wurde neu gestartet!", "messageButton", gHideDelayDefault);
-            showMessage("I", "Erinnerung wieder eingeschaltet!", "messageAcknowledge", gHideDelayDefault);
+//            showMessage("I", "Erinnerung wieder eingeschaltet!", "messageAcknowledge", gHideDelayDefault);
             gAcknowledge = false;
             refreshTaskDates();
             refreshTabs();
@@ -939,7 +939,7 @@ function refreshTab_DATES(){
   // handle buttons
   if(gAlarm){
     if(gAcknowledge){
-      document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#4CAF50;' class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>";
+      document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#a89477;' class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>";
 //      document.getElementById("buttonAcknowledge").style.backgroundColor = "#d7c775";
     } else {
       document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#4CAF50;' class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>";

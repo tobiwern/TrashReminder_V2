@@ -311,8 +311,9 @@ void resetWifiSettings() {
 }
 
 void receiveFromWebpage_Acknowledge() {  //ToDo: Need to version webpages
-  DEBUG_SERIAL.println("Acknowledge...");
-  acknowledge = 1;
+  String value = server.arg("value");
+  DEBUG_SERIAL.println("Acknowledge: " + value);
+  acknowledge = value.toInt();
   lastSwitchMillis = millis();           //in demo mode to have the same pause as by lifting trashcan
   server.send(200, "text/plane", "OK");  //should always respond to prevent resend (10x)
 }

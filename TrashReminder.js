@@ -18,7 +18,7 @@ var gMaxNumberOfTasksPerDay;
 var gMaxNumberOfTaskIds;
 var gHideDelayDefault = 3;
 
-function acknowledge() {
+function acknowledge(value) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -28,7 +28,7 @@ function acknowledge() {
             refreshTabs();
           }
     };
-    xhttp.open("GET", "acknowledge", true);
+    xhttp.open("GET",  "acknowledge?value=" + value, true);
     xhttp.send();
 }
 

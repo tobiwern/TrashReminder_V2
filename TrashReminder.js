@@ -939,9 +939,9 @@ function refreshTab_DATES(){
   // handle buttons
   if(gAlarm){
     if(gAcknowledge){
-      document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#c8b08c;' class='button' onclick='restartTrashReminder()'>Mülleimer steht doch nicht draussen!</button><br><br>";
+      document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#c8b08c;' class='button' onclick='acknowledge(0)'>Mülleimer steht doch nicht draussen!</button><br><br>";
     } else {
-      document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#4CAF50;' class='button' onclick='acknowledge()'>Mülleimer steht draussen!</button><br><br>";
+      document.getElementById("buttonAcknowledge").innerHTML ="<button style='background-color:#4CAF50;' class='button' onclick='acknowledge(1)'>Mülleimer steht draussen!</button><br><br>";
     }
   }else{
     document.getElementById("buttonAcknowledge").innerHTML ="";

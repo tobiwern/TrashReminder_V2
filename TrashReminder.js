@@ -190,17 +190,15 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
     if (this.readyState == 4) {
       response = this.responseText;
       if (this.status == 200) {
-console.log("response = " + response);
-        gInitialized = true;        
+//console.log("response = " + response);
         refreshTaskTypesAndDates(response);
       } else { //500
         showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
-//        document.getElementById("data").click();
         gNoDates = true;
-//        refreshTabs();
       }
+      gInitialized = true;        
     }
   };
   xhttp.open("GET", "request_tasks", true);
@@ -908,7 +906,7 @@ function refreshTabs(){
     refreshTab_DATA();
     refreshTab_HELP();
   } else {
-    document.getElementById("taskDates").innerHTML = "Lade Abfuhrtermine...";
+    document.getElementById("taskDates").innerHTML = "<div style='animation: blinker 1s linear infinite;"'>Lade Abfuhrtermine...</div><br>";
   }
 }
 

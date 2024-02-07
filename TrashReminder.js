@@ -189,6 +189,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
     allowAction();
     if (this.readyState == 4) {
       response = this.responseText;
+      gInitialized = true;
       if (this.status == 200) {
 //console.log("response = " + response);
         refreshTaskTypesAndDates(response);
@@ -197,8 +198,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
         gNoDates = true;
-      }
-      gInitialized = true;        
+      }        
     }
   };
   xhttp.open("GET", "request_tasks", true);

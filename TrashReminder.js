@@ -21,12 +21,12 @@ var gHideDelayDefault = 3;
 function acknowledge(value) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-//            showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
-            gAcknowledge = true;
-            refreshTaskDates();
-            refreshTabs();
-          }
+      if (this.readyState == 4 && this.status == 200) {
+//        showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
+        gAcknowledge = (this.responseText == "1"?true:false);
+        refreshTaskDates();
+        refreshTabs();
+      }
     };
     xhttp.open("GET",  "acknowledge?value=" + value, true);
     xhttp.send();
@@ -93,7 +93,6 @@ function restartTrashReminder() {
         if (this.readyState == 4 && this.status == 200) {
             showMessage("I", "TrashReminder wurde neu gestartet!", "messageButton", gHideDelayDefault);
 //            showMessage("I", "Erinnerung wieder eingeschaltet!", "messageAcknowledge", gHideDelayDefault);
-            gAcknowledge = false;
             refreshTaskDates();
             refreshTabs();
         }

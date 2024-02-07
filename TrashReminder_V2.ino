@@ -19,7 +19,6 @@ WebPage:
   - Show Firmware Version in Webpage!
   - Have Autodetection of timezone in the webpage
   - When loading new dates: Prompt if outdated dates should be loaded (or directly ignore?)
-  - acknowledge/reset by ?value 1/0, not restartTrashReminder
 3D-Model:
   - Add magnets to trashcan so it snapps in place
   - Smaller holes to improve metal splint

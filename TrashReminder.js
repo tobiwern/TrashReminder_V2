@@ -191,7 +191,8 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
     if (this.readyState == 4) {
       response = this.responseText;
       if (this.status == 200) {
-console.log("response = " + response);        
+console.log("response = " + response);
+        gInitialized = true;        
         refreshTaskTypesAndDates(response);
       } else { //500
         showMessage("W", "Es sind noch keine Abholtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
@@ -902,10 +903,12 @@ function buildTabs(){
 }
 
 function refreshTabs(){
-  refreshTab_DATES();
-  refreshTab_SETTINGS();
-  refreshTab_DATA();
-  refreshTab_HELP();
+  if(gInitialized){
+    refreshTab_DATES();
+    refreshTab_SETTINGS();
+    refreshTab_DATA();
+    refreshTab_HELP();
+  }
 }
 
 // Tab HANDLING  /////////////////////////////////////

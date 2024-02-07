@@ -9,18 +9,15 @@ ESP:
   - "Not found" when opening page in browser?
   - How can we go in demoMode without configuring WiFi?
   - delete settingsFile when json deserialization is unsuccessful
-- NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
-  - update() =>  @return true on success, false on failure
-  - if glitch => first wait for a minute, then query again
+  - NTP Time Server: What happens if it can not be reached? =>  isTimeSet(), https://github.com/arduino-libraries/NTPClient/blob/master/NTPClient.h
+    - update() =>  @return true on success, false on failure
+    - if glitch => first wait for a minute, then query again
+  - Auf Werkseinstellungen zurücksetzen
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
   - Show Firmware Version in Webpage!
-  - Restructure with tabs
-  - Invalidate dates (grey) following start/end times!
-  - Have NTP Server as option on the webpage
   - Have Autodetection of timezone in the webpage
-  - Wait before sending tasks selected (if somebody enables/disables different tasks one after the other) OR Block Website until response is obtained (+ timeout) => load animation
   - When loading new dates: Prompt if outdated dates should be loaded (or directly ignore?)
 3D-Model:
   - Add magnets to trashcan so it snapps in place

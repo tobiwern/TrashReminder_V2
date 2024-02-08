@@ -204,10 +204,15 @@ void setEndHour() {
 void setNtpServer() {
   String value = server.arg("value");
   DEBUG_SERIAL.println("Setting ntpServer = " + value);
-  ntpServer = value.c_str();
-  acknowledgeBlink();
-  server.send(200, "text/plane", "NTP Server gespeichert.");
-  writeSettingsToFile();
+  if(WiFi.ping(value.c_str()) > 0){
+    timeClient.setPoolServerName(value.c_str());
+    ntpServer = value.c_str();
+    acknowledgeBlink();
+    server.send(200, "text/plane", "OK");
+    writeSettingsToFile();
+  } else {
+    server.send(500, "text/plane", "ERROR");
+  }
 }
 
 void setTimezoneServer() {

@@ -127,13 +127,13 @@ function deleteLogOnESP() {
     }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                showMessage("I", "Logfile gelöscht.", "messageButton", gHideDelayDefault);   
-            } else { //500
-                showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "messageButton", gHideDelayDefault); 
-            }      
-        }
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          showMessage("I", "Logfile gelöscht.", "messageButton", gHideDelayDefault);   
+        } else { //500
+          showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "messageButton", gHideDelayDefault); 
+        }      
+      }
     };
     xhttp.open("GET", "delete_log", true);
     xhttp.send();
@@ -742,10 +742,13 @@ function refreshNtpServer(){
 function sendNtpServerToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-          response = this.responseText;
-          showMessage("I", response, "messageOptions", gHideDelayDefault);
-      }
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        showMessage("I", "NTP Server gespeichert.", "messageOptions", gHideDelayDefault);   
+      } else { //500
+        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageOptions", gHideDelayDefault); 
+      }      
+    }
   };
   xhttp.open("GET", "set_ntp_server?value=" + document.getElementById("ntpServer").value, true);
   xhttp.send();

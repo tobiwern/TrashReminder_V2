@@ -763,7 +763,7 @@ function sendTimezoneServerToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           response = this.responseText;
-          showMessage("I", response, "messageOptions", gHideDelayDefault);
+          showMessage("I", response, "messageServer", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_time_zone_server?value=" + document.getElementById("timezoneServer").value, true);
@@ -779,7 +779,7 @@ function sendTimeOffsetToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           response = this.responseText;
-          showMessage("I", response, "messageOptions", gHideDelayDefault);
+          showMessage("I", response, "messageServer", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_time_offset?value=" + document.getElementById("timeOffset").value*3600, true); 

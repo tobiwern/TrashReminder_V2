@@ -743,9 +743,9 @@ function sendNtpServerToESP(){
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
-        showMessage("I", "NTP Server gespeichert.", "messageOptions", gHideDelayDefault);   
+        showMessage("I", "NTP Server gespeichert.", "messageTime", gHideDelayDefault);   
       } else { //500
-        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageOptions", gHideDelayDefault); 
+        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageTime", gHideDelayDefault); 
 //        document.getElementById("ntpServer").value = this.responseText;
       }      
     }

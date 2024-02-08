@@ -205,14 +205,16 @@ void setEndHour() {
 
 void setNtpServer() {
   String serverNTP = server.arg("value");
-  DEBUG_SERIAL.println("Setting ntpServer = " + serverNTP);
+  DEBUG_SERIAL.println("Request to change ntpServer = " + serverNTP);
   if(pinger.Ping(serverNTP.c_str())){
+    DEBUG_SERIAL.println("Setting ntpServer = " + serverNTP);
     timeClient.setPoolServerName(serverNTP.c_str());
     ntpServer = serverNTP.c_str();
     acknowledgeBlink();
     server.send(200, "text/plane", "OK");
     writeSettingsToFile();
   } else {
+    DEBUG_SERIAL.println("ntpServer = " + serverNTP + " can not be reached!");
     server.send(500, "text/plane", ntpServer);
   }
 }

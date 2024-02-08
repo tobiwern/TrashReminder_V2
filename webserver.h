@@ -10,6 +10,8 @@
 #include <ESP8266WebServer.h>
 ESP8266WebServer server(80);
 boolean serverRunning = false;
+#include <Pinger.h>
+Pinger pinger;
 
 void printTaskIds(int taskIds[]) {  //debug
   DEBUG_SERIAL.print("taskIds[] = ");
@@ -202,16 +204,16 @@ void setEndHour() {
 }
 
 void setNtpServer() {
-  String value = server.arg("value");
-  DEBUG_SERIAL.println("Setting ntpServer = " + value);
-  if(WiFi.ping(value.c_str()) > 0){
-    timeClient.setPoolServerName(value.c_str());
-    ntpServer = value.c_str();
+  String serverNTP = server.arg("value");
+  DEBUG_SERIAL.println("Setting ntpServer = " + serverNTP);
+  if(pinger.Ping(serverNTP.c_str())){
+    timeClient.setPoolServerName(serverNTP.c_str());
+    ntpServer = serverNTP.c_str();
     acknowledgeBlink();
     server.send(200, "text/plane", "OK");
     writeSettingsToFile();
   } else {
-    server.send(500, "text/plane", "ERROR");
+    server.send(500, "text/plane", ntpServer);
   }
 }
 

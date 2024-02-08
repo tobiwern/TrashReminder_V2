@@ -747,6 +747,7 @@ function sendNtpServerToESP(){
         showMessage("I", "NTP Server gespeichert.", "messageOptions", gHideDelayDefault);   
       } else { //500
         showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageOptions", gHideDelayDefault); 
+//        document.getElementById("ntpServer").value = this.responseText;
       }      
     }
   };

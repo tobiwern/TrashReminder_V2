@@ -175,7 +175,8 @@ function requestSettingsFromESP() {
       gTimeOffset = tokens[7];
       gShowPastDates = (tokens[8]==1?true:false);
       gAcknowledge = (tokens[9]==1?true:false);
-console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);            
+console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);  
+      refreshTabs();
     }
   };
   xhttp.open("GET", "request_settings", true);
@@ -265,8 +266,6 @@ function sendDropDownStateToESP(dropdown) {
             showMessage("I", response, "messageTime", gHideDelayDefault);
             refreshTaskDates();
             requestSettingsFromESP();
-            refreshTabs();
-
         }
     };
     if (dropdown == "start") {

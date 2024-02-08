@@ -743,9 +743,9 @@ function sendNtpServerToESP(){
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
-        showMessage("I", "NTP Server gespeichert.", "messageTime", gHideDelayDefault);   
+        showMessage("I", "NTP Server gespeichert.", "messageServer", gHideDelayDefault);   
       } else { //500
-        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageTime", gHideDelayDefault); 
+        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageServer", gHideDelayDefault); 
 //        document.getElementById("ntpServer").value = this.responseText;
       }      
     }
@@ -1014,7 +1014,7 @@ function buildTab_SETTINGS(){
     <td colspan=2>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</td>
     </tr>
   </table><br>
-  <div id='messageTime'></div>
+  <div id='messageServer'></div>
   `;
   document.getElementById("content_SETTINGS").innerHTML = content;
 }

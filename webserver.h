@@ -245,6 +245,7 @@ void receiveFromWebpage_Tasks() {
   } else {
     server.send(500, "text/plane", "ERROR");
   }
+  acknowledge = false; //resetting acknowledge when new tasks get send from Webpage (happens on New ICS, Color Change, Valid Task change)
   showFSInfo();
   acknowledgeBlink();
   //  deleteFile("/events.log");

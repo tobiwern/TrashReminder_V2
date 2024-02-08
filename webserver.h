@@ -115,6 +115,8 @@ void initSettingsFromFile() {
   if (error) {
     DEBUG_SERIAL.print("deserializeJson() failed: ");
     DEBUG_SERIAL.println(error.f_str());
+    logMessage("Deserialization of settings failed. Deleting settings file.");
+    deleteFile(settingsFile);
     return;
   }
   startHour = doc["startHour"];

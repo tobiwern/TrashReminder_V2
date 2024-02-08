@@ -263,6 +263,8 @@ function sendDropDownStateToESP(dropdown) {
       if (this.readyState == 4 && this.status == 200) {
             response = this.responseText;
             showMessage("I", response, "messageTime", gHideDelayDefault);
+            refreshTaskDates();
+            refreshTabs();
         }
     };
     if (dropdown == "start") {

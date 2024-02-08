@@ -264,7 +264,9 @@ function sendDropDownStateToESP(dropdown) {
             response = this.responseText;
             showMessage("I", response, "messageTime", gHideDelayDefault);
             refreshTaskDates();
+            requestSettingsFromESP();
             refreshTabs();
+
         }
     };
     if (dropdown == "start") {
@@ -582,6 +584,7 @@ function genJson() {
       return;
     }
     sendTasksToESP(jsonText);
+    requestSettingsFromESP(); //to get acknowledge state
     initDataFromJson(obj);
     refreshTaskTypes();
     refreshTaskDates();

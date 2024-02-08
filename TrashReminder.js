@@ -583,7 +583,7 @@ function genJson() {
       return;
     }
     sendTasksToESP(jsonText);
-    requestSettingsFromESP(); //to get acknowledge state
+//    requestSettingsFromESP(); //to get acknowledge state
     initDataFromJson(obj);
     refreshTaskTypes();
     refreshTaskDates();

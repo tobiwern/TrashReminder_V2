@@ -14,11 +14,11 @@ ESP:
     - if glitch => first wait for a minute, then query again
   - Auf Werkseinstellungen zurücksetzen
   - Adjust timezone via Webpage (currently has no effect)
+  - Move all messages to Webpage, not in ino code
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
   - Show Firmware Version in Webpage!
-  - Have Autodetection of timezone in the webpage
   - When loading new dates: Prompt if outdated dates should be loaded (or directly ignore?)
   - Statusbar for messages at the bottom
   - Mülleimer Lade Animation

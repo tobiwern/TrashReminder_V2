@@ -434,7 +434,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
   var nowEpoch = Date.now();
   var startHour = parseInt(document.getElementById("start").value);
   var endHour = parseInt(document.getElementById("end").value);
-  var timeOffset = parseInt(document.getElementById("timeOffset").value)*3600;
+  var timeOffset = parseInt(document.getElementById("timeOffset").value);
   gAlarm = false;
   gFutureDates = 0;
   gNoDates = true;
@@ -452,7 +452,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
     futureDate = false;
     if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; futureDate=true;} else { style = "color: lightgrey;"; show = gShowPastDates;} 
     if ((selectedTaskIds.length >= 1) && show) {
-      if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000+timeOffset  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000+timeOffset) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
+      if (nowEpoch > dictEpoch.valueOf()+(startHour-24+timeOffset)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+(endHour+timeOffset)*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
       if(futureDate){gFutureDates++;}
       text += "<tr>"
       text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";

@@ -43,16 +43,19 @@ function fireworks() {
     xhttp.send();
 }
 
+gDemo = false;
 function toggleDemo() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if(this.responseText == "DemoOn"){
                 showMessage("I", "Demo Mode gestartet!" , "messageButton", gHideDelayDefault);
+                gDemo = true;
                 document.getElementById("demoButton").innerHTML = "Demo Mode beenden";
             } else {
                 showMessage("I", "Demo Mode beendet!" , "messageButton", gHideDelayDefault);
                 document.getElementById("demoButton").innerHTML = "Demo Mode starten";
+                gDemo = false;
             }
         }
     };
@@ -402,7 +405,7 @@ function refreshTaskTypesAndDates(response) {
 function refreshTaskTypes() {
     var text = "Sie werden an folgende Abfallarten erinnert:<br><br>";
     text += "<table>";
-console.log("RefreshTaskTypes: gDataTasks.length = " + gDataTasks.length);    
+//console.log("RefreshTaskTypes: gDataTasks.length = " + gDataTasks.length);    
     for (let i = 0; i < gDataTasks.length; i++) {
         checked = (gDataValidTaskIds.length == 0 || gDataValidTaskIds.includes(i)) ? "checked" : "";
         text += "<tr>"
@@ -431,6 +434,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
   var nowEpoch = Date.now();
   var startHour = parseInt(document.getElementById("start").value);
   var endHour = parseInt(document.getElementById("end").value);
+  var timeOffset = parseInt(document.getElementById("timeOffset").value)*3600;
   gAlarm = false;
   gFutureDates = 0;
   gNoDates = true;
@@ -448,7 +452,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
     futureDate = false;
     if (dictEpoch.valueOf()+endHour*60*60*1000 > nowEpoch) { style = "color: black;"; futureDate=true;} else { style = "color: lightgrey;"; show = gShowPastDates;} 
     if ((selectedTaskIds.length >= 1) && show) {
-      if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
+      if (nowEpoch > dictEpoch.valueOf()+(startHour-24)*60*60*1000+timeOffset  && nowEpoch < dictEpoch.valueOf()+endHour*60*60*1000+timeOffset) { gAlarm = true; style = "color: #4CAF50; font-weight: bold;"; if(!gAcknowledge){style += " animation: blinker 1s linear infinite;"; }}
       if(futureDate){gFutureDates++;}
       text += "<tr>"
       text += "<td class=description nowrap style='" + style + "'>" + epochToDateString(epoch) + "</td>";
@@ -560,7 +564,7 @@ function getMatchingColor(task) {
 
 function genJson() {
     validTaskIds = getValidTaskIds();
-    console.log("validTaskIds = " + validTaskIds);
+//    console.log("validTaskIds = " + validTaskIds);
     var entries = [];
     var epochs = Object.keys(gEpochTaskDict);
     for (epoch of epochs) {
@@ -787,7 +791,7 @@ function sendTimeOffsetToESP(){
 }
 
 function refreshShowPastDates(){
-  console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
+//  console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
     document.getElementById("showPastDates").checked = gShowPastDates;
   }
   

@@ -13,6 +13,7 @@ ESP:
     - update() =>  @return true on success, false on failure
     - if glitch => first wait for a minute, then query again
   - Auf Werkseinstellungen zurücksetzen
+  - Adjust timezone via Webpage (currently has no effect)
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.

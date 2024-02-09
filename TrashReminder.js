@@ -434,8 +434,8 @@ function refreshTaskDates() { //show TaskDates on Webpage
   var nowEpoch = Date.now();
   var startHour = parseInt(document.getElementById("start").value);
   var endHour = parseInt(document.getElementById("end").value);
-  var timeOffset = Date.getTimezoneOffset/60;
-//  var timeOffset = parseFloat(document.getElementById("timeOffset").value);
+//  var timeOffset = Date.getTimezoneOffset/60;
+  var timeOffset = parseFloat(document.getElementById("timeOffset").value);
   gAlarm = false;
   gFutureDates = 0;
   gNoDates = true;

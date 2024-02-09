@@ -242,7 +242,7 @@ void setShowPastDates() {
   DEBUG_SERIAL.println("Setting showPastDates = " + value);
   showPastDates = value.toInt();
   acknowledgeBlink();
-  server.send(200, "text/plane", "Show Past Dates gespeichert.");
+  server.send(200, "text/plane", "Vergangene Termine " + String((showPastDates)?"an":"aus") + " gespeichert.");
   writeSettingsToFile();
 }
 

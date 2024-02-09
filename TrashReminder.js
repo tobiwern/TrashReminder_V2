@@ -150,8 +150,10 @@ function requestSettingsFromESP() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       //populate options
+
       const dropdowns = ["start", "end"];
       dropdowns.forEach(function (item) {
+        document.getElementById(item).innerHTML = "";
         for (var i = 0; i <= 23; i++) {
           var el = document.createElement("option");
           el.textContent = i + " Uhr";

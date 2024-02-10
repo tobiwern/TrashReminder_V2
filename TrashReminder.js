@@ -358,6 +358,7 @@ var gFutureDates = 0;
 var gInitialized = false;
 
 function initDataFromJson(jsonObject) {
+  gDataEpochTaskDict = [];
     var epochTasks = jsonObject["epochTasks"];
     for (const epochTask of epochTasks) {
         for (var epoch in epochTask) { //translate into dict

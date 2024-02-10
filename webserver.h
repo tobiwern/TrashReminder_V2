@@ -121,14 +121,21 @@ void initSettingsFromFile() {
     deleteFile(settingsFile);
     return;
   }
-  startHour = doc["startHour"];
-  endHour = doc["endHour"];
-  ntpServer = String(doc["ntpServer"]);
-  timezoneServer = String(doc["timezoneServer"]);
-  timeOffset = doc["timeOffset"];
-  showPastDates = doc["showPastDates"];
-  language = String(doc["language"]);
-  Serial.println("Read Settings: startHour=" + String(startHour) + ", endHour=" + String(endHour) + ", ntpServer=" + ntpServer + ", timezoneServer=" + timezoneServer + ", timeOffset=" + String(timeOffset) + ", showPastDates=" + String(showPastDates) + ", language=" + language);
+  int startHourLoc = doc["startHour"];
+  if(startHourLoc){startHour = startHourLoc;}
+  int endHourLoc = doc["endHour"];
+  if(endHourLoc){endHour = endHourLoc;}
+  String ntpServerLoc = String(doc["ntpServer"]);
+  if(ntpServerLoc){ntpServer = ntpServerLoc;}
+  String timezoneServerLoc = String(doc["timezoneServer"]);
+  if(timezoneServerLoc){timezoneServer = timezoneServerLoc;}
+  int timeOffsetLoc = doc["timeOffset"];
+  if(timeOffsetLoc){timeOffset = timeOffsetLoc;}
+  boolean showPastDatesLoc = doc["showPastDates"];
+  if(showPastDatesLoc){showPastDates = showPastDatesLoc;}
+  String languageLoc = String(doc["language"]);
+  if(languageLoc){language = languageLoc;}
+  DEBUG_SERIAL.println("Read Settings: startHour=" + String(startHour) + ", endHour=" + String(endHour) + ", ntpServer=" + ntpServer + ", timezoneServer=" + timezoneServer + ", timeOffset=" + String(timeOffset) + ", showPastDates=" + String(showPastDates) + ", language=" + language);
   file.close();
   endLittleFS();
 }
@@ -179,7 +186,7 @@ void writeSettingsToFile() {
   + ",\"timezoneServer\":\"" + String(timezoneServer) + "\""
   + ",\"timeOffset\":" + String(timeOffset) 
   + ",\"showPastDates\":" + String(showPastDates) 
-  + ",\"language\":" + String(language) 
+  + ",\"language\":\"" + String(language) + "\"" 
   + "}";
   DEBUG_SERIAL.println("Writing settings: " + jsonText);
   writeFile(settingsFile, jsonText.c_str());

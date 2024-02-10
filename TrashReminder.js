@@ -782,7 +782,7 @@ function sendTimezoneServerToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-          var message = "Timezone Server gespeichert.";
+          var message = "Zeitzonen Server gespeichert.";
           showMessage("I", message, "messageServer", gHideDelayDefault);
       }
   };
@@ -798,7 +798,7 @@ function sendTimeOffsetToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        var message = "Time Offset gespeichert.";
+        var message = "Zeitzone gespeichert.";
         showMessage("I", message, "messageServer", gHideDelayDefault);
       }
   };

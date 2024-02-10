@@ -278,7 +278,7 @@ function sendDropDownStateToESP(dropdown) {
             } else { //end
               var message = "Neuer Endzeitpunkt gespeichert.";
             }
-            showMessage("I", response, "messageTime", gHideDelayDefault);
+            showMessage("I", message, "messageTime", gHideDelayDefault);
             refreshTaskDates();
             requestSettingsFromESP();
         }

@@ -784,7 +784,7 @@ function sendTimezoneServerToESP(){
           showMessage("I", message, "messageServer", gHideDelayDefault);
       }
   };
-  xhttp.open("GET", "set_time_zone_server?value=" + document.getElementById("timezoneServer").value, true);
+  xhttp.open("GET", "set_timezone_server?value=" + document.getElementById("timezoneServer").value, true);
   xhttp.send();
 }
 

@@ -22,7 +22,7 @@ WebPage:
   - Statusbar for messages at the bottom
   - Mülleimer Lade Animation
   - Have two sliders to define the start and end time
-  - Multi languages
+  - Multi languages, https://stackoverflow.com/questions/228835/best-practice-javascript-and-multilanguage, https://www.codeproject.com/Articles/5310336/Dynamically-Loading-a-JavaScript-File,  
 3D-Model:
   - Add magnets to trashcan so it snapps in place
   - Smaller holes to improve metal splint

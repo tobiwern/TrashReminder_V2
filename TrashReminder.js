@@ -205,8 +205,8 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
       gInitialized = true;
       if (this.status == 200) {
 //console.log("response = " + response);
+//        gNoDates = false; //not required since gets updated refreshTaskDates
         refreshTaskTypesAndDates(response);
-        document.getElementById("messageTaskTypes").innerHTML = "";
       } else { //500
         showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
@@ -433,6 +433,7 @@ function refreshTaskTypes() {
     text += "</table>";
     text += "<br><em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br></em>"
     document.getElementById("taskTypes").innerHTML = text + "<br>";
+    document.getElementById("messageTaskTypes").innerHTML = "";
     refreshColorPickerColors("colorPickerTask");
 }
 

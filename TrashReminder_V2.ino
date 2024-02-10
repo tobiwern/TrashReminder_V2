@@ -14,7 +14,6 @@ ESP:
     - if glitch => first wait for a minute, then query again
   - Auf Werkseinstellungen zurücksetzen
   - Adjust timezone via Webpage (currently has no effect)
-  - Move all messages to Webpage, not in ino code
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
@@ -22,6 +21,8 @@ WebPage:
   - When loading new dates: Prompt if outdated dates should be loaded (or directly ignore?)
   - Statusbar for messages at the bottom
   - Mülleimer Lade Animation
+  - Have two sliders to define the start and end time
+  - Multi languages
 3D-Model:
   - Add magnets to trashcan so it snapps in place
   - Smaller holes to improve metal splint

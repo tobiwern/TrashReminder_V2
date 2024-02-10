@@ -149,7 +149,7 @@ void sendLogToWebpage() {  //transfering ESP data to the Webpage
     DEBUG_SERIAL.println("Sending log: " + value);
     server.send(200, "text/plane", value);
   } else {
-    server.send(200, "text/plane", "Logfile ist leer.");
+    server.send(200, "text/plane", "empty");
   }
 }
 
@@ -190,7 +190,7 @@ void setStartHour() {
   DEBUG_SERIAL.println("Setting startHour = " + hour);
   startHour = hour.toInt();
   acknowledgeBlink();
-  server.send(200, "text/plane", "Neuer Startzeitpunkt gespeichert.");
+  server.send(200, "text/plane", "start");
   writeSettingsToFile();
 }
 
@@ -199,7 +199,7 @@ void setEndHour() {
   DEBUG_SERIAL.println("Setting endHour = " + hour);
   endHour = hour.toInt();
   acknowledgeBlink();
-  server.send(200, "text/plane", "Neuer Endzeitpunkt gespeichert.");
+  server.send(200, "text/plane", "end");
   writeSettingsToFile();
 }
 
@@ -224,7 +224,7 @@ void setTimezoneServer() {
   DEBUG_SERIAL.println("Setting timezoneServer = " + value);
   timezoneServer = value.c_str();
   acknowledgeBlink();
-  server.send(200, "text/plane", "Timezone Server gespeichert.");
+  server.send(200, "text/plane", "OK");
   writeSettingsToFile();
 }
 
@@ -233,7 +233,7 @@ void setTimeOffset() {
   DEBUG_SERIAL.println("Setting timeOffset = " + value);
   timeOffset = value.toInt();
   acknowledgeBlink();
-  server.send(200, "text/plane", "Time Offset gespeichert.");
+  server.send(200, "text/plane", "OK");
   writeSettingsToFile();
 }
 
@@ -242,7 +242,7 @@ void setShowPastDates() {
   DEBUG_SERIAL.println("Setting showPastDates = " + value);
   showPastDates = value.toInt();
   acknowledgeBlink();
-  server.send(200, "text/plane", "Vergangene Termine " + String((showPastDates)?"an":"aus") + " gespeichert.");
+  server.send(200, "text/plane", value);
   writeSettingsToFile();
 }
 

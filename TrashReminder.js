@@ -112,14 +112,19 @@ function closeConfig() {
 }
 
 function requestLogFromESP() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", this.responseText.replaceAll("\n", "<br>"), "messageButton"); //show continuous
-        }
-    };
-    xhttp.open("GET", "request_log", true);
-    xhttp.send();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      if(this.responseText == "empty"){
+        var message = "Logfile ist leer.";
+      } else {
+        var message = this.responseText.replaceAll("\n", "<br>")  
+      }
+      showMessage("I", message, "messageButton"); //show continuous
+    }
+  };
+  xhttp.open("GET", "request_log", true);
+  xhttp.send();
 }
 
 function deleteLogOnESP() {
@@ -268,6 +273,11 @@ function sendDropDownStateToESP(dropdown) {
       allowAction();
       if (this.readyState == 4 && this.status == 200) {
             response = this.responseText;
+            if(response == "start"){
+              var message = "Neuer Startzeitpunkt gespeichert.";
+            } else { //end
+              var message = "Neuer Endzeitpunkt gespeichert.";
+            }
             showMessage("I", response, "messageTime", gHideDelayDefault);
             refreshTaskDates();
             requestSettingsFromESP();
@@ -359,15 +369,15 @@ var gInitialized = false;
 
 function initDataFromJson(jsonObject) {
   gDataEpochTaskDict = [];
-    var epochTasks = jsonObject["epochTasks"];
-    for (const epochTask of epochTasks) {
-        for (var epoch in epochTask) { //translate into dict
-            gDataEpochTaskDict[epoch] = epochTask[epoch];
-        }
+  var epochTasks = jsonObject["epochTasks"];
+  for (const epochTask of epochTasks) {
+    for (var epoch in epochTask) { //translate into dict
+      gDataEpochTaskDict[epoch] = epochTask[epoch];
     }
-    gDataColors = jsonObject["colors"];
-    gDataTasks = jsonObject["tasks"];
-    gDataValidTaskIds = jsonObject["validTaskIds"];
+  }
+  gDataColors = jsonObject["colors"];
+  gDataTasks = jsonObject["tasks"];
+  gDataValidTaskIds = jsonObject["validTaskIds"];
 }
 
 function sendCurrentDataToESP() { //send currently set data to ESP
@@ -770,8 +780,8 @@ function sendTimezoneServerToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-          response = this.responseText;
-          showMessage("I", response, "messageServer", gHideDelayDefault);
+          var message = "Timezone Server gespeichert.";
+          showMessage("I", message, "messageServer", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_time_zone_server?value=" + document.getElementById("timezoneServer").value, true);
@@ -786,8 +796,8 @@ function sendTimeOffsetToESP(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-          response = this.responseText;
-          showMessage("I", response, "messageServer", gHideDelayDefault);
+        var message = "Time Offset gespeichert.";
+        showMessage("I", message, "messageServer", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_time_offset?value=" + document.getElementById("timeOffset").value*3600, true); 
@@ -804,7 +814,8 @@ function sendShowPastDatesToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           response = this.responseText;
-          showMessage("I", response, "messageOptions", gHideDelayDefault);
+          var message = "Vergangene Termine " + ((response == "1")?"an":"aus") + " gespeichert."
+          showMessage("I", message, "messageOptions", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_show_past_dates?value=" + (gShowPastDates?1:0), true);  //convert bool to int

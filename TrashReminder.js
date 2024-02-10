@@ -206,6 +206,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
       if (this.status == 200) {
 //console.log("response = " + response);
         refreshTaskTypesAndDates(response);
+        document.getElementById("messageTaskTypes").innerHTML = "";
       } else { //500
         showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
         if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }

@@ -127,7 +127,8 @@ void initSettingsFromFile() {
   timezoneServer = String(doc["timezoneServer"]);
   timeOffset = doc["timeOffset"];
   showPastDates = doc["showPastDates"];
-  Serial.println("Read Settings: startHour=" + String(startHour) + ", endHour=" + String(endHour) + ", ntpServer=" + ntpServer + ", timezoneServer=" + timezoneServer + ", timeOffset=" + String(timeOffset) + ", showPastDates=" + String(showPastDates));
+  language = String(doc["language"]);
+  Serial.println("Read Settings: startHour=" + String(startHour) + ", endHour=" + String(endHour) + ", ntpServer=" + ntpServer + ", timezoneServer=" + timezoneServer + ", timeOffset=" + String(timeOffset) + ", showPastDates=" + String(showPastDates) + ", language=" + language);
   file.close();
   endLittleFS();
 }
@@ -155,7 +156,7 @@ void sendLogToWebpage() {  //transfering ESP data to the Webpage
 
 void sendSettingsToWebpage() {  //transferring ESP settings => Webpage
   String value;
-  value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds + "," + ntpServer + "," + timezoneServer + "," + String(timeOffset) + "," + String(showPastDates) + "," + String(acknowledge);
+  value = String(startHour) + "," + String(endHour) + "," + maxNumberOfEpochs + "," + maxNumberOfTasksPerDay + "," + maxNumberOfTaskIds + "," + ntpServer + "," + timezoneServer + "," + String(timeOffset) + "," + String(showPastDates) + "," + language + "," + String(acknowledge);
   DEBUG_SERIAL.println("Sending settings: " + value);
   server.send(200, "text/plane", value);
 }
@@ -177,7 +178,9 @@ void writeSettingsToFile() {
   + ",\"ntpServer\":\"" + String(ntpServer) + "\""
   + ",\"timezoneServer\":\"" + String(timezoneServer) + "\""
   + ",\"timeOffset\":" + String(timeOffset) 
-  + ",\"showPastDates\":" + String(showPastDates) + "}";
+  + ",\"showPastDates\":" + String(showPastDates) 
+  + ",\"language\":" + String(language) 
+  + "}";
   DEBUG_SERIAL.println("Writing settings: " + jsonText);
   writeFile(settingsFile, jsonText.c_str());
 Serial.println(String(readFile(settingsFile)));
@@ -243,6 +246,15 @@ void setShowPastDates() {
   showPastDates = value.toInt();
   acknowledgeBlink();
   server.send(200, "text/plane", value);
+  writeSettingsToFile();
+}
+
+void setLanguage() {
+  String value = server.arg("value");
+  DEBUG_SERIAL.println("Setting Language = " + value);
+  language = value;
+  acknowledgeBlink();
+  server.send(200, "text/plane", "OK");
   writeSettingsToFile();
 }
 
@@ -339,6 +351,7 @@ void startWebServer() {
   server.on("/set_timezone_server", setTimezoneServer);
   server.on("/set_time_offset", setTimeOffset);
   server.on("/set_show_past_dates", setShowPastDates);
+  server.on("/set_language", setLanguage);
   server.on("/request_settings", sendSettingsToWebpage);
   server.on("/request_tasks", sendTasksToWebpage);     //ESP => webpage
   server.on("/request_log", sendLogToWebpage);         //ESP => webpage

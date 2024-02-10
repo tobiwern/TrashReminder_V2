@@ -43,6 +43,7 @@ int timeOffset;
 
 //options 
 boolean showPastDates = 0;
+String language = "de";
 
 #include <WiFiUdp.h>
 #define WM_DEBUG_LEVEL DEBUG_NOTIFY

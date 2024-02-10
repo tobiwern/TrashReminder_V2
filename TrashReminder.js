@@ -150,6 +150,7 @@ function deleteLogOnESP() {
 var gNtpServer;
 var gTimezoneServer;
 var gTimeOffset;
+var gLanguage = "de";
 function requestSettingsFromESP() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -184,8 +185,9 @@ function requestSettingsFromESP() {
       gTimezoneServer = tokens[6]; 
       gTimeOffset = tokens[7];
       gShowPastDates = (tokens[8]==1?true:false);
-      gAcknowledge = (tokens[9]==1?true:false);
-console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", acknowledge = " + gAcknowledge);  
+      gLanguage = tokens[9];
+      gAcknowledge = (tokens[10]==1?true:false);
+console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", language = " +  gLanguage + ", acknowledge = " + gAcknowledge);  
       refreshTabs();
     }
   };

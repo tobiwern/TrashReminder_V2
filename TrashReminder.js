@@ -188,7 +188,7 @@ function requestSettingsFromESP() {
       gLanguage = tokens[9];
       gAcknowledge = (tokens[10]==1?true:false);
 console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", language = " +  gLanguage + ", acknowledge = " + gAcknowledge);  
-      refreshTabs();
+      refreshTaskTypesAndDates();
     }
   };
   xhttp.open("GET", "request_settings", true);
@@ -213,7 +213,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
         document.getElementById("taskTypes").innerHTML = "";
         document.getElementById("taskDates").innerHTML = "";
         gNoDates = true;
-        refreshTabs();
+        refreshTaskTypesAndDates();
       }        
     }
   };

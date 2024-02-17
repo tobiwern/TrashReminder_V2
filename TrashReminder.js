@@ -891,7 +891,7 @@ function openPage(pageName,elmnt,color) {
 
 function createWebpage() {
   var innerHTML = `
-  <div><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
+  <div class=imageHeader><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
   <div class=tabbackground >
     <button class="tablink" onclick="openPage('tab_DATES', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
     <button class="tablink" onclick="openPage('tab_SETTINGS', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>

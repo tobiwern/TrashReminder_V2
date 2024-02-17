@@ -534,7 +534,7 @@ function processFiles() {
             showCheckBoxes(gTasks); //executed multiple times per loaded file, however ok
             checkMaxNumberOfEntries();
             gFilesLoaded = true;
-            refreshTab_DATA();
+//            refreshTab_DATA();
         }; //on load
         reader.readAsText(file);
     }
@@ -1040,7 +1040,7 @@ function buildTab_SETTINGS(){
       <td class=value><input type="text" id="ntpServer" name="ntpServer" onfocusout='sendNtpServerToESP()'></td>
     </tr>
     <tr>
-    <td colspan=2>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</td>
+    <td colspan=2><em>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</em></td>
     </tr>
   </table><br>
   <div id='messageServer'></div>

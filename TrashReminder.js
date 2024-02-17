@@ -761,7 +761,7 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
           document.getElementById(receiver).style.color = "red";
           break;
       case "I":
-          document.getElementById(receiver).style.color = "green";
+          document.getElementById(receiver).style.color = "#4CAF50"; //green
           break;
       default:
           document.getElementById(receiver).style.color = "black";
@@ -787,7 +787,7 @@ function statusBarMessage(msgType, message, hideDelayInSec = 0) {
             document.getElementById("statusBar").style.backgroundColor = "red";
             break;
         case "I":
-            document.getElementById("statusBar").style.backgroundColor = "green"; 
+            document.getElementById("statusBar").style.backgroundColor = "#4CAF50"; //green
             break;
         default:
             document.getElementById("statusBar").style.backgroundColor = "black";

@@ -453,7 +453,7 @@ function refreshTaskDates() { //show TaskDates on Webpage
   var startHour = parseInt(document.getElementById("start").value);
   var endHour = parseInt(document.getElementById("end").value);
 //  var timeOffset = Date.getTimezoneOffset/60;
-  var timeOffset = parseFloat(document.getElementById("timeOffset").value);
+  var timeOffset = 0.0 //parseFloat(document.getElementById("timeOffset").value);
   gAlarm = false;
   gFutureDates = 0;
   gNoDates = true;

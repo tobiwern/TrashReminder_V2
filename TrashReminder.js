@@ -260,13 +260,11 @@ function sendValidTaskTypesToESP() {
         validTaskIds.push(i);
       }
     }
-//statusBarMessage("W", "validTaskIds.length = " + validTaskIds.length);
     if (validTaskIds.length == 0) {
       statusBarMessage("W", "Sie müssen mindestens eine Abfallart auswählen!");
       return;
     }
     gDataValidTaskIds = validTaskIds; //update in global Setup
-//    refreshTabs();
     sendCurrentDataToESP(); //send updated data
 }
 
@@ -959,7 +957,7 @@ function createWebpage() {
     </div>   
   </div>
   <div class="row footer" id="statusBar">
-    <div id="messageStatusBar">Status Bar Text</div>
+    <div id="messageStatusBar"></div>
   </div>
 </div>
 

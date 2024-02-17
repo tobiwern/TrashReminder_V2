@@ -182,9 +182,13 @@ function requestSettingsFromESP() {
       gMaxNumberOfTasksPerDay = tokens[3]; //tasks per day
       gMaxNumberOfTaskIds = tokens[4]; //different tasks
       gNtpServer = tokens[5]; 
+      refreshNtpServer();
       gTimezoneServer = tokens[6]; 
+      refreshTimezoneServer();
       gTimeOffset = tokens[7];
+      refreshtimeOffset();
       gShowPastDates = (tokens[8]==1?true:false);
+      refreshShowPastDates();
       gLanguage = tokens[9];
       gAcknowledge = (tokens[10]==1?true:false);
 console.log("gNtpServer = " + gNtpServer + ", gTimezoneServer = " + gTimezoneServer + ", gTimeOffset = " + gTimeOffset + ", gShowPastDates = " + gShowPastDates + ", language = " +  gLanguage + ", acknowledge = " + gAcknowledge);  
@@ -453,7 +457,8 @@ function refreshTaskDates() { //show TaskDates on Webpage
   var startHour = parseInt(document.getElementById("start").value);
   var endHour = parseInt(document.getElementById("end").value);
 //  var timeOffset = Date.getTimezoneOffset/60;
-  var timeOffset = 0.0; //parseFloat(document.getElementById("timeOffset").value);
+  var timeOffset = parseFloat(document.getElementById("timeOffset").value);
+  if(timeOffset == NaN){timeOffset=0.0;}
   gAlarm = false;
   gFutureDates = 0;
   gNoDates = true;

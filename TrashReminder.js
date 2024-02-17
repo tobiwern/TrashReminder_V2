@@ -500,43 +500,47 @@ var gTasks = [];
 var gEpochTaskDict = {};                       //HÄCKSEL
 var gColorDict = { 'PAPIER': '0x0000FF', 'BIO,CKSEL': '0x00FF00', 'GELB,WERT': '0xFFFF00', 'REST': '0xFFFFFF' }
 var gColorDefault = '0xFFC0CB';
-var gColors = []
+var gColors = [];
+var gIgnoreOlderDates = true;
 function processFiles() {
-    gTasks = [];
-    gEpochTaskDict = {};
-    var files = document.getElementById('files').files;
-    for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {
-        var file = files[fileIndex];
-        var reader = new FileReader();
-        reader.onload = function (progressEvent) {
-            const text = this.result; //entire file
-            var lines = text.split('\n');
-            for (const line of lines) {
-                if (line.search("DTSTART") != -1) {
-                    var date = line.split(":")[1];
-                    dateString = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
-                    var epoch = new Date(dateString).getTime() / 1000; //since ms => s
-                } else if (line.search("SUMMARY") != -1) {
-                    var task = line.split(":")[1];
-                    task = task.replace("\\", "");
-                    task = task.replace("\r", "");
-                } else if (line.search("END:VEVENT") != -1) {
-                    if (!(epoch in gEpochTaskDict)) { gEpochTaskDict[epoch] = { "tasks": [], "date": dateString }; }
-                    var arr = gEpochTaskDict[epoch]["tasks"];
-                    arr.push(task);
-                    gEpochTaskDict[epoch][tasks] = arr;
-                    if (!gTasks.includes(task)) {
-                        gTasks.push(task);
-                        gColors = getColors();
-                    }
-                }
-            }
-            showCheckBoxes(gTasks); //executed multiple times per loaded file, however ok
-            checkMaxNumberOfEntries();
-            gFilesLoaded = true;
-        }; //on load
-        reader.readAsText(file);
-    }
+  gTasks = [];
+  gEpochTaskDict = {};
+  var nowEpoch = Date.now();
+  var files = document.getElementById('files').files;
+  for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {
+    var file = files[fileIndex];
+    var reader = new FileReader();
+    reader.onload = function (progressEvent) {
+      const text = this.result; //entire file
+      var lines = text.split('\n');
+      for (const line of lines) {
+        if (line.search("DTSTART") != -1) {
+          var date = line.split(":")[1];
+          dateString = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
+          var epoch = new Date(dateString).getTime() / 1000; //since ms => s
+        } else if (line.search("SUMMARY") != -1) {
+          var task = line.split(":")[1];
+          task = task.replace("\\", "");
+          task = task.replace("\r", "");
+        } else if (line.search("END:VEVENT") != -1) {
+          if(!gIgnoreOlderDates || epoch > nowEpoch){
+            if (!(epoch in gEpochTaskDict)) { gEpochTaskDict[epoch] = { "tasks": [], "date": dateString }; }
+            var arr = gEpochTaskDict[epoch]["tasks"];
+            arr.push(task);
+            gEpochTaskDict[epoch][tasks] = arr;
+            if (!gTasks.includes(task)) {
+              gTasks.push(task);
+              gColors = getColors();
+            } //if
+          } //if
+        } //if
+      } //for
+      showCheckBoxes(gTasks); //executed multiple times per loaded file, however ok
+      checkMaxNumberOfEntries();
+      gFilesLoaded = true;
+    }; //on load
+    reader.readAsText(file);
+  } //for
 }
 
 function getValidTaskIds() {
@@ -887,7 +891,7 @@ function openPage(pageName,elmnt,color) {
 
 function createWebpage() {
   var innerHTML = `
-  <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
+  <div><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
   <div class=tabbackground >
     <button class="tablink" onclick="openPage('tab_DATES', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
     <button class="tablink" onclick="openPage('tab_SETTINGS', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>

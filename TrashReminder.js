@@ -750,22 +750,7 @@ let timeoutID;
 
 function showMessage(msgType, message, receiver = "messageButton", hideDelayInSec = 0) {
   document.getElementById(receiver).innerHTML = message + "<br>";
-  switch (msgType) {
-      case "D":
-          document.getElementById(receiver).style.color = "orange";
-          break;
-      case "W":
-          document.getElementById(receiver).style.color = "orange";
-          break;
-      case "E":
-          document.getElementById(receiver).style.color = "red";
-          break;
-      case "I":
-          document.getElementById(receiver).style.color = "#4CAF50"; //green
-          break;
-      default:
-          document.getElementById(receiver).style.color = "black";
-  }
+  document.getElementById(receiver).style.color = getMessageColor(msgType);
   if (hideDelayInSec != 0) {
       timeoutId = setTimeout(function () { document.getElementById(receiver).innerHTML = ""; }, hideDelayInSec * 1000);
   } else {
@@ -776,27 +761,27 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
 
 function statusBarMessage(msgType, message, hideDelayInSec = 0) {
     document.getElementById("messageStatusBar").innerHTML = message + "<br>";
-    switch (msgType) {
-        case "D":
-            document.getElementById("statusBar").style.backgroundColor = "orange";
-            break;
-        case "W":
-            document.getElementById("statusBar").style.backgroundColor = "orange";
-            break;
-        case "E":
-            document.getElementById("statusBar").style.backgroundColor = "red";
-            break;
-        case "I":
-            document.getElementById("statusBar").style.backgroundColor = "#4CAF50"; //green
-            break;
-        default:
-            document.getElementById("statusBar").style.backgroundColor = "black";
-    }
+    document.getElementById("statusBar").style.backgroundColor = getMessageColor(msgType);
     if (hideDelayInSec != 0) {
         timeoutId = setTimeout(function () { document.getElementById("messageStatusBar").innerHTML = ""; document.getElementById("statusBar").style.backgroundColor = "#c8b08c"}, hideDelayInSec * 1000);
     } else {
         clearTimeout(timeoutID);
     }
+}
+
+function getMessageColor(msgType){
+  switch (msgType) {
+    case "D":
+      return("orange");
+    case "W":
+      return("orange");
+    case "E":
+      return("red");
+    case "I":
+      return("#4CAF50"); //green
+    default:
+      return("black");
+  }
 }
 
 (function blink() { 

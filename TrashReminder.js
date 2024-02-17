@@ -505,7 +505,7 @@ var gIgnoreOlderDates = true;
 function processFiles() {
   gTasks = [];
   gEpochTaskDict = {};
-  var nowEpoch = Date.now();
+  var nowEpoch = Date.now()/ 1000; //since ms => s
   var files = document.getElementById('files').files;
   for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {
     var file = files[fileIndex];

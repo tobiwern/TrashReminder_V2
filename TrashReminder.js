@@ -776,7 +776,7 @@ function getMessageColor(msgType){
     case "E":
       return("red");
     case "I":
-      return("#4CAF50"); //green
+      return("green"); 
     default:
       return("black");
   }

@@ -846,7 +846,7 @@ function handleShowPastDates(){ //page update
   sendShowPastDatesToESP();
 }
 
-function handleShowPastDates(){ //page update
+function handleImportPastDates(){ //page update
   gImportPastDates = document.getElementById("importPastDates").checked;
 }
 

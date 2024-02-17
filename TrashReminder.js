@@ -1109,14 +1109,16 @@ function buildTab_DATA(){
 
 gFilesLoaded = false;
 function refreshTab_DATA(){
-  var downloadButton = "";
-  if(!gFilesLoaded){
-    downloadButton = `
-    Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:<br><br>
-    <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
-    `;
-  }
+  var downloadButton = `
+  Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:<br><br>
+  <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
+  `;
   document.getElementById("buttonDownload").innerHTML = downloadButton;
+  if(!gFilesLoaded){
+    document.getElementById("buttonDownload").style.display = "block";  
+  } else {
+    document.getElementById("buttonDownload").style.display = "none";  
+  }
 
   var description = "";
   var buttonDelete = "";

@@ -169,6 +169,7 @@
           text-align: left;
           align-items: center;
           color: white;
+          display: "none";
         }
 
         /*Tab Style*/          

@@ -648,7 +648,11 @@ function checkMaxNumberOfEntries() {
 }
 
 function showCheckBoxes(items) {
-    var i = 0;
+  var i = 0;
+  if(Object.keys(gEpochTaskDict).length == 0){
+    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden!<br>";  
+    showMessage("W", text, "messageTasks");
+  } else {
     var text = "<i>Es wurden " + Object.keys(gEpochTaskDict).length + " Abfuhrtermine in ";
     if (document.getElementById('files').files.length > 1) {
         text += "den Dateien gefunden.</i>";
@@ -659,9 +663,10 @@ function showCheckBoxes(items) {
     text += "Bitte w&auml;hlen Sie die Abfallarten aus,<br>an die Sie erinnert werden wollen:<br><br>";
     text += genCheckBoxes(items, gColors);
     text += "<br><button class=button onclick='genJson()'>Abfuhrtermine speichern</button><br><br>";
-    document.getElementById("tasks").innerHTML = text;
     refreshColorPickerColors("colorPickerIcs");
-    document.getElementById("messageDeleteTasks").innerHTML = "";
+    document.getElementById("messageTasks").innerHTML = "";
+  }
+  document.getElementById("tasks").innerHTML = text;
 }
 
 function genCheckBoxes(tasks, colors, validTaskIds = []) {
@@ -1074,7 +1079,8 @@ function buildTab_DATA(){
   <hr>
   <div id='buttonDownload'></div>
   <div id='tasks'></div>
-  
+  <div id='messageTasks'></div>
+
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
   <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
   angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. <a target='_blank' href='https://www.google.com/search?&q=Abfuhrtermine+Stuttgart'>"Abfuhrtermine Stuttgart"</a>.</div><br>

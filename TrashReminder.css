@@ -128,8 +128,18 @@
           box-sizing: border-box
         }
 
+        .mainFrame {
+          max-width: 500px;
+          width: 100%;
+          margin: auto;
+          align-items: center;
+          text-align: center;
+          border: 1px solid  #a39073;
+        }
+
         .imageHeader {
           margin:0px;
+          max-width: 500px;
         }
 
 

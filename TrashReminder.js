@@ -908,41 +908,43 @@ function openPage(pageName,elmnt,color) {
 
 function createWebpage() {
   var innerHTML = `
-  <div class=imageHeader><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
-  <div class=tabbackground >
-    <button class="tablink" onclick="openPage('tab_DATES', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_SETTINGS', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_DATA', this, '#4CAF50')" id="data"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
-    <button class="tablink" onclick="openPage('tab_HELP', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
-  </div>
-
-  <div id="tab_DATES" class="tabcontent">
-    <div class=frame>
-      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
-      <div id='content_DATES'></div>
+  <div class=mainFrame>
+    <div class=imageHeader><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
+    <div class=tabbackground >
+      <button class="tablink" onclick="openPage('tab_DATES', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
+      <button class="tablink" onclick="openPage('tab_SETTINGS', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
+      <button class="tablink" onclick="openPage('tab_DATA', this, '#4CAF50')" id="data"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
+      <button class="tablink" onclick="openPage('tab_HELP', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
     </div>
-  </div>
 
-  <div id="tab_SETTINGS" class="tabcontent">
-    <div class=frame> 
-      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>
-      <div id='content_SETTINGS'></div>    
-    </div>        
-  </div>
-
-  <div id="tab_DATA" class="tabcontent">
-    <div class=frame>      
-      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
-      <div id='content_DATA'></div> 
+    <div id="tab_DATES" class="tabcontent">
+      <div class=frame>
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
+        <div id='content_DATES'></div>
+      </div>
     </div>
-  </div>
 
-  <div id="tab_HELP" class="tabcontent">
-    <div class=frame>
-      <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
-      <div id='content_HELP'></div> 
+    <div id="tab_SETTINGS" class="tabcontent">
+      <div class=frame> 
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/settings.svg?raw=true'> Einstellungen</div></h2>
+        <div id='content_SETTINGS'></div>    
+      </div>        
     </div>
-  </div>
+
+    <div id="tab_DATA" class="tabcontent">
+      <div class=frame>      
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Daten für Abfuhrtermine</div></h2>
+        <div id='content_DATA'></div> 
+      </div>
+    </div>
+
+    <div id="tab_HELP" class="tabcontent">
+      <div class=frame>
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
+        <div id='content_HELP'></div> 
+      </div>
+    </div>
+  </div>  
   `;
   document.getElementById("body").innerHTML = innerHTML;
   addFavicon();

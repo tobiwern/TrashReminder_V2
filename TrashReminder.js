@@ -848,7 +848,11 @@ function sendShowPastDatesToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           response = this.responseText;
-          var message = "Neue Einstellung gespeichert."
+          if(response == "1"){
+            var message = "Vergangene Termine werden angezeigt";
+          } else {
+            var message = "Vergangene Termine werden nicht angezeigt";
+          }
           statusBarMessage("I", message, gHideDelayDefault);
       }
   };

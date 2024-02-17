@@ -746,24 +746,22 @@ function epochToDateString(epoch, dateType = "long") {
 
 let timeoutID;
 function showMessage(msgType, message, receiver = "messageTaskTypes", hideDelayInSec = 0) {
+  clearTimeout(timeoutID);
   document.getElementById(receiver).innerHTML = message + "<br>";
   document.getElementById(receiver).style.color = getMessageColor(msgType);
   if (hideDelayInSec != 0) {
       timeoutID = setTimeout(function () { document.getElementById(receiver).innerHTML = ""; }, hideDelayInSec * 1000);
-  } else {
-      clearTimeout(timeoutID);
   }
 //    if(receiver == "messageButton"){window.scrollTo(0, document.body.scrollHeight);}
 }
 
 function statusBarMessage(msgType, message, hideDelayInSec = 0) {
+  clearTimeout(timeoutID);
   document.getElementById("messageStatusBar").innerHTML = message + "<br>";
   document.getElementById("statusBar").style.display = "block";
   document.getElementById("statusBar").style.backgroundColor = getMessageColor(msgType);
   if (hideDelayInSec != 0) {
     timeoutID = setTimeout(function () { document.getElementById("messageStatusBar").innerHTML = ""; document.getElementById("statusBar").style.backgroundColor = "#c8b08c"; document.getElementById("statusBar").style.display = "none"; }, hideDelayInSec * 1000);
-  } else {
-    clearTimeout(timeoutID);
   }
 }
 

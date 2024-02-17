@@ -24,15 +24,6 @@
         }
 
 
-        body,
-        html {
-          height: 100%;
-          margin: 0;
-          text-align: center;
-          font-family: Arial, Helvetica, sans-serif;
-        }
-
-
         table {
           width: 80%;
           text-align: center;
@@ -128,87 +119,122 @@
           box-sizing: border-box
         }
 
-        .mainFrame {
-          max-width: 500px;
-          width: 100%;
+        html,
+        body {
           height: 100%;
-          margin: auto;
-          align-items: center;
+          margin: 0;
           text-align: center;
-          border: 1px solid  #a39073;
+          font-family: Arial, Helvetica, sans-serif;        
         }
 
-        .imageHeader {
-          margin:0px;
+        /*Base Layout with Flex Box*/
+        .box {
+          display: flex;
+          flex-flow: column;
+          height: 100%;
           max-width: 500px;
+          margin: auto;
+          gap: 0px;
         }
-
-
-        #tab1 {
+  
+        .box .row {
+          border: 0px dotted grey;
+        }
+  
+        .box .row.header {
+          flex: 0 1 auto;
+          /* The above is shorthand for:
+          flex-grow: 0,
+          flex-shrink: 1,
+          flex-basis: auto
+          */
+          background-color: aqua;
+        }
+  
+        .box .row.tabs {
+          flex: 0 1 60px;
+          background-color: rgb(0, 170, 255);
+        }
+  
+        .box .row.content {
+          flex: 1 1 auto;
           background-color: white;
-        }
-
-        #tab2 {
-          background-color: white;
-        }
-
-        #tab3 {
-          background-color: white;
-        }
-
-        #tab4 {
-          background-color: white;
-        }
-        
-        /* Style tab links */
-        .tabbackground {
-          background-color: #a89477;
-          height: 60px;
-          margin:0px;
-        }
-
-        .tablink {
-          background-color: #c8b08c;
-          background: #c8b08c;
-          color: white;
-          float: left;
-          border-width: 1px 1px 10px 1px;
-          border-color: #c8b08c;
-          border-bottom-color: #edd1a582;
-          border-top-right-radius: 10px;
-          border-top-left-radius: 10px;
-          vertical-align: text-bottom;
-          align-items: center;
-          text-align: center;
-          outline: none;
-          cursor: pointer;
-          padding: 2px 2px 2px 2px;
-          font-size: 17px;
-          width: 25%;
-          height: 60px;
-        }
-
-        .icon {
-          padding: 8px;
-        }
-
-        .tablink:hover {
-          background-color: #a39073;
-        }
-
-        /* Style the tab content (and add height:100% for full page content) */
-        .tabcontent {
-          color: black;
-          display: none;
-          padding: 10px 10px;
-          height: 80%;
           overflow: scroll;
         }
-
-        .scrollable {
-          overflow: auto;
-          height: 50%;
+  
+        .box .row.footer {
+          flex: 0 1 20px;
+          background-color: #c8b08c;
+          margin:0px;
+          padding: 8px 10px 5px 10px;
+          line-height: 1;
+          font-size: 13px;
+          text-align: left;
+          align-items: center;
+          color: white;
         }
+
+        /*Tab Layout*/
+        #tab1 {
+            background-color: white;
+          }
+  
+          #tab2 {
+            background-color: white;
+          }
+  
+          #tab3 {
+            background-color: white;
+          }
+  
+          #tab4 {
+            background-color: white;
+          }
+          
+          /* Style tab links */
+          .tabbackground {
+            background-color: #a89477;
+            height: 60px;
+            margin:0px;
+          }
+  
+          .tablink {
+            background-color: #c8b08c;
+            background: #c8b08c;
+            color: white;
+            float: left;
+            border-width: 1px 1px 10px 1px;
+            border-color: #c8b08c;
+            border-bottom-color: #edd1a582;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            vertical-align: text-bottom;
+            align-items: center;
+            text-align: center;
+            outline: none;
+            cursor: pointer;
+            padding: 2px 2px 2px 2px;
+            font-size: 17px;
+            width: 25%;
+            height: 60px;
+          }
+  
+          .tablink:hover {
+            background-color: #a39073;
+          }
+  
+          /* Style the tab content (and add height:100% for full page content) */
+          .tabcontent {
+            color: black;
+            display: none;
+            padding: 10px 10px;
+            height: 100%;
+            overflow: scroll;
+          }
+  
+          .icon {
+            padding: 8px;
+          }
 
         @keyframes blinker {  
           50% { opacity: 0; }

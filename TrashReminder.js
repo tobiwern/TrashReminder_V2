@@ -22,7 +22,7 @@ function acknowledge(value) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-//        showMessage("I", "Erinnerung ausgeschaltet!", "messageAcknowledge", gHideDelayDefault);
+//        showMessage("I", "Erinnerung ausgeschaltet!", "messageStatusBar", gHideDelayDefault);
         gAcknowledge = (this.responseText == "1"?true:false);
         refreshTaskDates();
         refreshTabs();
@@ -36,7 +36,7 @@ function fireworks() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "FEUERWERK!", "messageButton", gHideDelayDefault);
+            showMessage("I", "FEUERWERK!", "messageStatusBar", gHideDelayDefault);
         }
     };
     xhttp.open("GET", "fireworks", true);
@@ -49,11 +49,11 @@ function toggleDemo() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if(this.responseText == "DemoOn"){
-                showMessage("I", "Demo Mode gestartet!" , "messageButton", gHideDelayDefault);
+                showMessage("I", "Demo Mode gestartet!" , "messageStatusBar", gHideDelayDefault);
                 gDemo = true;
                 document.getElementById("demoButton").innerHTML = "Demo Mode beenden";
             } else {
-                showMessage("I", "Demo Mode beendet!" , "messageButton", gHideDelayDefault);
+                showMessage("I", "Demo Mode beendet!" , "messageStatusBar", gHideDelayDefault);
                 document.getElementById("demoButton").innerHTML = "Demo Mode starten";
                 gDemo = false;
             }
@@ -94,8 +94,8 @@ function restartTrashReminder() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            showMessage("I", "TrashReminder wurde neu gestartet!", "messageButton", gHideDelayDefault);
-//            showMessage("I", "Erinnerung wieder eingeschaltet!", "messageAcknowledge", gHideDelayDefault);
+            showMessage("I", "TrashReminder wurde neu gestartet!", "messageStatusBar", gHideDelayDefault);
+//            showMessage("I", "Erinnerung wieder eingeschaltet!", "messageStatusBar", gHideDelayDefault);
             refreshTaskDates();
             refreshTabs();
         }
@@ -120,7 +120,7 @@ function requestLogFromESP() {
       } else {
         var message = this.responseText.replaceAll("\n", "<br>")  
       }
-      showMessage("I", message, "messageButton"); //show continuous
+      showMessage("I", message, "messageStatusBar"); //show continuous
     }
   };
   xhttp.open("GET", "request_log", true);
@@ -130,16 +130,16 @@ function requestLogFromESP() {
 function deleteLogOnESP() {
     const response = confirm("Wollen Sie wirklich das Logfile löschen?");
     if (!response) {
-        showMessage("I", "Löschen des Logfiles abgebrochen.", "messageButton", gHideDelayDefault);
+        showMessage("I", "Löschen des Logfiles abgebrochen.", "messageStatusBar", gHideDelayDefault);
         return;
     }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4) {
         if (this.status == 200) {
-          showMessage("I", "Logfile gelöscht.", "messageButton", gHideDelayDefault);   
+          showMessage("I", "Logfile gelöscht.", "messageStatusBar", gHideDelayDefault);   
         } else { //500
-          showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "messageButton", gHideDelayDefault); 
+          showMessage("W", "Löschen des Logfiles fehlgeschlagen!", "messageStatusBar", gHideDelayDefault); 
         }      
       }
     };
@@ -213,8 +213,8 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
 //        gNoDates = false; //not required since gets updated refreshTaskDates
         refreshTaskTypesAndDates(response);
       } else { //500
-        showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
-        if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault); }
+        showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageStatusBar");
+        if (show) { showMessage("E", "Lesen der Daten fehlgeschlagen!", "messageStatusBar", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
         document.getElementById("taskDates").innerHTML = "";
         gNoDates = true;
@@ -228,11 +228,11 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
 
 function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to the ESP to be stored in LittleFS
     if (currentData) {
-        receiver = "messageTaskTypes";
+        receiver = "messageStatusBar";
         message = "Neue Auswahl gespeichert.";
         hideDelay = 2;
     } else {
-        receiver = "messageDeleteTasks";
+        receiver = "messageStatusBar";
         message = "Übertragen der Daten war erfolgreich.";
         hideDelay = 5;
     }
@@ -263,9 +263,9 @@ function sendValidTaskTypesToESP() {
         validTaskIds.push(i);
       }
     }
-//showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageTaskTypes");
+//showMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageStatusBar");
     if (validTaskIds.length == 0) {
-      showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageTaskTypes");
+      showMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageStatusBar");
       return;
     }
     gDataValidTaskIds = validTaskIds; //update in global Setup
@@ -286,7 +286,7 @@ function sendDropDownStateToESP(dropdown) {
             } else { //end
               var message = "Neuer Endzeitpunkt gespeichert.";
             }
-            showMessage("I", message, "messageTime", gHideDelayDefault);
+            showMessage("I", message, "messageStatusBar", gHideDelayDefault);
             refreshTaskDates();
             requestSettingsFromESP();
         }
@@ -315,7 +315,7 @@ function sendDropDownStateToESP(dropdown) {
 function deleteTasksOnESP() {
   const response = confirm("Wollen Sie wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
   if (!response) {
-    showMessage("I", "Löschen der Daten abgebrochen.", "messageDeleteTasks", gHideDelayDefault);
+    showMessage("I", "Löschen der Daten abgebrochen.", "messageStatusBar", gHideDelayDefault);
     return;
   }
   var xhttp = new XMLHttpRequest();
@@ -324,7 +324,7 @@ function deleteTasksOnESP() {
     allowAction();
     if (this.readyState == 4) {
       if (this.status == 200) {
-        showMessage("I", "Löschen der Daten war erfolgreich!", "messageDeleteTasks", gHideDelayDefault);
+        showMessage("I", "Löschen der Daten war erfolgreich!", "messageStatusBar", gHideDelayDefault);
         gNoDates = true;
         gAlarm = false;
         gFutureDates = 0;
@@ -332,7 +332,7 @@ function deleteTasksOnESP() {
         document.getElementById("taskDates").innerHTML = "";
         refreshTabs();
       } else { //500
-        showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "messageDeleteTasks", gHideDelayDefault);
+        showMessage("E", "ERROR: Löschen der Daten fehlgeschlagen!", "messageStatusBar", gHideDelayDefault);
       }
     }
   };
@@ -343,17 +343,17 @@ function deleteTasksOnESP() {
 function resetWifiSettingsOnESP() {
     const response = confirm("Wollen Sie wirklich die WLAN Einstellungen löschen?");
     if (!response) {
-        showMessage("I", "Löschen der WLAN Einstellungen abgebrochen.", "messageButton", gHideDelayDefault);
+        showMessage("I", "Löschen der WLAN Einstellungen abgebrochen.", "messageStatusBar", gHideDelayDefault);
         return;
     }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                showMessage("I", "Löschen der WLAN Einstellungen war erfolgreich!", "messageButton", gHideDelayDefault);
+                showMessage("I", "Löschen der WLAN Einstellungen war erfolgreich!", "messageStatusBar", gHideDelayDefault);
 //                requestTasksFromESP(false); //if deleting the values on the ESP was successful => refresh the "current values" on the webpage
             } else { //500
-                showMessage("E", "ERROR: Löschen der WLAN Einstellungen fehlgeschlagen!", "messageButton", gHideDelayDefault);
+                showMessage("E", "ERROR: Löschen der WLAN Einstellungen fehlgeschlagen!", "messageStatusBar", gHideDelayDefault);
             }
         }
     };
@@ -401,7 +401,7 @@ function sendCurrentDataToESP() { //send currently set data to ESP
         const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
         sendTasksToESP(jsonText, true);
     } catch (e) {
-        showMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>", "messageDeleteTasks");
+        showMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>", "messageStatusBar");
         return;
     }
 }
@@ -410,14 +410,14 @@ function refreshTaskTypesAndDates(response) {
     try {
         const jsonObject = JSON.parse(response);
         document.getElementById("taskDates").style.color = "black";
-        document.getElementById("messageTaskTypes").innerHTML = "";
+        document.getElementById("messageStatusBar").innerHTML = "";
         gDataEpochTaskDict = {}; //reset
         initDataFromJson(jsonObject);
         refreshTaskTypes();
         refreshTaskDates();
         refreshTabs();
     } catch (e) {
-        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageTaskTypes");
+        showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageStatusBar");
         document.getElementById("taskDates").innerHTML = response;
         return;
     }
@@ -438,7 +438,7 @@ function refreshTaskTypes() {
     text += "</table>";
     text += "<br><em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br></em>"
     document.getElementById("taskTypes").innerHTML = text + "<br>";
-    document.getElementById("messageTaskTypes").innerHTML = "";
+    document.getElementById("messageStatusBar").innerHTML = "";
     refreshColorPickerColors("colorPickerTask");
 }
 
@@ -617,7 +617,7 @@ function genJson() {
     try {
       var obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
     } catch (e) {
-      showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "messageAcknowledge");
+      showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "messageStatusBar");
       return;
     }
     sendTasksToESP(jsonText);
@@ -650,7 +650,7 @@ function checkMaxNumberOfEntries() {
     }
     if (text != "") {
         text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>!";
-        showMessage("W", text, "messageDeleteTasks");
+        showMessage("W", text, "messageStatusBar");
     }
 }
 
@@ -658,7 +658,7 @@ function showCheckBoxes(items) {
   var i = 0;
   if(Object.keys(gEpochTaskDict).length == 0){
     var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte laden Sie neue Abfuhrtermine herunter!";  
-    showMessage("W", text, "messageTasks");
+    showMessage("W", text, "messageStatusBar");
     document.getElementById("buttonDownload").style.display = "block"; //show button Download
     gFilesLoaded = false;
   } else {
@@ -674,7 +674,7 @@ function showCheckBoxes(items) {
     text += "<br><button class=button onclick='genJson()'>Abfuhrtermine speichern</button><br><br>";
     document.getElementById("tasks").innerHTML = text;
     refreshColorPickerColors("colorPickerIcs");
-    document.getElementById("messageTasks").innerHTML = "";
+    document.getElementById("messageStatusBar").innerHTML = "";
   }
 }
 
@@ -694,7 +694,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
 }
 
 function send(number) {//debug
-    showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "messageDeleteTasks");
+    showMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "messageStatusBar");
 }
 
 /// ColorPicker          green      blue       yellow     white      orange     pink       purple    iceblue    icegreen
@@ -749,7 +749,7 @@ function epochToDateString(epoch, dateType = "long") {
 }
 
 let timeoutID;
-function showMessage(msgType, message, receiver = "messageButton", hideDelayInSec = 0) {
+function showMessage(msgType, message, receiver = "messageStatusBar", hideDelayInSec = 0) {
     document.getElementById(receiver).innerHTML = message + "<br><br>";
     switch (msgType) {
         case "D":
@@ -772,7 +772,7 @@ function showMessage(msgType, message, receiver = "messageButton", hideDelayInSe
     } else {
         clearTimeout(timeoutID);
     }
-    if(receiver == "messageButton"){window.scrollTo(0, document.body.scrollHeight);}
+//    if(receiver == "messageButton"){window.scrollTo(0, document.body.scrollHeight);}
 }
 
 (function blink() { 
@@ -788,9 +788,9 @@ function sendNtpServerToESP(){
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
-        showMessage("I", "NTP Server gespeichert.", "messageServer", gHideDelayDefault);   
+        showMessage("I", "NTP Server gespeichert.", "messageStatusBar", gHideDelayDefault);   
       } else { //500
-        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageServer", gHideDelayDefault); 
+        showMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", "messageStatusBar", gHideDelayDefault); 
 //        document.getElementById("ntpServer").value = this.responseText;
       }      
     }
@@ -808,7 +808,7 @@ function sendTimezoneServerToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           var message = "Zeitzonen Server gespeichert.";
-          showMessage("I", message, "messageServer", gHideDelayDefault);
+          showMessage("I", message, "messageStatusBar", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_timezone_server?value=" + document.getElementById("timezoneServer").value, true);
@@ -824,7 +824,7 @@ function sendTimeOffsetToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         var message = "Zeitzone gespeichert.";
-        showMessage("I", message, "messageServer", gHideDelayDefault);
+        showMessage("I", message, "messageStatusBar", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_time_offset?value=" + document.getElementById("timeOffset").value*3600, true); 
@@ -842,7 +842,7 @@ function sendShowPastDatesToESP(){
       if (this.readyState == 4 && this.status == 200) {
           response = this.responseText;
           var message = "Vergangene Termine " + ((response == "1")?"an":"aus") + " gespeichert."
-          showMessage("I", message, "messageOptions", gHideDelayDefault);
+          showMessage("I", message, "messageStatusBar", gHideDelayDefault);
       }
   };
   xhttp.open("GET", "set_show_past_dates?value=" + (gShowPastDates?1:0), true);  //convert bool to int
@@ -909,15 +909,19 @@ function openPage(pageName,elmnt,color) {
 
 function createWebpage() {
   var innerHTML = `
-  <div class=mainFrame>
-    <div class=imageHeader><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' ></div>
+  <div class="box">
+  <div class="row header">
+    <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
+  </div>
+  <div class="row tabs">
     <div class=tabbackground >
       <button class="tablink" onclick="openPage('tab_DATES', this, '#4CAF50')" id="dates"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/truck_white.svg></button>
       <button class="tablink" onclick="openPage('tab_SETTINGS', this, '#4CAF50')" id="settings"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/settings_white.svg></button>
       <button class="tablink" onclick="openPage('tab_DATA', this, '#4CAF50')" id="data"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download_white.svg></button>
       <button class="tablink" onclick="openPage('tab_HELP', this, '#4CAF50')" id="help"><img class=icon src=https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/help_white.svg></button>
     </div>
-
+  </div>
+  <div class="row content">
     <div id="tab_DATES" class="tabcontent">
       <div class=frame>
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/truck.svg?raw=true'>Abfuhrtermine</div></h2>
@@ -944,13 +948,17 @@ function createWebpage() {
         <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/github.svg?raw=true'> Bedienungsanleitung</div></h2>
         <div id='content_HELP'></div> 
       </div>
-    </div>
-  </div>  
+    </div>   
+  </div>
+  <div class="row footer">
+    <div id="messageStatusBar">Status Bar Text</div>
+  </div>
+</div>
+
   `;
   document.getElementById("body").innerHTML = innerHTML;
   addFavicon();
   buildTabs();
-//  refreshTabs();
   handleTabSelection();
 }
 
@@ -982,7 +990,6 @@ function buildTab_DATES(){
   var content =`
   <div id='descriptionDates'></div>
   <div id='buttonAcknowledge'></div>
-  <div id='messageAcknowledge'></div>
   <div id='taskDates'></div>
   `;
   document.getElementById("content_DATES").innerHTML = content;  
@@ -1029,12 +1036,10 @@ function buildTab_SETTINGS(){
       <td class=value><select id="end" name="end" onchange='sendDropDownStateToESP("end")'></select></td>
     </tr>
   </table><br>
-  <div id='messageTime'></div>
 
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/trash.svg?raw=true'> Abfallarten</div></h3>
   <div id='taskTypes'></div>
-  <div id='messageTaskTypes'></div>
 
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/sliders.svg?raw=true'> Optionen</div></h3>
@@ -1048,7 +1053,6 @@ function buildTab_SETTINGS(){
     <label for="importPastDates">Vergangene Termine importieren</label></td>
     </tr>
     </table><br>
-  <div id='messageOptions'></div>
 
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Zeit Einstellungen</div></h3>
@@ -1070,7 +1074,6 @@ function buildTab_SETTINGS(){
     <td colspan=2><em>Eine gute Übersicht an NTP Servern kann unter diesem <a href='https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453'>Link</a> aufgerufen werden.</em></td>
     </tr>
   </table><br>
-  <div id='messageServer'></div>
   `;
   document.getElementById("content_SETTINGS").innerHTML = content;
 }
@@ -1090,7 +1093,6 @@ function buildTab_DATA(){
   <hr>
   <div id='buttonDownload'></div>
   <div id='tasks'></div>
-  <div id='messageTasks'></div>
 
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
   <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
@@ -1105,7 +1107,6 @@ function buildTab_DATA(){
   Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
   <div id='descriptionData'></div> 
   <div id='buttonDeleteTasks'></div><br>
-  <div id='messageDeleteTasks'></div>           
   `;
   document.getElementById("content_DATA").innerHTML = content;
 }
@@ -1141,7 +1142,6 @@ function buildTab_HELP(){
   var content = `
   Mehr Infos zur "Müll-Erinnerung gibt es unter<br><a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
   <br><br>
-  <div id='messageButton'></div>
   <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
   <button class="button" onclick="fireworks()">Feuerwerk</button>
   <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>

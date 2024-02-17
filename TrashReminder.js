@@ -501,7 +501,7 @@ var gEpochTaskDict = {};                       //HÄCKSEL
 var gColorDict = { 'PAPIER': '0x0000FF', 'BIO,CKSEL': '0x00FF00', 'GELB,WERT': '0xFFFF00', 'REST': '0xFFFFFF' }
 var gColorDefault = '0xFFC0CB';
 var gColors = [];
-var gIgnoreOlderDates = true;
+var gImportPastDates = false;
 function processFiles() {
   gTasks = [];
   gEpochTaskDict = {};
@@ -523,7 +523,7 @@ function processFiles() {
           task = task.replace("\\", "");
           task = task.replace("\r", "");
         } else if (line.search("END:VEVENT") != -1) {
-          if(!gIgnoreOlderDates || epoch > nowEpoch){
+          if(gImportPastDates || epoch > nowEpoch){
             if (!(epoch in gEpochTaskDict)) { gEpochTaskDict[epoch] = { "tasks": [], "date": dateString }; }
             var arr = gEpochTaskDict[epoch]["tasks"];
             arr.push(task);
@@ -841,6 +841,10 @@ function handleShowPastDates(){ //page update
   sendShowPastDatesToESP();
 }
 
+function handleShowPastDates(){ //page update
+  gImportPastDates = document.getElementById("importPastDates").checked;
+}
+
 var canvas = document.createElement('canvas'); //Create a canvas element
 var context = canvas.getContext('2d');
 
@@ -1023,7 +1027,11 @@ function buildTab_SETTINGS(){
     <td><input type='checkbox' id="showPastDates" onchange='handleShowPastDates()'>
     <label for="showPastDates">Vergangene Termine anzeigen</label></td>
     </tr>
-  </table><br>
+    <tr>
+    <td><input type='checkbox' id="importPastDates" onchange='handleImportPastDates()'>
+    <label for="importPastDates">Vergangene Termine importieren</label></td>
+    </tr>
+    </table><br>
   <div id='messageOptions'></div>
 
   <hr>

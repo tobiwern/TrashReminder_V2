@@ -750,7 +750,7 @@ function epochToDateString(epoch, dateType = "long") {
 
 let timeoutID;
 function showMessage(msgType, message, receiver = "messageStatusBar", hideDelayInSec = 0) {
-    document.getElementById(receiver).innerHTML = message + "<br><br>";
+    document.getElementById(receiver).innerHTML = message + "<br>";
     switch (msgType) {
         case "D":
             document.getElementById(receiver).style.color = "orange";
@@ -841,7 +841,7 @@ function sendShowPastDatesToESP(){
   xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           response = this.responseText;
-          var message = "Vergangene Termine " + ((response == "1")?"an":"aus") + " gespeichert."
+          var message = "Neue Einstellung gespeichert."
           showMessage("I", message, "messageStatusBar", gHideDelayDefault);
       }
   };

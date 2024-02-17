@@ -762,7 +762,7 @@ function showMessage(msgType, message, receiver = "messageStatusBar", hideDelayI
             document.getElementById(receiver).style.color = "red";
             break;
         case "I":
-            document.getElementById(receiver).style.color = "green";
+            document.getElementById(receiver).style.color = "white"; //green
             break;
         default:
             document.getElementById(receiver).style.color = "black";

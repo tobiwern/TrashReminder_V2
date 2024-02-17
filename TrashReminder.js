@@ -232,7 +232,7 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
     message = "Neue Auswahl gespeichert.";
     hideDelay = 2;
   } else {
-    message = "Übertragen der Daten war erfolgreich.";
+    message = "Übertragung der Daten war erfolgreich.";
     hideDelay = 5;
   }
   console.log("jsonText = " + jsonText);

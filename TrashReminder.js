@@ -650,7 +650,7 @@ function checkMaxNumberOfEntries() {
 function showCheckBoxes(items) {
   var i = 0;
   if(Object.keys(gEpochTaskDict).length == 0){
-    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden!<br>";  
+    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte laden Sie neue Abfuhrtermine herunter!<br>";  
     showMessage("W", text, "messageTasks");
   } else {
     var text = "<i>Es wurden " + Object.keys(gEpochTaskDict).length + " Abfuhrtermine in ";

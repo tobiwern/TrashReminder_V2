@@ -116,11 +116,12 @@ function requestLogFromESP() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       if(this.responseText == "empty"){
-        var message = "Logfile ist leer.";
+        statusBarMessage("I", "Logfile ist leer.", gHideDelayDefault); 
       } else {
-        var message = this.responseText.replaceAll("\n", "<br>")  
+        var message = this.responseText.replaceAll("\n", "<br>");  
+        statusBarMessage("I", message); //show continuous
       }
-      statusBarMessage("I", message); //show continuous
+      
     }
   };
   xhttp.open("GET", "request_log", true);

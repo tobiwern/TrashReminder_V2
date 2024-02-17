@@ -663,10 +663,10 @@ function showCheckBoxes(items) {
     text += "Bitte w&auml;hlen Sie die Abfallarten aus,<br>an die Sie erinnert werden wollen:<br><br>";
     text += genCheckBoxes(items, gColors);
     text += "<br><button class=button onclick='genJson()'>Abfuhrtermine speichern</button><br><br>";
+    document.getElementById("tasks").innerHTML = text;
     refreshColorPickerColors("colorPickerIcs");
     document.getElementById("messageTasks").innerHTML = "";
   }
-  document.getElementById("tasks").innerHTML = text;
 }
 
 function genCheckBoxes(tasks, colors, validTaskIds = []) {

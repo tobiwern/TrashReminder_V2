@@ -995,7 +995,7 @@ function refreshTab_DATES(){
   } else if(gFutureDates == 0){
     description += "<div style='color: orange'>Es liegen keine zukünftigen Abfuhrtermine vor.</div><br>";
   } else {    
-    description += "In der Tabelle werden alle <b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
+    description += "In der Tabelle werden alle<br><b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }
   if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
   if(!gNoDates && gShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}

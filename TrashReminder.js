@@ -120,7 +120,7 @@ function requestLogFromESP() {
       } else {
         var message = this.responseText.replaceAll("\n", "<br>")  
       }
-      showMessage("I", message, "messageButton"); //show continuous
+      statusBarMessage("I", message); //show continuous
     }
   };
   xhttp.open("GET", "request_log", true);
@@ -241,8 +241,7 @@ function sendTasksToESP(jsonText, currentData = false) { //send the jsonText to 
     allowAction();
     if (this.readyState == 4) {
       if (this.status == 200) {
-        statusBarMessage("I", message, receiver, hideDelay);
-//        requestTasksFromESP(); //if storing the values on the ESP was successful => refresh the "current values" on the webpage
+        statusBarMessage("I", message, hideDelay);
       } else { //500
         statusBarMessage("E", "ERROR: Übertragen der Daten fehlgeschlagen!", gHideDelayDefault);
       }
@@ -261,9 +260,9 @@ function sendValidTaskTypesToESP() {
         validTaskIds.push(i);
       }
     }
-//statusBarMessage("W", "validTaskIds.length = " + validTaskIds.length, "messageStatusBar");
+//statusBarMessage("W", "validTaskIds.length = " + validTaskIds.length);
     if (validTaskIds.length == 0) {
-      statusBarMessage("W", "Sie müssen mindestens eine Abfallart auswählen!", "messageStatusBar");
+      statusBarMessage("W", "Sie müssen mindestens eine Abfallart auswählen!");
       return;
     }
     gDataValidTaskIds = validTaskIds; //update in global Setup
@@ -399,7 +398,7 @@ function sendCurrentDataToESP() { //send currently set data to ESP
         const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
         sendTasksToESP(jsonText, true);
     } catch (e) {
-        statusBarMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>", "messageStatusBar");
+        statusBarMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>");
         return;
     }
 }
@@ -415,7 +414,7 @@ function refreshTaskTypesAndDates(response) {
         refreshTaskDates();
         refreshTabs();
     } catch (e) {
-        statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e, "messageStatusBar");
+        statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e);
         document.getElementById("taskDates").innerHTML = response;
         return;
     }
@@ -615,7 +614,7 @@ function genJson() {
     try {
       var obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
     } catch (e) {
-      statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>", "messageStatusBar");
+      statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>");
       return;
     }
     sendTasksToESP(jsonText);
@@ -648,7 +647,7 @@ function checkMaxNumberOfEntries() {
     }
     if (text != "") {
         text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>!";
-        statusBarMessage("W", text, "messageStatusBar");
+        statusBarMessage("W", text);
     }
 }
 
@@ -692,7 +691,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
 }
 
 function send(number) {//debug
-    statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>", "messageStatusBar");
+    statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>");
 }
 
 /// ColorPicker          green      blue       yellow     white      orange     pink       purple    iceblue    icegreen

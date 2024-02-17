@@ -753,22 +753,22 @@ function showMessage(msgType, message, receiver = "messageStatusBar", hideDelayI
     document.getElementById(receiver).innerHTML = message + "<br>";
     switch (msgType) {
         case "D":
-            document.getElementById(receiver).style.color = "orange";
+            document.getElementById(receiver).style.backgroundColor = "orange";
             break;
         case "W":
-            document.getElementById(receiver).style.color = "orange";
+            document.getElementById(receiver).style.backgroundColor = "orange";
             break;
         case "E":
-            document.getElementById(receiver).style.color = "red";
+            document.getElementById(receiver).style.backgroundColor = "red";
             break;
         case "I":
-            document.getElementById(receiver).style.color = "white"; //green
+            document.getElementById(receiver).style.backgroundColor = "green"; 
             break;
         default:
-            document.getElementById(receiver).style.color = "black";
+            document.getElementById(receiver).style.backgroundColor = "black";
     }
     if (hideDelayInSec != 0) {
-        timeoutId = setTimeout(function () { document.getElementById(receiver).innerHTML = ""; }, hideDelayInSec * 1000);
+        timeoutId = setTimeout(function () { document.getElementById(receiver).innerHTML = ""; document.getElementById(receiver).style.backgroundColor = "#c8b08c"}, hideDelayInSec * 1000);
     } else {
         clearTimeout(timeoutID);
     }

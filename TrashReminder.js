@@ -746,7 +746,7 @@ function epochToDateString(epoch, dateType = "long") {
 }
 
 let timeoutID;
-function showMessage(msgType, message, receiver = "messageButton", hideDelayInSec = 0) {
+function showMessage(msgType, message, receiver = "messageTaskTypes", hideDelayInSec = 0) {
   document.getElementById(receiver).innerHTML = message + "<br>";
   document.getElementById(receiver).style.color = getMessageColor(msgType);
   if (hideDelayInSec != 0) {
@@ -1152,7 +1152,6 @@ function buildTab_HELP(){
   var content = `
   Mehr Infos zur "Müll-Erinnerung gibt es unter<br><a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
   <br><br>
-  <div id='messageButton'></div>
   <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
   <button class="button" onclick="fireworks()">Feuerwerk</button>
   <button class="button" id="demoButton" onclick="toggleDemo()">Demo Mode starten</button>

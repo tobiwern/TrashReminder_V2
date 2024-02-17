@@ -538,6 +538,7 @@ function processFiles() {
       showCheckBoxes(gTasks); //executed multiple times per loaded file, however ok
       checkMaxNumberOfEntries();
       gFilesLoaded = true;
+      refreshTab_DATA();
     }; //on load
     reader.readAsText(file);
   } //for

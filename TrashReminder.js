@@ -659,6 +659,7 @@ function showCheckBoxes(items) {
   if(Object.keys(gEpochTaskDict).length == 0){
     var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte laden Sie neue Abfuhrtermine herunter!";  
     showMessage("W", text, "messageTasks");
+    document.getElementById("buttonDownload").style.display = "block"; //show button Download
     gFilesLoaded = false;
   } else {
     var text = "<i>Es wurden " + Object.keys(gEpochTaskDict).length + " Abfuhrtermine in ";

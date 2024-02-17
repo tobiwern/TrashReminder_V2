@@ -1014,7 +1014,7 @@ function buildTab_SETTINGS(){
   <div id='messageTaskTypes'></div>
 
   <hr>
-  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Optionen</div></h3>
+  <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/sliders.svg?raw=true'> Optionen</div></h3>
   <table width="80%">
     <tr>
     <td><input type='checkbox' id="showPastDates" onchange='handleShowPastDates()'>

@@ -434,7 +434,7 @@ function refreshTaskTypes() {
     text += "</table>";
     text += "<br><em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br></em>"
     document.getElementById("taskTypes").innerHTML = text + "<br>";
-    document.getElementById("refreshTaskTypes").innerHTML = "";
+    document.getElementById("messageTaskTypes").innerHTML = "";
     refreshColorPickerColors("colorPickerTask");
 }
 

@@ -406,7 +406,7 @@ function refreshTaskTypesAndDates(response) {
     try {
         const jsonObject = JSON.parse(response);
         document.getElementById("taskDates").style.color = "black";
-        document.getElementById("messageStatusBar").innerHTML = "";
+        document.getElementById("messageTaskTypes").innerHTML = "";
         gDataEpochTaskDict = {}; //reset
         initDataFromJson(jsonObject);
         refreshTaskTypes();

@@ -492,6 +492,12 @@ function refreshTaskDates() { //show TaskDates on Webpage
   text += "</table>";
   document.getElementById("taskDates").innerHTML = text;
   document.getElementById("futureDates").innerHTML = gFutureDates + " Abfuhrtermine stehen noch an.<br><br>";
+/* TODO
+  <table>
+  <tr><td><input type='checkbox' id="showPastDates" onchange='handleShowPastDates()'><label for="showPastDates">Vergangene Termine anzeigen</label></td></tr>
+  </table><br>
+  </br>
+  */
 }
 
 /// ICS/iCAL Processing ////////////////////////////////////////////////////////////////////
@@ -651,8 +657,9 @@ function checkMaxNumberOfEntries() {
 function showCheckBoxes(items) {
   var i = 0;
   if(Object.keys(gEpochTaskDict).length == 0){
-    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte laden Sie neue Abfuhrtermine herunter!<br>";  
+    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte laden Sie neue Abfuhrtermine herunter!";  
     showMessage("W", text, "messageTasks");
+    gFilesLoaded = false;
   } else {
     var text = "<i>Es wurden " + Object.keys(gEpochTaskDict).length + " Abfuhrtermine in ";
     if (document.getElementById('files').files.length > 1) {

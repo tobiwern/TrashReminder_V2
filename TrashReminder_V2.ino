@@ -18,8 +18,6 @@ WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.
   - Show Firmware Version in Webpage!
-  - When loading new dates: Prompt if outdated dates should be loaded (or directly ignore?)
-  - Statusbar for messages at the bottom
   - Mülleimer Lade Animation
   - Have two sliders to define the start and end time
   - Multi languages, https://stackoverflow.com/questions/228835/best-practice-javascript-and-multilanguage, https://www.codeproject.com/Articles/5310336/Dynamically-Loading-a-JavaScript-File,  
@@ -31,6 +29,7 @@ Helpful:
   - JSON Validator: https://jsonformatter.curiousconcept.com/#
   - ICS/ICAL: https://www.ionos.de/digitalguide/websites/web-entwicklung/icalendar/ or https://datatracker.ietf.org/doc/html/rfc5545
   - Getting timezone from IP: https://ipapi.co/api/?csharp#specific-location-field6 or https://ipapi.co/json/ => https://ipapi.co/utc_offset
+  - QR Code Generator: https://www.qrcode-generator.ch/
 */
 
 #include <ESP8266WiFi.h>

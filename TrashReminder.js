@@ -73,7 +73,7 @@ function addFavicon() {
     $favicon.href = "https://tobiwern.github.io/TrashReminder_V2/favicon.ico"
     document.head.appendChild($favicon)
     $shortcut = document.createElement("link")
-    $shortcut.rel = "apple-touch-icon"
+    $shortcut.rel = "apple-touch-icon-precomposed"
     $shortcut.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.png"
     $shortcut.sizes = "152x152"
     document.head.appendChild($shortcut)

@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trash Reminder Code Update</title>
+    <meta name="robots" content="noindex">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="TrashReminder.css">
+  </head>  
 <body>
-    <h1>TrashReminder Code Update</h1>
-    <script type="module" src="https://unpkg.com/esp-web-tools/dist/web/install-button.js?module"></script>
-    <esp-web-install-button manifest="build/manifest.json"></esp-web-install-button>
+  <div class="box">
+    <div class="row header">
+      <img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/TrashReminder.jpg?raw=true' alt='Trash Reminder' width='100%' >
+    </div>
+    <div class="row content">
+    <div class=frame> 
+
+        <h2><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download.svg?raw=true'> Code Update</div></h2>
+        <script type="module" src="https://unpkg.com/esp-web-tools/dist/web/install-button.js?module"></script>
+        <esp-web-install-button manifest="build/manifest.json">
+          <button class=button slot="activate">Neuesten Code Herunterladen</button>
+          <span slot="unsupported">Ah snap, your browser doesn't work!</span>
+          <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>    
+        </esp-web-install-button>
+</div>
+</div>
+  </div>
+
+    
+  
 </body>
 </html>

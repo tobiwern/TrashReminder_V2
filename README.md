@@ -26,9 +26,14 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
    - [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
    - [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
 2. [Einstellungen](#einstellungen)
-  - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
-  - [Auswahl der Abfallart und Warnlichtfarbe](#auswahl-der-abfallart-und-warnlichtfarbe)
-
+   - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
+   - [Auswahl der Abfallart und Warnlichtfarbe](#auswahl-der-abfallart-und-warnlichtfarbe)
+3. [Sonstiges](#sonstiges
+   - [Farbe des Warnlichts und dessen Bedeutung](#farbe-des-warnlichts-und-dessen-bedeutung)
+   - [Ausschalten der Erinnerung](#ausschalten-der-erinnerung)
+   - [Problem Behandlung](#problem-behandlung)
+   - [Entsorgungsunternehmen](#entsorgungsunternehmen)
+     
 # Einrichten der Müll-Erinnerung
 
 ## Verbinden mit dem WLAN
@@ -98,7 +103,8 @@ Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfall
 
 <img src="./pictures/TrashReminderSettingsTypeColor.png" width="400">
 
-# Farbe des Warnlichts und dessen Bedeutung
+# Sonstiges
+## Farbe des Warnlichts und dessen Bedeutung
 
 - `rot-dauerhaft` WLAN muss eingerichtet werden
 - `rot-blinken-schnell` Keine Verbindung zum WLAN. Sobald Verbindung wieder vorliegt wecheselt `TrashReminder` in den regulären Modus.
@@ -122,7 +128,7 @@ Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uh
     - Rufe deine Router-Konfiguration (z.B. [http://fritz.box](http://fritz.box)) auf und suche die IP eines Gerätes mit Namen `ESP...`. 
     - Benutze eine Smartphone App wie [Fing](https://play.google.com/store/apps/details?id=com.overlook.android.fing) und suche die IP eines Gerätes mit Namen `ESP...`.  
 
-# Entsorgungsunternehmen
+## Entsorgungsunternehmen
 Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
 
 - `Hirrlingen`: https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/

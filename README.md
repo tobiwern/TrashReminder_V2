@@ -47,6 +47,14 @@ Klicken Sie auf das Download-Symbol um zur Download-Seite zu wechseln.
 
 <img src="./pictures/TrashReminderDownload.png" width="400">
 
+Klicken Sie auf `Hochladen...` und wählen Sie eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus.
+
+Es wird die Anzahl der gefundenen Termine und die unterschiedlichen Müllarten mit der zugewiesenen Farbe des Warnlichts angezeigt: 
+<img src="./pictures/TrashReminderDataSave.png" width="400">
+
+Hier kann ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicken Sie hierzu auf das Farbkästchen):
+<img src="./pictures/TrashReminderDataColor.png" width="400">
+
 Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
 Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
 

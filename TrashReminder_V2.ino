@@ -14,6 +14,7 @@ ESP:
     - if glitch => first wait for a minute, then query again
   - Auf Werkseinstellungen zurücksetzen
   - Adjust timezone via Webpage (currently has no effect)
+  - OTA Browser Update: https://mischianti.org/esp8266-ota-update-with-web-browser-custom-web-interface-3/
 WebPage:
   - Does it make sense to go to an AsyncWebserver (or WebSocket) => will this show a faster response time?
   - Option to merge currently still available and new ICS so not everything is overwritten.

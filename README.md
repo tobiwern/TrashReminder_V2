@@ -71,7 +71,7 @@ Optional kann hier ausgewählt werden an welche Müllarten erinnert werden soll 
 
 <img src="./pictures/TrashReminderDataColor.png" width="400">
 
-Klicke auf `Abfuhrtermine speichern`.
+Ist alles wie gewünscht gesetzt, klicke auf `Abfuhrtermine speichern`.
 
 Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht der `Abfuhrtermine`:
 

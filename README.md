@@ -4,8 +4,6 @@
 
 <img src="./pictures/TrashReminderMotivation.jpg" width="400">
 
-
-
 `TrashReminder` erinnert Dich daran, indem es eine farbig blinkende Erinnerung anzeigt!
 
 ![bild](./pictures/TrashReminder.jpg)
@@ -21,60 +19,38 @@ Wird also zum Beispiel `Restmüll` abgeholt, blinkt das Mülleimermodell `weiß`
 Sollten am selben Tag **zwei** unterschiedliche Müllarten abgeholt werden, wechselt das Licht zwischen den entsprechenden Farben hin und her. Also zum Beispiel zwischen `weiß` und `grün`, wenn sowohl `Restmüll` als auch `Biomüll` am selben Tag abgeholt werden.
 
 ## Einrichten der Müll-Erinnerung
-Da das aktuelle Datum und Uhrzeit aus dem Internet ermittelt werden, muss die `TrashReminder` mit dem WLAN verbunden werden.
 
-Wenn die `TrashReminder` zum ersten mal ans Netzteil angeschlossen wird, leuchtet das Mülleimermodell dauerhaft `rot` um mitzuteilen, dass die einmalige Einrichtung durchgeführt werden muss.
+### Verbinden mit dem WLAN
+Da das aktuelle Datum und Uhrzeit aus dem Internet ermittelt werden, muss `TrashReminder` mit dem WLAN verbunden werden.
+
+Wenn `TrashReminder` zum ersten mal ans Netzteil angeschlossen wird, leuchtet das Mülleimermodell dauerhaft `rot` um mitzuteilen, dass die einmalige Einrichtung durchgeführt werden muss.
 
 Hierzu muss man sich über das Smartphone mit dem WLAN Netzwerk `TrashReminder` verbinden und im folgenden Dialog
 - Heimnetzwerk (SSID) auswählen und das
 - Passwort für dieses Netzwerk eingeben.
 
-Jetzt verbindet sich die `TrashReminder` mit dem ausgewählten Netzwerk und quittiert die erfolgreiche Verbindung mit einem `Feuerwerk` im Mülleimermodell.
+Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittiert die erfolgreiche Verbindung mit einem `Feuerwerk` im Mülleimermodell.
 
-Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich die `TrashReminder` die aktuelle Uhrzeit aus dem Internet und gleicht diese mit eventuell vorliegenden Müllterminen ab, welche dann durch farbiges Blinken des Mülleimermodells mitgeteilt wird.
+Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich `TrashReminder` die aktuelle Uhrzeit aus dem Internet und gleicht diese mit eventuell vorliegenden Müllterminen ab, welche dann durch farbiges Blinken des Mülleimermodells mitgeteilt wird.
 
-## Zeitpunkt der Erinnerung
-Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**. Diese Einstellung kann wie über die [Konfigurationsseite](#konfigurationsseite) angepasst werden.
+### Speichern der Abfuhrdaten
 
-## Ausschalten der Erinnerung
-Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. Damit erlischt das Licht bis zur nächsten Abholerinnerung.
+Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
 
-Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
-- den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
-- am Ende der [Konfigurationsseite](#konfigurationsseite) die Schaltfläche 'TrashReminder neu starten' auswählen.
-Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
+Haben Sie die Abfuhrtermine auf Ihr Handy oder ihren Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
-## Unterbrechung der WLAN Verbindung
-Sollte es zu einer Verbindungsstörung zum Internet kommen, signalisiert die `TrashReminder` dies durch ein `schnelles rotes Blinken`. Man muss nichts weiter unternehmen - sobald die Verbindung wieder hergestellt werden kann wechselt die `TrashReminder` in den regulären Modus.
+Öffnen Sie hierzu in Ihrem Browser die Adresse [http://TrashReminder](http://TrashReminder).
 
-## Konfigurationsseite
-Die Konfigurationsseite kann über ein Smartphone oder einen Computer über den Link [http://TrashReminder](http://TrashReminder) aufrufen werden.
+<img src="./pictures/TrashReminderNoData.png" width="400">
 
-Über die Konfigurationsseite können folgenden Einstellungen für die `TrashReminder` vorgenommen werden:
-- Start- und End-Uhrzeit der Erinnerung
-- Abfallarten an die erinnert werden soll
-- neue Abholtermine auf die `TrashReminder` laden
+Klicken Sie auf das Download-Symbol um zur Download-Seite zu wechseln.
 
-Außerdem werden die derzeit gültigen Abholtermine mit ihrer zugehörigen LED-Farbe angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.
+<img src="./pictures/TrashReminderDownload.png" width="400">
 
-### Start- und End-Uhrzeit
-<img src="./pictures/ZeitpunktErinnerung.jpg" width="400">
+Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
+Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
 
-Standardmäßig ist
-- der Start der Erinnerung auf **15 Uhr** am Vortag der Abholung
-- das Ende der Erinnerung auf **9 Uhr** am Tag der Abholung 
-gesetzt.
-Der jeweilige Zeitpunkt kann über das Auswahlfeld eingestellt werden und wird sofort auf die `TrashReminder` übertragen.
-
-### Auswahl der Abfallarten
-<img src="./pictures/Abfuhrtermine.jpg" width="400">
-
-Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
-
-Jede Änderung der Auswahl wird sofort auf die `TrashReminder` geladen und die jeweils ausgewählten Einzeltermine entsprechend angezeigt.  
-
-### Neue Abholtermine speichern
-Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen über die [Konfigurationseite](#konfigurationsseite) neue Abfuhrtermine auf die `TrashReminder` geladen werden. Hierbei werden die bestehenden Daten überschrieben!
+Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen über die [Konfigurationseite](#konfigurationsseite) neue Abfuhrtermine auf `TrashReminder` geladen werden. Hierbei werden die bestehenden Daten überschrieben!
 
 Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS Format angeboten und müssen zuerst heruntergeladen werden.
 
@@ -93,16 +69,56 @@ Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können
 #### Übertragen neuer Termine
 <img src="./pictures/DateienAuswählen.jpg" width="400">
 
-Sobald die ICS Datei auf das Handy oder den Computer heruntergeladen wurde, kann diese über den untenstehenden Button "Durchsuchen..." oder "Dateien auswählen" selektieren und auf die `TrashReminder` geladen werden. Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
+Sobald die ICS Datei auf das Handy oder den Computer heruntergeladen wurde, kann diese über den untenstehenden Button "Durchsuchen..." oder "Dateien auswählen" selektieren und auf `TrashReminder` geladen werden. Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
 
 <img src="./pictures/DateienAusgewählt.jpg" width="400">
 
 Nach der Auswahl der Dateien werden die gefundenen Abfuhrarten mit der standardmäßigen Farbe des Warnlichts angezeigt. An welche Abfallarten erinnert werden soll sowie die Farbe des Warnlichts kann hier angepaßt werden.
 
-Über den Button "Abfuhrttermine speichern" können nun die Termine auf die `TrashReminder` geladen werden. 
+Über den Button "Abfuhrttermine speichern" können nun die Termine auf `TrashReminder` geladen werden. 
+
+## Zeitpunkt der Erinnerung
+Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**. Diese Einstellung kann wie über die [Konfigurationsseite](#konfigurationsseite) angepasst werden.
+
+## Ausschalten der Erinnerung
+Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. Damit erlischt das Licht bis zur nächsten Abholerinnerung.
+
+Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
+- den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
+- am Ende der [Konfigurationsseite](#konfigurationsseite) die Schaltfläche 'TrashReminder neu starten' auswählen.
+Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
+
+## Unterbrechung der WLAN Verbindung
+Sollte es zu einer Verbindungsstörung zum Internet kommen, signalisiert `TrashReminder` dies durch ein `schnelles rotes Blinken`. Man muss nichts weiter unternehmen - sobald die Verbindung wieder hergestellt werden kann wechselt `TrashReminder` in den regulären Modus.
+
+## Konfigurationsseite
+Die Konfigurationsseite kann über ein Smartphone oder einen Computer über den Link [http://TrashReminder](http://TrashReminder) aufrufen werden.
+
+Über die Konfigurationsseite können folgenden Einstellungen für `TrashReminder` vorgenommen werden:
+- Start- und End-Uhrzeit der Erinnerung
+- Abfallarten an die erinnert werden soll
+- neue Abholtermine auf `TrashReminder` laden
+
+Außerdem werden die derzeit gültigen Abholtermine mit ihrer zugehörigen LED-Farbe angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.
+
+### Start- und End-Uhrzeit
+<img src="./pictures/ZeitpunktErinnerung.jpg" width="400">
+
+Standardmäßig ist
+- der Start der Erinnerung auf **15 Uhr** am Vortag der Abholung
+- das Ende der Erinnerung auf **9 Uhr** am Tag der Abholung 
+gesetzt.
+Der jeweilige Zeitpunkt kann über das Auswahlfeld eingestellt werden und wird sofort auf `TrashReminder` übertragen.
+
+### Auswahl der Abfallarten
+<img src="./pictures/Abfuhrtermine.jpg" width="400">
+
+Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
+
+Jede Änderung der Auswahl wird sofort auf `TrashReminder` geladen und die jeweils ausgewählten Einzeltermine entsprechend angezeigt.  
 
 #### Keine zukünftigen Termine vorhanden
-Liegen keine zukünftigen Termine mehr vor, signalisiert die `TrashReminder` dies durch ein `schnelles pinkes Blinken`.
+Liegen keine zukünftigen Termine mehr vor, signalisiert `TrashReminder` dies durch ein `schnelles pinkes Blinken`.
 
 ## Problem Behandlung
 - [http://TrashReminder](http://TrashReminder) wird nicht gefunden:

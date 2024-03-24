@@ -20,6 +20,10 @@ Sollten am selben Tag **zwei** unterschiedliche Müllarten abgeholt werden, wech
 
 Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um mitzuteilen, dass der Mülleimer rausgestellt wurde.
 
+# Inhaltsverzeichnis
+
+
+
 # Einrichten der Müll-Erinnerung
 
 ## Verbinden mit dem WLAN
@@ -71,7 +75,8 @@ Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag 
 
 Um Einstellungen für `TrashReminder` durchzuführen, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
 
-Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
+> [!TIP]
+> Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 

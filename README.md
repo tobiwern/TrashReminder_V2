@@ -35,7 +35,7 @@ Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich 
 
 ### Speichern der Abfuhrdaten
 
-Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart).
+Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
 
 Haben Sie die Abfuhrtermine auf Ihr Handy oder ihren Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
@@ -43,8 +43,12 @@ Haben Sie die Abfuhrtermine auf Ihr Handy oder ihren Computer heruntergeladen, m
 
 <img src="./pictures/TrashReminderNoData.png" width="400">
 
-Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
+Klicken Sie auf das Download-Symbol um zur Download-Seite zu wechseln.
 
+<img src="./pictures/TrashReminderDownload.png" width="400">
+
+Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
+Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
 
 Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen über die [Konfigurationseite](#konfigurationsseite) neue Abfuhrtermine auf `TrashReminder` geladen werden. Hierbei werden die bestehenden Daten überschrieben!
 

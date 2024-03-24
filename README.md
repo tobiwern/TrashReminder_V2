@@ -18,6 +18,8 @@ Wird also zum Beispiel `Restmüll` abgeholt, blinkt das Mülleimermodell `weiß`
 
 Sollten am selben Tag **zwei** unterschiedliche Müllarten abgeholt werden, wechselt das Licht zwischen den entsprechenden Farben hin und her. Also zum Beispiel zwischen `weiß` und `grün`, wenn sowohl `Restmüll` als auch `Biomüll` am selben Tag abgeholt werden.
 
+Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um mitzuteilen, dass der Mülleimer rausgestellt wurde.
+
 ## Einrichten der Müll-Erinnerung
 
 ### Verbinden mit dem WLAN
@@ -35,32 +37,7 @@ Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich 
 
 ### Speichern der Abfuhrdaten
 
-Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
-
-Haben Sie die Abfuhrtermine auf Ihr Handy oder ihren Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
-
-Öffnen Sie hierzu in Ihrem Browser die Adresse [http://TrashReminder](http://TrashReminder).
-
-<img src="./pictures/TrashReminderNoData.png" width="400">
-
-Klicken Sie auf das Download-Symbol um zur Download-Seite zu wechseln.
-
-<img src="./pictures/TrashReminderDownload.png" width="400">
-
-Klicken Sie auf `Hochladen...` und wählen Sie eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus.
-
-Es wird die Anzahl der gefundenen Termine und die unterschiedlichen Müllarten mit der zugewiesenen Farbe des Warnlichts angezeigt: 
-<img src="./pictures/TrashReminderDataSave.png" width="400">
-
-Hier kann ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicken Sie hierzu auf das Farbkästchen):
-<img src="./pictures/TrashReminderDataColor.png" width="400">
-
-Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
-Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
-
-Falls sich Änderungen an den Abfuhrterminen ergeben haben oder Termine für das nächste Jahr gespeichert werden sollen, könnnen über die [Konfigurationseite](#konfigurationsseite) neue Abfuhrtermine auf `TrashReminder` geladen werden. Hierbei werden die bestehenden Daten überschrieben!
-
-Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS Format angeboten und müssen zuerst heruntergeladen werden.
+Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format angeboten und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
 
 #### Beispiele für Müllentsorger
 Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
@@ -74,16 +51,33 @@ Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können
 - `Holzgerlingen`: https://www.awb-bb.de/start/entsorgen/Abfuhrtermine.html
 - `Hannover`: https://www.aha-region.de/abholtermine/abfuhrkalender
 
-#### Übertragen neuer Termine
-<img src="./pictures/DateienAuswählen.jpg" width="400">
+Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
-Sobald die ICS Datei auf das Handy oder den Computer heruntergeladen wurde, kann diese über den untenstehenden Button "Durchsuchen..." oder "Dateien auswählen" selektieren und auf `TrashReminder` geladen werden. Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.
+Öffne hierzu in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder).
 
-<img src="./pictures/DateienAusgewählt.jpg" width="400">
+<img src="./pictures/TrashReminderNoData.png" width="400">
 
-Nach der Auswahl der Dateien werden die gefundenen Abfuhrarten mit der standardmäßigen Farbe des Warnlichts angezeigt. An welche Abfallarten erinnert werden soll sowie die Farbe des Warnlichts kann hier angepaßt werden.
+Klicke auf das Download-Symbol um zur Download-Seite zu wechseln.
 
-Über den Button "Abfuhrttermine speichern" können nun die Termine auf `TrashReminder` geladen werden. 
+<img src="./pictures/TrashReminderDownload.png" width="400">
+
+Klicke auf `Hochladen...` und wähle eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus.
+
+Es wird die `Anzahl der gefundenen Termine` und die unterschiedlichen `Müllarten` mit der zugewiesene `Farbe des Warnlichts` angezeigt: 
+
+<img src="./pictures/TrashReminderDataSave.png" width="400">
+
+Optional kann hier ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicke hierzu auf das Farbkästchen):
+
+<img src="./pictures/TrashReminderDataColor.png" width="400">
+
+Ist alles wie gewünscht gesetzt, klicke auf `Abfuhrtermine speichern`.
+
+Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht der `Abfuhrtermine`:
+
+<img src="./pictures/TrashReminderDates.png" width="400">
+
+Hiermit ist die Einrichtung abgeschlossen.
 
 ## Zeitpunkt der Erinnerung
 Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**. Diese Einstellung kann wie über die [Konfigurationsseite](#konfigurationsseite) angepasst werden.

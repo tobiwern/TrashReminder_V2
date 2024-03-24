@@ -79,7 +79,7 @@ Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
-> [!TIP]
+> [!NOTE]Hinweis
 > Jede Änderung wird sofort auf `TrashReminder` übertragen.
 
 ## Zeitpunkt der Erinnerung

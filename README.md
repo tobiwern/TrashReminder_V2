@@ -18,6 +18,8 @@ Wird also zum Beispiel `Restmüll` abgeholt, blinkt das Mülleimermodell `weiß`
 
 Sollten am selben Tag **zwei** unterschiedliche Müllarten abgeholt werden, wechselt das Licht zwischen den entsprechenden Farben hin und her. Also zum Beispiel zwischen `weiß` und `grün`, wenn sowohl `Restmüll` als auch `Biomüll` am selben Tag abgeholt werden.
 
+Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um mitzuteilen, dass der Mülleimer rausgestellt wurde.
+
 ## Einrichten der Müll-Erinnerung
 
 ### Verbinden mit dem WLAN

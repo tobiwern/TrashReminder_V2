@@ -79,7 +79,7 @@ Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht 
 
 Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag vorher an eine bevorstehende Abholung erinnern!
 
-#Einstellungen
+# Einstellungen
 
 Um Einstellungen für `TrashReminder` durchzuführn, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
 
@@ -88,7 +88,10 @@ Wechsele auf das `Zahnrad-Symbol` zur Einstellungsseite:
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
 ## Zeitpunkt der Erinnerung
-Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**. Diese Einstellung kann wie über die [Konfigurationsseite](#konfigurationsseite) angepasst werden.
+Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**, kann aber wie gewünscht angepasst werden:
+
+<img src="./pictures/TrashReminderSettingsTime.png" width="400">
+
 
 ## Ausschalten der Erinnerung
 Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. Damit erlischt das Licht bis zur nächsten Abholerinnerung.

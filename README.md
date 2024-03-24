@@ -20,9 +20,9 @@ Sollten am selben Tag **zwei** unterschiedliche Müllarten abgeholt werden, wech
 
 Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um mitzuteilen, dass der Mülleimer rausgestellt wurde.
 
-## Einrichten der Müll-Erinnerung
+# Einrichten der Müll-Erinnerung
 
-### Verbinden mit dem WLAN
+## Verbinden mit dem WLAN
 Da das aktuelle Datum und Uhrzeit aus dem Internet ermittelt werden, muss `TrashReminder` mit dem WLAN verbunden werden.
 
 Wenn `TrashReminder` zum ersten mal ans Netzteil angeschlossen wird, leuchtet das Mülleimermodell dauerhaft `rot` um mitzuteilen, dass die einmalige Einrichtung durchgeführt werden muss.
@@ -35,11 +35,11 @@ Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittier
 
 Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich `TrashReminder` die aktuelle Uhrzeit aus dem Internet und gleicht diese mit eventuell vorliegenden Müllterminen ab, welche dann durch farbiges Blinken des Mülleimermodells mitgeteilt wird.
 
-### Speichern der Abfuhrdaten
+## Speichern der Abfuhrdaten
 
 Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format angeboten und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
 
-#### Beispiele für Müllentsorger
+### Beispiele für Müllentsorger
 Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
 
 - `Hirrlingen`: https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/
@@ -77,10 +77,21 @@ Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht 
 
 <img src="./pictures/TrashReminderDates.png" width="400">
 
-Hiermit ist die Einrichtung abgeschlossen.
+Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag vorher an eine bevorstehende Abholung erinnern!
+
+# Einstellungen
+
+Um Einstellungen für `TrashReminder` durchzuführn, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
+
+Wechsele auf das `Zahnrad-Symbol` zur Einstellungsseite:
+
+<img src="./pictures/TrashReminderSettings.png" width="400">
 
 ## Zeitpunkt der Erinnerung
-Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**. Diese Einstellung kann wie über die [Konfigurationsseite](#konfigurationsseite) angepasst werden.
+Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**, kann aber wie gewünscht angepasst werden:
+
+<img src="./pictures/TrashReminderSettingsTime.png" width="400">
+
 
 ## Ausschalten der Erinnerung
 Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. Damit erlischt das Licht bis zur nächsten Abholerinnerung.

@@ -67,7 +67,7 @@ Es wird die `Anzahl der gefundenen Termine` und die unterschiedlichen `Müllarte
 
 <img src="./pictures/TrashReminderDataSave.png" width="400">
 
-Optional kann hier ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicken Sie hierzu auf das Farbkästchen):
+Optional kann hier ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicke hierzu auf das Farbkästchen):
 
 <img src="./pictures/TrashReminderDataColor.png" width="400">
 

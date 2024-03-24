@@ -24,7 +24,7 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
 
 1. [Einrichten der Müllerinnerung](#einrichten-der-m%C3%BCll-erinnerung)
    - [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
-   - [HErunterladen der Abfuhrdaten](#herunterladen-der-abfuhrdaten)
+   - [Herunterladen der Abfuhrdaten](#herunterladen-der-abfuhrdaten)
    - [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
 2. [Einstellungen](#einstellungen)
    - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)

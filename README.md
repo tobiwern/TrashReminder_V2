@@ -37,7 +37,7 @@ Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich 
 
 ## Speichern der Abfuhrdaten
 
-Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format angeboten und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden. [Beispiele für Müllentsorger](#beispielefürmüllentsorger)
+Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format bereitgestellt und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden. [Beispiele für Müllentsorger](#beispielefürmüllentsorger)
 
 Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
@@ -69,7 +69,7 @@ Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag 
 
 # Einstellungen
 
-Um Einstellungen für `TrashReminder` durchzuführn, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
+Um Einstellungen für `TrashReminder` durchzuführen, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
 
 Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 

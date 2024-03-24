@@ -88,7 +88,7 @@ Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfall
 
 <img src="./pictures/TrashReminderSettingsTypeColor.png" width="400">
 
-# Farbe des Warnlichts und deren Bedeutung
+# Farbe des Warnlichts und dessen Bedeutung
 
 - `rot-dauerhaft` WLAN muss eingerichtet werden
 - `rot-blinken-schnell` Keine Verbindung zum WLAN. Sobald Verbindung wieder vorliegt wecheselt `TrashReminder` in den regulären Modus.

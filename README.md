@@ -28,7 +28,7 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
 2. [Einstellungen](#einstellungen)
    - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
    - [Auswahl der Abfallart und Warnlichtfarbe](#auswahl-der-abfallart-und-warnlichtfarbe)
-3. [Sonstiges](#sonstiges
+3. [Sonstiges](#sonstiges)
    - [Farbe des Warnlichts und dessen Bedeutung](#farbe-des-warnlichts-und-dessen-bedeutung)
    - [Ausschalten der Erinnerung](#ausschalten-der-erinnerung)
    - [Problem Behandlung](#problem-behandlung)

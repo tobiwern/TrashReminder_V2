@@ -35,7 +35,7 @@ Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich 
 
 ### Speichern der Abfuhrdaten
 
-Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
+Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format angeboten und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
 
 #### Beispiele für Müllentsorger
 Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
@@ -49,27 +49,27 @@ Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können
 - `Holzgerlingen`: https://www.awb-bb.de/start/entsorgen/Abfuhrtermine.html
 - `Hannover`: https://www.aha-region.de/abholtermine/abfuhrkalender
 
-Haben Sie die Abfuhrtermine auf Ihr Handy oder ihren Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
+Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
-Öffnen Sie hierzu in Ihrem Browser die Adresse [http://TrashReminder](http://TrashReminder).
+Öffne hierzu in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder).
 
 <img src="./pictures/TrashReminderNoData.png" width="400">
 
-Klicken Sie auf das Download-Symbol um zur Download-Seite zu wechseln.
+Klicke auf das Download-Symbol um zur Download-Seite zu wechseln.
 
 <img src="./pictures/TrashReminderDownload.png" width="400">
 
-Klicken Sie auf `Hochladen...` und wählen Sie eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus.
+Klicke auf `Hochladen...` und wähle eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus.
 
-Es wird die Anzahl der gefundenen Termine und die unterschiedlichen Müllarten mit der zugewiesenen Farbe des Warnlichts angezeigt: 
+Es wird die `Anzahl der gefundenen Termine` und die unterschiedlichen `Müllarten` mit der zugewiesene `Farbe des Warnlichts` angezeigt: 
 
 <img src="./pictures/TrashReminderDataSave.png" width="400">
 
-Hier kann ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicken Sie hierzu auf das Farbkästchen):
+Optional kann hier ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicken Sie hierzu auf das Farbkästchen):
 
 <img src="./pictures/TrashReminderDataColor.png" width="400">
 
-Klicken Sie auf `Abfuhrtermine speichern`.
+Klicke auf `Abfuhrtermine speichern`.
 
 Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht der `Abfuhrtermine`:
 

@@ -22,7 +22,9 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
 
 # Inhaltsverzeichnis
 
-
+1. [Einrichten der Müllerinnerung](https://github.com/tobiwern/TrashReminder_V2/edit/main/README.md#einrichten-der-m%C3%BCll-erinnerung)
+   1.1. [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
+   1.2. [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
 
 # Einrichten der Müll-Erinnerung
 
@@ -79,7 +81,7 @@ Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
-> [!NOTE]Hinweis
+> [!NOTE]
 > Jede Änderung wird sofort auf `TrashReminder` übertragen.
 
 ## Zeitpunkt der Erinnerung

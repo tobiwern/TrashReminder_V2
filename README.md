@@ -37,7 +37,7 @@ Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich 
 
 ## Speichern der Abfuhrdaten
 
-Die Abfuhrdaten werden üblicherweise durch das [Entsorgungsunternehmen](#abfuhrunternehmen) auf einer Webseite im `ICS` oder `ICAL` Format bereitgestellt und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden. 
+Die Abfuhrdaten werden üblicherweise durch das [Entsorgungsunternehmen](#entsorgungsunternehmen) auf einer Webseite im `ICS` oder `ICAL` Format bereitgestellt und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden. 
 
 Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
@@ -112,7 +112,7 @@ Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uh
     - Rufe deine Router-Konfiguration (z.B. [http://fritz.box](http://fritz.box)) auf und suche die IP eines Gerätes mit Namen `ESP...`. 
     - Benutze eine Smartphone App wie [Fing](https://play.google.com/store/apps/details?id=com.overlook.android.fing) und suche die IP eines Gerätes mit Namen `ESP...`.  
 
-# Abfuhrunternehmen
+# Entsorgungsunternehmen
 Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
 
 - `Hirrlingen`: https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/

@@ -75,12 +75,12 @@ Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag 
 
 Um Einstellungen für `TrashReminder` durchzuführen, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
 
-> [!TIP]
-> Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
+Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
-Jede Änderung wird sofort auf `TrashReminder` übertragen.
+> [!TIP]
+> Jede Änderung wird sofort auf `TrashReminder` übertragen.
 
 ## Zeitpunkt der Erinnerung
 Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**, kann aber wie gewünscht angepasst werden:

@@ -71,7 +71,7 @@ Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag 
 
 Um Einstellungen für `TrashReminder` durchzuführn, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
 
-Wechsele auf das `Zahnrad-Symbol` zur Einstellungsseite:
+Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
@@ -86,7 +86,7 @@ Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens*
 
 Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
 
-<img src="./pictures/TrashReminderSettingsTime.png" width="400">
+<img src="./pictures/TrashReminderSettingsTypeColor.png" width="400">
 
 # Farbe des Warnlichts und deren Bedeutung
 

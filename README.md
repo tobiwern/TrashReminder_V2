@@ -37,19 +37,7 @@ Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich 
 
 ## Speichern der Abfuhrdaten
 
-Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format angeboten und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden.
-
-### Beispiele für Müllentsorger
-Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
-
-- `Hirrlingen`: https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/
-- `Hirrlingen (Bogenschütz)`: https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html
-- `Neuweiler/Böblingen`: https://www.lrabb.de/start/Service+_+Verwaltung/Abfuhrtermine.html
-- `Stuttgart`: https://service.stuttgart.de/lhs-services/aws/abfallkalender
-- `Ebhausen`: https://www.awg-info.de/privatkunden/abfuhrtermine
-- `Rheinbach`: https://www.rsag.de/abfallkalender/abfuhrtermine
-- `Holzgerlingen`: https://www.awb-bb.de/start/entsorgen/Abfuhrtermine.html
-- `Hannover`: https://www.aha-region.de/abholtermine/abfuhrkalender
+Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im `ICS` oder `ICAL` Format angeboten und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden. [Beispiele für Müllentsorger](#beispielefürmüllentsorger)
 
 Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
@@ -87,12 +75,27 @@ Wechsele auf das `Zahnrad-Symbol` zur Einstellungsseite:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
+Jede Änderung wird sofort auf `TrashReminder` übertragen.
+
 ## Zeitpunkt der Erinnerung
 Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**, kann aber wie gewünscht angepasst werden:
 
 <img src="./pictures/TrashReminderSettingsTime.png" width="400">
 
+## Auswahl der Abfallart und Warnlichtfarbe
 
+Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
+
+<img src="./pictures/TrashReminderSettingsTime.png" width="400">
+
+# Farbe des Warnlichts und deren Bedeutung
+
+- `rot-dauerhaft` WLAN muss eingerichtet werden
+- `rot-blinken-schnell` Keine Verbindung zum WLAN. Sobald Verbindung wieder vorliegt wecheselt `TrashReminder` in den regulären Modus.
+- `violett-dauerhaft` Keine Abfuhrtermine vorhanden
+- `violett-blinken-schnell` Keine *zukünfigen* Abfuhrtermine vorhanden
+- `gelb-dauerhaft` Erste WLAN Verbindung fehlgeschlagen. Erweiterte Verbindungsmöglichkeiten über Netzwerk `TrashReminder`
+ 
 ## Ausschalten der Erinnerung
 Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. Damit erlischt das Licht bis zur nächsten Abholerinnerung.
 
@@ -100,38 +103,6 @@ Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausges
 - den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
 - am Ende der [Konfigurationsseite](#konfigurationsseite) die Schaltfläche 'TrashReminder neu starten' auswählen.
 Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
-
-## Unterbrechung der WLAN Verbindung
-Sollte es zu einer Verbindungsstörung zum Internet kommen, signalisiert `TrashReminder` dies durch ein `schnelles rotes Blinken`. Man muss nichts weiter unternehmen - sobald die Verbindung wieder hergestellt werden kann wechselt `TrashReminder` in den regulären Modus.
-
-## Konfigurationsseite
-Die Konfigurationsseite kann über ein Smartphone oder einen Computer über den Link [http://TrashReminder](http://TrashReminder) aufrufen werden.
-
-Über die Konfigurationsseite können folgenden Einstellungen für `TrashReminder` vorgenommen werden:
-- Start- und End-Uhrzeit der Erinnerung
-- Abfallarten an die erinnert werden soll
-- neue Abholtermine auf `TrashReminder` laden
-
-Außerdem werden die derzeit gültigen Abholtermine mit ihrer zugehörigen LED-Farbe angezeigt. Bereits verstrichene Termine werden ausgegraut dargestellt.
-
-### Start- und End-Uhrzeit
-<img src="./pictures/ZeitpunktErinnerung.jpg" width="400">
-
-Standardmäßig ist
-- der Start der Erinnerung auf **15 Uhr** am Vortag der Abholung
-- das Ende der Erinnerung auf **9 Uhr** am Tag der Abholung 
-gesetzt.
-Der jeweilige Zeitpunkt kann über das Auswahlfeld eingestellt werden und wird sofort auf `TrashReminder` übertragen.
-
-### Auswahl der Abfallarten
-<img src="./pictures/Abfuhrtermine.jpg" width="400">
-
-Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
-
-Jede Änderung der Auswahl wird sofort auf `TrashReminder` geladen und die jeweils ausgewählten Einzeltermine entsprechend angezeigt.  
-
-#### Keine zukünftigen Termine vorhanden
-Liegen keine zukünftigen Termine mehr vor, signalisiert `TrashReminder` dies durch ein `schnelles pinkes Blinken`.
 
 ## Problem Behandlung
 - [http://TrashReminder](http://TrashReminder) wird nicht gefunden:
@@ -141,5 +112,17 @@ Liegen keine zukünftigen Termine mehr vor, signalisiert `TrashReminder` dies du
     - Rufe deine Router-Konfiguration (z.B. [http://fritz.box](http://fritz.box)) auf und suche die IP eines Gerätes mit Namen `ESP...`. 
     - Benutze eine Smartphone App wie [Fing](https://play.google.com/store/apps/details?id=com.overlook.android.fing) und suche die IP eines Gerätes mit Namen `ESP...`.  
 
-## Autor
+# Beispiele für Müllentsorger
+Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können:
+
+- `Hirrlingen`: https://www.abfall-kreis-tuebingen.de/online-abfuhrtermine/
+- `Hirrlingen (Bogenschütz)`: https://www.bogenschuetz-entsorgung.de/blaue-tonne-tuebingen/abfuhrtermine.html
+- `Neuweiler/Böblingen`: https://www.lrabb.de/start/Service+_+Verwaltung/Abfuhrtermine.html
+- `Stuttgart`: https://service.stuttgart.de/lhs-services/aws/abfallkalender
+- `Ebhausen`: https://www.awg-info.de/privatkunden/abfuhrtermine
+- `Rheinbach`: https://www.rsag.de/abfallkalender/abfuhrtermine
+- `Holzgerlingen`: https://www.awb-bb.de/start/entsorgen/Abfuhrtermine.html
+- `Hannover`: https://www.aha-region.de/abholtermine/abfuhrkalender
+
+# Autor
 Tobias Werner, Erfindungen aller Art

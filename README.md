@@ -139,7 +139,7 @@ Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfall
 <img src="./pictures/TrashReminderSettingsTypeColor.png" width="400">
 
 ## Optionen
-Unter Optionen können **vergangene Termine** eingeblendet werden oder beim Import von Terminen auch bereits verstrichene Termine gespecihert werden:
+Unter Optionen können vergangene Termine eingeblendet werden oder beim Import von Terminen auch bereits verstrichene Termine gespeichert werden:
 
 <img src="./pictures/TrashReminderSettingsOptions.png" width="400">
 

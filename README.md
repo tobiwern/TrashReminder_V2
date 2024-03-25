@@ -146,6 +146,7 @@ Unter Optionen können vergangene Termine eingeblendet werden oder beim Import v
 
 ## Zeitserver
 Änderungen an den Einstellungen werden derzeit noch nicht unterstützt:
+
 <img src="./pictures/TrashReminderSettingsServer.png" width="400">
 
 # Sonstiges

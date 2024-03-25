@@ -37,7 +37,7 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
 4. [Sonstiges](#sonstiges)
    - [Farbe des Warnlichts und dessen Bedeutung](#farbe-des-warnlichts-und-dessen-bedeutung)
    - [Problembehandlung](#problembehandlung)
-   - [Entsorgungsunternehmen](#entsorgungsunternehmen
+   - [Entsorgungsunternehmen](#entsorgungsunternehmen)
    - [Neueste Codeversion](#neueste-codeversion)
      
 # Einrichten der Müll-Erinnerung

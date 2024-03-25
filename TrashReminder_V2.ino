@@ -31,6 +31,7 @@ Helpful:
   - ICS/ICAL: https://www.ionos.de/digitalguide/websites/web-entwicklung/icalendar/ or https://datatracker.ietf.org/doc/html/rfc5545
   - Getting timezone from IP: https://ipapi.co/api/?csharp#specific-location-field6 or https://ipapi.co/json/ => https://ipapi.co/utc_offset
   - QR Code Generator: https://www.qrcode-generator.ch/
+  - Favicon: https://www.favicongenerator.com/reference
 */
 
 #include <ESP8266WiFi.h>

@@ -24,6 +24,7 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
 
 1. [Einrichten der Müllerinnerung](#einrichten-der-m%C3%BCll-erinnerung)
    - [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
+   - [Herunterladen der Abfuhrdaten](#herunterladen-der-abfuhrdaten)
    - [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
 2. [Einstellungen](#einstellungen)
    - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
@@ -49,9 +50,11 @@ Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittier
 
 Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich `TrashReminder` die aktuelle Uhrzeit aus dem Internet und gleicht diese mit eventuell vorliegenden Müllterminen ab, welche dann durch farbiges Blinken des Mülleimermodells mitgeteilt wird.
 
-## Speichern der Abfuhrdaten
+## Herunterladen der Abfuhrdaten
 
 Die Abfuhrdaten werden üblicherweise durch das [Entsorgungsunternehmen](#entsorgungsunternehmen) auf einer Webseite im `ICS` oder `ICAL` Format bereitgestellt und müssen zuerst heruntergeladen werden. Suche über einen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. ["Abfuhrtermine Stuttgart"](https://www.google.com/search?&q=Abfuhrtermine+Stuttgart). Falls mehrere Abfuhrunternehmen die Abholung übernehmen, können auch mehrere Dateien angegeben werden. 
+
+## Speichern der Abfuhrdaten
 
 Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, müssen diese auf `TrashReminder` gespeichert werden.
 
@@ -89,7 +92,7 @@ Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
 <img src="./pictures/TrashReminderSettings.png" width="400">
 
-> [!NOTE]
+> **HINWEIS:**
 > Jede Änderung wird sofort auf `TrashReminder` übertragen.
 
 ## Zeitpunkt der Erinnerung

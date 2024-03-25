@@ -26,7 +26,7 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
    - [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
    - [Herunterladen der Abfuhrdaten](#herunterladen-der-abfuhrdaten)
    - [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
-2. [Interation mit der Müllerinnerung](#interation-mit-der-m%C3%BCllerinnerung)
+2. [Interaktion mit der Müllerinnerung](#interaktion-mit-der-m%C3%BCllerinnerung)
    - [Anstehende Abholtermine](#anstehende-abholtermine)
    - [Ausschalten der Erinnerung](#ausschalten-der-erinnerung)
 3. [Einstellungen](#einstellungen)
@@ -88,7 +88,7 @@ Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht 
 
 Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag vorher an eine bevorstehende Abholung erinnern!
 
-# Interation mit der Müllerinnerung
+# Interaktion mit der Müllerinnerung
 
 Du kannst immer über Eingabe der Adresse [http://TrashReminder](http://TrashReminder) auf den `TrashReminder` zugreifen.
 Hier kannst Du die anstehenden Abholtermine einsehen, das Blinken ausschalten oder Einstellungen vornehmen.

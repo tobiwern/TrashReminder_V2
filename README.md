@@ -96,7 +96,7 @@ Hier kannst Du die anstehenden Abholtermine einsehen, das Blinken ausschalten od
 ## Anstehende Abholtermine
 
 Auf der Startseite werden alle anstehenden Abholtermine angezeigt.
-Bereits verstrichene Termine werden standardmäßig nicht angezeigt (kann über [Optionen](#optionen) angepaßt werden), sodass schnell der nächste Termin ersichtlich ist.
+Bereits verstrichene Termine werden standardmäßig nicht angezeigt (kann über [Optionen](#optionen) angepasst werden), sodass schnell der nächste Termin ersichtlich ist.
 
 Liegt eine Erinnerung vor, so blinkt auch der Termin in der Liste und eine Schaltfläche `Mülleimer steht draußen` zum Bestätigen ist eingeblendet. 
 

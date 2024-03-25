@@ -37,7 +37,8 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
 4. [Sonstiges](#sonstiges)
    - [Farbe des Warnlichts und dessen Bedeutung](#farbe-des-warnlichts-und-dessen-bedeutung)
    - [Problembehandlung](#problembehandlung)
-   - [Entsorgungsunternehmen](#entsorgungsunternehmen)
+   - [Entsorgungsunternehmen](#entsorgungsunternehmen
+   - [Neueste Codeversion](#neueste-codeversion)
      
 # Einrichten der Müll-Erinnerung
 
@@ -161,7 +162,7 @@ Unter Optionen können vergangene Termine eingeblendet werden oder beim Import v
  
 ## Problembehandlung
 - Konfigurationsseite unter WLAN `TrashReminder` wird nicht angezeigt
-  - Versuche `http://192.168.1.4` aufzurufen.
+  - Versuche `<http://192.168.1.4>` aufzurufen.
 - Einrichtung der WLAN Verbindung fehlgeschlagen
   - Wenn die erste Verbindung mit dem WLAN fehlschlägt, werden beim erneuten Aufruf von WLAN `TrashReminder` erweiterte Optionen eingeblendet um eine IP-Adresse, Subnetmask, etc. angeben zu können. 
 - [http://TrashReminder](http://TrashReminder) wird nicht gefunden:
@@ -182,6 +183,13 @@ Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können
 - `Rheinbach`: <https://www.rsag.de/abfallkalender/abfuhrtermine>
 - `Holzgerlingen`:<https://www.awb-bb.de/start/entsorgen/Abfuhrtermine.html>
 - `Hannover`: <https://www.aha-region.de/abholtermine/abfuhrkalender>
+
+## Neueste Codeversion
+Wenn Du die neueste Codeversion auf Deinen `TrashReminder` laden willst, kannst Du folgenden Schritten folgen:
+- Schließe Deinen `TrashReminder` über ein **Daten**-USB-Kabel an Deinen Computer an
+- Öffne über Chrome, Edge oder Opera folgende Seite: <https://tobiwern.github.io/TrashReminder_V2/flash.html>
+- Führe `Neuesten Code Herunterladen` aus
+- Wähle den COM-Port aus, an dem der `TrashReminder` angeschlossen ist und folge den Anweisungen.
 
 # Autor
 Tobias Werner, Erfindungen aller Art

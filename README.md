@@ -50,7 +50,7 @@ Hierzu muss man sich über das Smartphone mit dem WLAN Netzwerk `TrashReminder` 
 - Heimnetzwerk (SSID) auswählen und das
 - Passwort für dieses Netzwerk eingeben.
 
-Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittiert die erfolgreiche Verbindung mit einem `Feuerwerk` im Mülleimermodell.
+Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittiert die erfolgreiche Verbindung mit einem `Feuerwerk` im Mülleimermodell. (Sollte die Verbindung fehlschlagen siehe [Problembehandlung](#problembehandlung)
 
 Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich `TrashReminder` die aktuelle Uhrzeit aus dem Internet und gleicht diese mit eventuell vorliegenden Müllterminen ab, welche dann durch farbiges Blinken des Mülleimermodells mitgeteilt wird.
 
@@ -159,6 +159,10 @@ Unter Optionen können vergangene Termine eingeblendet werden oder beim Import v
 - `gelb-dauerhaft` Erste WLAN Verbindung fehlgeschlagen. Erweiterte Verbindungsmöglichkeiten über Netzwerk `TrashReminder`
  
 ## Problembehandlung
+- Konfigurationsseite unter WLAN `TrashReminder` wir nicht angezeigt
+  - Versuche 
+- Einrichtung der WLAN Verbindung fehlgeschlagen
+  - Wenn die erste Verbindung mit dem WLAN 
 - [http://TrashReminder](http://TrashReminder) wird nicht gefunden:
   - Versuche den Link über den Laptop oder ein anderes Smartphone aufzurufen.
   - Versuche einen anderen Browser (manche Browser lassen Verbindungen nicht über `http://` zu)

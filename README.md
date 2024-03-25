@@ -26,12 +26,12 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
    - [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
    - [Herunterladen der Abfuhrdaten](#herunterladen-der-abfuhrdaten)
    - [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
-2. [Einstellungen](#einstellungen)
-   - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
-   - [Auswahl der Abfallart und Warnlichtfarbe](#auswahl-der-abfallart-und-warnlichtfarbe)
-3. [Interation mit der Müllerinnerung](#interation-mit-derm%C3%BCll-erinnerung)
+2. [Interation mit der Müllerinnerung](#interation-mit-derm%C3%BCll-erinnerung)
    - [Wann ist der nächste Abholtermin?]()
    - [Ausschalten der Erinnerung](#ausschalten-der-erinnerung)
+3. [Einstellungen](#einstellungen)
+   - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
+   - [Auswahl der Abfallart und Warnlichtfarbe](#auswahl-der-abfallart-und-warnlichtfarbe)
 4. [Sonstiges](#sonstiges)
    - [Farbe des Warnlichts und dessen Bedeutung](#farbe-des-warnlichts-und-dessen-bedeutung)
    - [Problembehandlung](#problembehandlung)
@@ -86,6 +86,35 @@ Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht 
 
 Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag vorher an eine bevorstehende Abholung erinnern!
 
+# Interation mit der Müllerinnerung
+
+Du kannst immer über Eingabe der Adresse [http://TrashReminder](http://TrashReminder) auf den `TrashReminder` zugreifen.
+Hier kannst Du die anstehenden Abholtermine einsehen, das Blinken ausschalten oder Einstellungen vornehmen.
+
+## Anstehende Abholtermine
+
+Auf der Startseite werden alle anstehenden Abholtermine angezeigt.
+Bereits verstrichene Termine werden standardmäßig nicht angezeigt ([kann über Optionen angepaßt werden](#optionen)), sodass schnell der nächste Termin ersichtlich ist.
+
+Liegt eine Erinnerung vor, so blinkt auch der Termin in der Liste und eine Schaltfläche `Mülleimer steht draußen` zum Bestätigen ist eingeblendet. 
+
+## Ausschalten der Erinnerung
+
+Wenn der Müll rausgestellt wurde, kann die Erinnerung auf zwei Arten ausgeschaltet werden:
+- indem das **Mülleimermodell kurz angehoben** wird
+- über [http://TrashReminder](http://TrashReminder) kann die Schaltfläche `Mülleimer steht draußen` betätigt werden:
+
+<img src="./pictures/TrashReminderAcknowledge.png" width="400">
+
+Damit erlischt das Licht bis zur nächsten Abholerinnerung.
+
+Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
+- den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
+- über [http://TrashReminder](http://TrashReminder) kann die Schaltfläche `Mülleimer steht doch nicht draußen` betätigt werden:
+<img src="./pictures/TrashReminderCorrect.png" width="400">
+
+Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
+
 # Einstellungen
 
 Um Einstellungen für `TrashReminder` durchzuführen, musst Du in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder) aufrufen.
@@ -103,35 +132,19 @@ Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens*
 <img src="./pictures/TrashReminderSettingsTime.png" width="400">
 
 ## Auswahl der Abfallart und Warnlichtfarbe
-
 Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
 
 <img src="./pictures/TrashReminderSettingsTypeColor.png" width="400">
 
-# Interation mit der Müllerinnerung
+## Optionen
+Unter Optionen können **vergangene Termine** eingeblendet werden oder beim Import von Terminen auch bereits verstrichene Termine gespecihert werden:
 
-Du kannst immer über Eingabe der Adresse [http://TrashReminder](http://TrashReminder) auf den `TrashReminder` zugreifen.
-Hier kannst Du die anstehenden Abholtermine einsehen, das Blinken ausschalten oder Einstellungen vornehmen.
+<img src="./pictures/TrashReminderSettingsOptions.png" width="400">
 
-## Anstehende Abholtermine
 
-Auf der Startseite werden ddie anstehenden Abholtermine angezeigt.
-Bereits verstrichene Termine werden standardmäßig nicht angezeigt, sodass schnell der nächste Termin ersichtlich ist.
-
-## Ausschalten der Erinnerung
-
-Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. 
-
-Alternativ kann über [http://TrashReminder](http://TrashReminder) 
-
-<img src="./pictures/TrashReminderAcknowledge.png" width="400">
-
-Damit erlischt das Licht bis zur nächsten Abholerinnerung.
-
-Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
-- den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
-- am Ende der [Konfigurationsseite](#konfigurationsseite) die Schaltfläche 'TrashReminder neu starten' auswählen.
-Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
+## Zeitserver
+Änderungen an den Einstellungen werden derzeit noch nicht unterstützt:
+<img src="./pictures/TrashReminderSettingsServer.png" width="400">
 
 # Sonstiges
 ## Farbe des Warnlichts und dessen Bedeutung

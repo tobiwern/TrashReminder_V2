@@ -26,14 +26,19 @@ Durch `Anheben des Mülleimermodells` kann das Warnlicht ausgeschaltet werden um
    - [Verbinden mit dem WLAN](#verbinden-mit-dem-wlan)
    - [Herunterladen der Abfuhrdaten](#herunterladen-der-abfuhrdaten)
    - [Speichern der Abfuhrdaten](#speichern-der-abfuhrdaten)
-2. [Einstellungen](#einstellungen)
+2. [Interaktion mit der Müllerinnerung](#interaktion-mit-der-m%C3%BCllerinnerung)
+   - [Anstehende Abholtermine](#anstehende-abholtermine)
+   - [Ausschalten der Erinnerung](#ausschalten-der-erinnerung)
+3. [Einstellungen](#einstellungen)
    - [Zeitpunkt der Erinnerung](#zeitpunkt-der-erinnerung)
    - [Auswahl der Abfallart und Warnlichtfarbe](#auswahl-der-abfallart-und-warnlichtfarbe)
-3. [Sonstiges](#sonstiges)
+   - [Optionen](#optionen)
+   - [Zeitserver](#zeitserver)
+4. [Sonstiges](#sonstiges)
    - [Farbe des Warnlichts und dessen Bedeutung](#farbe-des-warnlichts-und-dessen-bedeutung)
-   - [Ausschalten der Erinnerung](#ausschalten-der-erinnerung)
-   - [Problem Behandlung](#problem-behandlung)
+   - [Problembehandlung](#problembehandlung)
    - [Entsorgungsunternehmen](#entsorgungsunternehmen)
+   - [Neueste Codeversion](#neueste-codeversion)
      
 # Einrichten der Müll-Erinnerung
 
@@ -46,7 +51,7 @@ Hierzu muss man sich über das Smartphone mit dem WLAN Netzwerk `TrashReminder` 
 - Heimnetzwerk (SSID) auswählen und das
 - Passwort für dieses Netzwerk eingeben.
 
-Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittiert die erfolgreiche Verbindung mit einem `Feuerwerk` im Mülleimermodell.
+Jetzt verbindet sich `TrashReminder` mit dem ausgewählten Netzwerk und quittiert die erfolgreiche Verbindung mit einem `Feuerwerk` im Mülleimermodell. (Sollte die Verbindung fehlschlagen siehe [Problembehandlung](#problembehandlung))
 
 Diese Einrichtung muss nur einmalig durchgeführt werden - von nun an holt sich `TrashReminder` die aktuelle Uhrzeit aus dem Internet und gleicht diese mit eventuell vorliegenden Müllterminen ab, welche dann durch farbiges Blinken des Mülleimermodells mitgeteilt wird.
 
@@ -60,29 +65,59 @@ Hast Du die Abfuhrtermine auf Dein Handy oder Deinen Computer heruntergeladen, m
 
 Öffne hierzu in Deinem Browser die Adresse [http://TrashReminder](http://TrashReminder).
 
-<img src="./pictures/TrashReminderNoData.png" width="400">
+<kbd><img src="./pictures/TrashReminderNoData.png" width="400"></kbd>
 
 Klicke auf das Download-Symbol um zur Download-Seite zu wechseln.
 
-<img src="./pictures/TrashReminderDownload.png" width="400">
+<kbd><img src="./pictures/TrashReminderDownload.png" width="400"></kbd>
 
 Klicke auf `Hochladen...` und wähle eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus und bestätige die Auswahl.
 
 Es wird die `Anzahl der gefundenen Termine` und die unterschiedlichen `Müllarten` mit der zugewiesene `Farbe des Warnlichts` angezeigt: 
 
-<img src="./pictures/TrashReminderDataSave.png" width="400">
+<kbd><img src="./pictures/TrashReminderDataSave.png" width="400"></kbd>
 
 Optional kann hier ausgewählt werden an welche Müllarten erinnert werden soll und auch mit welcher Farbe (klicke hierzu auf das Farbkästchen):
 
-<img src="./pictures/TrashReminderDataColor.png" width="400">
+<kbd><img src="./pictures/TrashReminderDataColor.png" width="400"></kbd>
 
 Ist alles wie gewünscht gesetzt, klicke auf `Abfuhrtermine speichern`.
 
 Nach erfolgreicher Speicherung wechselt `TrashReminder` automatisch zur Ansicht der `Abfuhrtermine`:
 
-<img src="./pictures/TrashReminderDates.png" width="400">
+<kbd><img src="./pictures/TrashReminderDates.png" width="400"></kbd>
 
 Hiermit ist die Einrichtung abgeschlossen - `TrashReminder` wird Dich einen Tag vorher an eine bevorstehende Abholung erinnern!
+
+# Interaktion mit der Müllerinnerung
+
+Du kannst immer über Eingabe der Adresse [http://TrashReminder](http://TrashReminder) auf den `TrashReminder` zugreifen.
+Hier kannst Du die anstehenden Abholtermine einsehen, das Blinken ausschalten oder Einstellungen vornehmen.
+
+## Anstehende Abholtermine
+
+Auf der Startseite werden alle anstehenden Abholtermine angezeigt.
+Bereits verstrichene Termine werden standardmäßig nicht angezeigt (kann über [Optionen](#optionen) angepasst werden), sodass schnell der nächste Termin ersichtlich ist.
+
+Liegt eine Erinnerung vor, so blinkt auch der Termin in der Liste und eine Schaltfläche `Mülleimer steht draußen` zum Bestätigen ist eingeblendet. 
+
+## Ausschalten der Erinnerung
+
+Wenn der Müll rausgestellt wurde, kann die Erinnerung auf zwei Arten ausgeschaltet werden:
+- indem das **Mülleimermodell kurz angehoben** wird
+- über [http://TrashReminder](http://TrashReminder) kann die Schaltfläche `Mülleimer steht draußen` betätigt werden:
+
+<kbd><img src="./pictures/TrashReminderAcknowledge.png" width="400"></kbd>
+
+Damit erlischt das Licht bis zur nächsten Abholerinnerung.
+
+Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
+- den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
+- über [http://TrashReminder](http://TrashReminder) kann die Schaltfläche `Mülleimer steht doch nicht draußen` betätigt werden:
+
+<kbd><img src="./pictures/TrashReminderCorrect.png" width="400"></kbd>
+
+Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
 
 # Einstellungen
 
@@ -90,7 +125,7 @@ Um Einstellungen für `TrashReminder` durchzuführen, musst Du in Deinem Browser
 
 Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 
-<img src="./pictures/TrashReminderSettings.png" width="400">
+<kbd><img src="./pictures/TrashReminderSettings.png" width="400"></kbd>
 
 > **HINWEIS:**
 > Jede Änderung wird sofort auf `TrashReminder` übertragen.
@@ -98,13 +133,23 @@ Klicke auf das `Zahnrad-Symbol` um zur Einstellungsseite zu wechseln:
 ## Zeitpunkt der Erinnerung
 Die Erinnerung erfolgt standardmäßig am **Vortag von 15 Uhr bis 9 Uhr morgens**, kann aber wie gewünscht angepasst werden:
 
-<img src="./pictures/TrashReminderSettingsTime.png" width="400">
+<kbd><img src="./pictures/TrashReminderSettingsTime.png" width="400"></kbd>
 
 ## Auswahl der Abfallart und Warnlichtfarbe
-
 Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfallarten** erinnert werden soll. Ebenso kann hier auch die Farbe des Warnlichts eingestellt werden.
 
-<img src="./pictures/TrashReminderSettingsTypeColor.png" width="400">
+<kbd><img src="./pictures/TrashReminderSettingsTypeColor.png" width="400"></kbd>
+
+## Optionen
+Unter Optionen können vergangene Termine eingeblendet werden oder beim Import von Terminen auch bereits verstrichene Termine gespeichert werden:
+
+<kbd><img src="./pictures/TrashReminderSettingsOptions.png" width="400"></kbd>
+
+
+## Zeitserver
+Änderungen an den Einstellungen werden derzeit noch nicht unterstützt:
+
+<kbd><img src="./pictures/TrashReminderSettingsServer.png" width="400"></kbd>
 
 # Sonstiges
 ## Farbe des Warnlichts und dessen Bedeutung
@@ -115,15 +160,11 @@ Für die abgespeicherten Abholtermine kann eingestellt werden an **welche Abfall
 - `violett-blinken-schnell` Keine *zukünfigen* Abfuhrtermine vorhanden
 - `gelb-dauerhaft` Erste WLAN Verbindung fehlgeschlagen. Erweiterte Verbindungsmöglichkeiten über Netzwerk `TrashReminder`
  
-## Ausschalten der Erinnerung
-Wenn der Müll rausgestellt wurde, kann die Erinnerung ausgeschaltet werden indem das **Mülleimermodell kurz angehoben** wird. Damit erlischt das Licht bis zur nächsten Abholerinnerung.
-
-Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
-- den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
-- am Ende der [Konfigurationsseite](#konfigurationsseite) die Schaltfläche 'TrashReminder neu starten' auswählen.
-Liegt eine aktuelle Erinnerung vor und ist man im Erinnerungszeitraum (15 - 9 Uhr) blinkt das Mülleimermodell wieder wie zuvor.   
-
-## Problem Behandlung
+## Problembehandlung
+- Konfigurationsseite unter WLAN `TrashReminder` wird nicht angezeigt
+  - Versuche `<http://192.168.1.4>` aufzurufen.
+- Einrichtung der WLAN Verbindung fehlgeschlagen
+  - Wenn die erste Verbindung mit dem WLAN fehlschlägt, werden beim erneuten Aufruf von WLAN `TrashReminder` erweiterte Optionen eingeblendet um eine IP-Adresse, Subnetmask, etc. angeben zu können. 
 - [http://TrashReminder](http://TrashReminder) wird nicht gefunden:
   - Versuche den Link über den Laptop oder ein anderes Smartphone aufzurufen.
   - Versuche einen anderen Browser (manche Browser lassen Verbindungen nicht über `http://` zu)
@@ -142,6 +183,13 @@ Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können
 - `Rheinbach`: <https://www.rsag.de/abfallkalender/abfuhrtermine>
 - `Holzgerlingen`:<https://www.awb-bb.de/start/entsorgen/Abfuhrtermine.html>
 - `Hannover`: <https://www.aha-region.de/abholtermine/abfuhrkalender>
+
+## Neueste Codeversion
+Wenn Du die neueste Codeversion auf Deinen `TrashReminder` laden willst, kannst Du folgenden Schritten folgen:
+- Schließe Deinen `TrashReminder` über ein **Daten**-USB-Kabel an Deinen Computer an
+- Öffne über Chrome, Edge oder Opera folgende Seite: <https://tobiwern.github.io/TrashReminder_V2/flash.html>
+- Führe `Neuesten Code Herunterladen` aus
+- Wähle den COM-Port aus, an dem der `TrashReminder` angeschlossen ist und folge den Anweisungen.
 
 # Autor
 Tobias Werner, Erfindungen aller Art

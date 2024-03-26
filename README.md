@@ -185,7 +185,7 @@ Beispiele für Unternehmen, bei denen ICS Dateien heruntergeladen werden können
 - `Hannover`: <https://www.aha-region.de/abholtermine/abfuhrkalender>
 
 ## Neueste Codeversion
-Wenn Du die neueste Codeversion auf Deinen `TrashReminder` laden willst, kannst Du folgenden Schritten folgen:
+Wenn Du die neueste Codeversion auf Deinen `TrashReminder` laden willst, kannst Du folgende Schritte ausführen:
 - Schließe Deinen `TrashReminder` über ein **Daten**-USB-Kabel an Deinen Computer an
 - Öffne über Chrome, Edge oder Opera folgende Seite: <https://tobiwern.github.io/TrashReminder_V2/flash.html>
 - Führe `Neuesten Code Herunterladen` aus

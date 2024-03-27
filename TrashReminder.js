@@ -83,11 +83,13 @@ function addFavicon() {
     $shortcut1.href = "https://tobiwern.github.io/TrashReminder_V2/favicon-32x32.png"
     $shortcut1.sizes = "32x32"
     document.head.appendChild($shortcut1)
+    $shortcut2 = document.createElement("link")
     $shortcut2.rel = "icon"
     $shortcut2.type = "image/png"
     $shortcut2.href = "https://tobiwern.github.io/TrashReminder_V2/favicon-16x16.png"
     $shortcut2.sizes = "16x16"
     document.head.appendChild($shortcut2)
+    $shortcut3 = document.createElement("link")
     $shortcut3.rel = "manifest"
     $shortcut3.href = "https://tobiwern.github.io/TrashReminder_V2/site.webmanifest"
     document.head.appendChild($shortcut3)

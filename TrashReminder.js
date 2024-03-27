@@ -73,21 +73,37 @@ function addFavicon() {
 //    $favicon.href = "https://tobiwern.github.io/TrashReminder_V2/favicon.ico"
 //    document.head.appendChild($favicon)
     $shortcut = document.createElement("link")
-    $shortcut.rel = "apple-touch-icon-precomposed"
-    $shortcut.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.png"
-    $shortcut.sizes = "152x152"
+    $shortcut.rel = "apple-touch-icon"
+    $shortcut.href = "https://tobiwern.github.io/TrashReminder_V2/apple-touch-icon.png"
+    $shortcut.sizes = "180x180"
     document.head.appendChild($shortcut)
     $shortcut1 = document.createElement("link")
-    $shortcut1.rel = "shortcut icon"
-    $shortcut1.type = "image/x-icon"
-    $shortcut1.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.png"
-    $shortcut1.sizes = "152x152"
+    $shortcut1.rel = "icon"
+    $shortcut1.type = "image/png"
+    $shortcut1.href = "https://tobiwern.github.io/TrashReminder_V2/favicon-32x32.png"
+    $shortcut1.sizes = "32x32"
     document.head.appendChild($shortcut1)
-    $shortcut2 = document.createElement("link")
-    $shortcut2.rel = "mask-icon"
-    $shortcut2.color = "#1599ff"
-    $shortcut2.href = "https://tobiwern.github.io/TrashReminder_V2/shortcut.svg"
+    $shortcut2.rel = "icon"
+    $shortcut2.type = "image/png"
+    $shortcut2.href = "https://tobiwern.github.io/TrashReminder_V2/favicon-16x16.png"
+    $shortcut2.sizes = "16x16"
     document.head.appendChild($shortcut2)
+    $shortcut3.rel = "manifest"
+    $shortcut3.href = "https://tobiwern.github.io/TrashReminder_V2/site.webmanifest"
+    document.head.appendChild($shortcut3)
+    $shortcut4 = document.createElement("link")
+    $shortcut4.rel = "mask-icon"
+    $shortcut4.color = "#5bbad5"
+    $shortcut4.href = "https://tobiwern.github.io/TrashReminder_V2/safari-pinned-tab.svg"
+    document.head.appendChild($shortcut4)
+    $shortcut5 = document.createElement("meta")
+    $shortcut5.name = "msapplication-TileColor"
+    $shortcut5.content = "#da532c"
+    document.head.appendChild($shortcut5)
+    $shortcut6 = document.createElement("meta")
+    $shortcut6.name = "theme-color"
+    $shortcut6.content = "#ffffff"
+    document.head.appendChild($shortcut6)
 }
 
 function restartTrashReminder() {

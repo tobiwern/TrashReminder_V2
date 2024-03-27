@@ -1,6 +1,6 @@
 {
-    "name": "TrashReminder",
-    "short_name": "TrashReminder",
+    "name": "Trash Reminder",
+    "short_name": "Trash Reminder",
     "icons": [
         {
             "src": "/android-chrome-144x144.png",

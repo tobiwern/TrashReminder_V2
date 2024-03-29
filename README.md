@@ -111,7 +111,7 @@ Wenn der Müll rausgestellt wurde, kann die Erinnerung auf zwei Arten ausgeschal
 
 Damit erlischt das Licht bis zur nächsten Abholerinnerung.
 
-Wurde das Mülleimermodell versehentlich angehoben (aber der Müll nicht rausgestellt) kann man entweder 
+Wurde die Erinnerung versehentlich ausgeschaltet (aber der Müll nicht rausgestellt) kann man entweder 
 - den Stecker der Stromversorgung einfach kurz aus- und wieder einstecken oder
 - über [http://TrashReminder](http://TrashReminder) kann die Schaltfläche `Mülleimer steht doch nicht draußen` betätigt werden:
 

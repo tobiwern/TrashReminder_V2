@@ -861,6 +861,7 @@ function refreshShowPastDates(){
 
 function toggleShowPastDates(){
   gShowPastDates= !gShowPastDates;
+  refreshTaskDates(false);
   refreshTab_DATES();
 }
   

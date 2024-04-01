@@ -1047,9 +1047,9 @@ function refreshTab_DATES(){
   } else {    
     description += "In der Tabelle werden ";
     if(gShowPastDates){
-      description += "<a href=`#` onclick='toggleShowPastDates();'>alle</a>";
+      description += "<a onclick='toggleShowPastDates();'>alle</a>";
     } else {
-      description += "<a href=`#` onclick='toggleShowPastDates();'>anstehende</a>";
+      description += "<a onclick='toggleShowPastDates();'>anstehende</a>";
     }
     description += "<br><b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }

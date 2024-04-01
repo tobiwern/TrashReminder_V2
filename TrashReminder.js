@@ -856,8 +856,13 @@ function sendTimeOffsetToESP(){
 
 function refreshShowPastDates(){
 //  console.log("refreshShowPastDates: gShowPastDates = " + gShowPastDates);  
-    document.getElementById("showPastDates").checked = gShowPastDates;
-  }
+  document.getElementById("showPastDates").checked = gShowPastDates;
+}
+
+function toggleShowPastDates(){
+  gShowPastDates= !gShowPastDates;
+  refreshTab_DATES();
+}
   
 function sendShowPastDatesToESP(){
   var xhttp = new XMLHttpRequest();
@@ -1042,9 +1047,9 @@ function refreshTab_DATES(){
   } else {    
     description += "In der Tabelle werden ";
     if(gShowPastDates){
-      description += "alle";
+      description += "<a href=`#` onclick='toggleShowPastDates();'>alle</a>";
     } else {
-      description += "anstehende";
+      description += "<a href=`#` onclick='toggleShowPastDates();'>anstehende</a>";
     }
     description += "<br><b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }

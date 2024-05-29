@@ -665,7 +665,7 @@ function genJson() {
     }
     //read text fields (in case user modfified task name)
     for (let i = 0; i < gTasks.length; i++) {
-      gTasks[i] = document.getElementById("taskdesc" + i).text;
+      gTasks[i] = document.getElementById("taskdesc" + i).innerText;
     }
 
     var jsonText = '{"tasks":["' + gTasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';

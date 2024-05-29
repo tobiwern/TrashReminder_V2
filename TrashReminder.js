@@ -351,6 +351,7 @@ function deleteTasksOnESP() {
         gNoDates = true;
         gAlarm = false;
         gFutureDates = 0;
+        gEpochTaskDict = {};
         gDataEpochTaskDict = {};
         gDataTasks = {};
         gDataValidTaskIds = {};

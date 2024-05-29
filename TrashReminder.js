@@ -523,8 +523,7 @@ var gColorDefault = '0xFFC0CB';
 var gColors = [];
 var gImportPastDates = false;
 function processFiles() {
-  var gEpochTaskDict = getFutureTasks(); //prompts user in case of existing future tasks 
-  gTasks = [];
+  var gEpochTaskDict = getFutureTasks(); //prompts user in case of existing future tasks, gTasks is also set internally 
   var nowEpoch = Date.now()/ 1000; //since ms => s
   var files = document.getElementById('files').files;
   for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {
@@ -550,7 +549,7 @@ function processFiles() {
             gEpochTaskDict[epoch]["tasks"] = arr;
             if (!gTasks.includes(task)) {
               gTasks.push(task);
-              gColors = getColors();
+              gColors = getColors(gTasks);
             } //if
           } //if
         } //if
@@ -566,22 +565,30 @@ function processFiles() {
 
 function getFutureTasks(){ //function checks if there are still future tasks
   var futureTasks = {};
+  var tasks = [];
   var nowEpoch = Date.now()/ 1000; //since ms => 
   var epochs = Object.keys(gDataEpochTaskDict);
   for (epoch of epochs) {
     if(epoch > nowEpoch){ //convert to required format
-      futureTasks[epoch] = {"tasks":getTasks(gDataEpochTaskDict[epoch]), "date": epochToDateString(epoch,"short")}
+      tasks1 = getTasks(gDataEpochTaskDict[epoch]);
+      for (task in tasks1){ //update tasks list for future tasks
+        if (!tasks.includes(task)) {
+          tasks.push(task);
+        } //if        
+      }
+      futureTasks[epoch] = {"tasks":tasks1, "date": epochToDateString(epoch,"short")}
     } //if
   }
-//ToDo: redefine gTasks (see above)
   console.log(futureTasks)
   if(Object.keys(futureTasks).length != 0){
     const response = confirm("Es gibt noch ausstehende Termine! Wollen Sie diese beibehalten?");
     if(response){
       statusBarMessage("I", "Ausstehende Termine werden beibehalten.", gHideDelayDefault);
+      gTasks = tasks;
       return(futureTasks);
     } else {
       statusBarMessage("I", "Ausstehende Termine werden überschrieben.", gHideDelayDefault);
+      gTasks = [];
       return({});
     }
   }
@@ -614,9 +621,9 @@ function getTasks(taskIds) {
   return (tasks);
 }
 
-function getColors() {
+function getColors(tasks) {
     var colors = [];
-    for (const task of gTasks) {
+    for (const task of tasks) {
         var color = getMatchingColor(task);
         if (color) {
             colors.push(color);

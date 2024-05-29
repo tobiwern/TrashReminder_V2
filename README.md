@@ -71,7 +71,7 @@ Klicke auf das Download-Symbol um zur Download-Seite zu wechseln.
 
 <kbd><img src="./pictures/TrashReminderDownload.png" width="400"></kbd>
 
-Klicke auf `Hochladen...` und wähle eine oder mehrere der herundergeladenen `ICS`/`ICAL` Dateien aus und bestätige die Auswahl.
+Klicke auf `Hochladen...` und wähle eine oder mehrere der heruntergeladenen `ICS`/`ICAL` Dateien aus und bestätige die Auswahl.
 
 Es wird die `Anzahl der gefundenen Termine` und die unterschiedlichen `Müllarten` mit der zugewiesene `Farbe des Warnlichts` angezeigt: 
 

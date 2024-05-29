@@ -524,6 +524,7 @@ var gColors = [];
 var gImportPastDates = false;
 function processFiles() {
   gTasks = [];
+  var futureDates = getFutureTasks();
   gEpochTaskDict = {};
   var nowEpoch = Date.now()/ 1000; //since ms => s
   var files = document.getElementById('files').files;
@@ -562,6 +563,19 @@ function processFiles() {
     }; //on load
     reader.readAsText(file);
   } //for
+}
+
+function getFutureTasks(){ //function checks if there are still future tasks
+  var futureTasks = [];
+  var nowEpoch = Date.now()/ 1000; //since ms => 
+  var epochs = Object.keys(gEpochTaskDict);
+  for (epoch of epochs) {
+    if(epoch > nowEpoch){
+      futureTasks[epoch] = gEpochTaskDict[epoch]
+    } //if
+  }
+  console.log(futureTasks)
+  return (futureTasks);  
 }
 
 function getValidTaskIds() {

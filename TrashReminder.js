@@ -351,6 +351,9 @@ function deleteTasksOnESP() {
         gNoDates = true;
         gAlarm = false;
         gFutureDates = 0;
+        gDataEpochTaskDict = {};
+        gDataTasks = {};
+        gDataValidTaskIds = {};
         requestTasksFromESP(false); //ToDo: better delete data locally - if deleting the values on the ESP was successful => refresh the "current values" on the webpage
         document.getElementById("taskDates").innerHTML = "";
         refreshTabs();

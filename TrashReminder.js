@@ -616,7 +616,7 @@ function getTaskIds(tasks) {
 function getTasks(taskIds) {
   var tasks = [];
   for (var i = 0; i < taskIds.length; i++) {
-    tasks.push(gTasks[taskIds[i]]);
+    tasks.push(gDataTasks[taskIds[i]]); //operates on g*Data*Tasks!
   }
   return (tasks);
 }

@@ -568,10 +568,10 @@ function processFiles() {
 function getFutureTasks(){ //function checks if there are still future tasks
   var futureTasks = [];
   var nowEpoch = Date.now()/ 1000; //since ms => 
-  var epochs = Object.keys(gEpochTaskDict);
+  var epochs = Object.keys(gDataEpochTaskDict);
   for (epoch of epochs) {
     if(epoch > nowEpoch){
-      futureTasks[epoch] = gEpochTaskDict[epoch]
+      futureTasks[epoch] = gDataEpochTaskDict[epoch]
     } //if
   }
   console.log(futureTasks)

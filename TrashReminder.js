@@ -290,7 +290,8 @@ function sendValidTaskTypesToESP() {
 function sendTaskDescriptionToESP() {
   //read text fields (in case user modfified task name)
   for (let i = 0; i < gDataTasks.length; i++) {
-    gDataTasks[i] = document.getElementById("taskType_desc" + i).value;  
+    obj = document.getElementById("taskType_desc" + i);
+    if(obj){ gDataTasks[i] = obj.value;}  
   }
   sendCurrentDataToESP(); //send updated data
 }

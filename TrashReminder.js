@@ -523,8 +523,8 @@ var gColorDefault = '0xFFC0CB';
 var gColors = [];
 var gImportPastDates = false;
 function processFiles() {
-  gTasks = [];
   var gEpochTaskDict = getFutureTasks(); //prompts user in case of existing future tasks 
+  gTasks = [];
   var nowEpoch = Date.now()/ 1000; //since ms => s
   var files = document.getElementById('files').files;
   for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {

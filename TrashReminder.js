@@ -571,7 +571,7 @@ function getFutureTasks(){ //function checks if there are still future tasks
   for (epoch of epochs) {
     if(epoch > nowEpoch){ //convert to required format
       tasks1 = getTasks(gDataEpochTaskDict[epoch]);
-      for (task in tasks1){ //update tasks list for future tasks
+      for (let [index, task] of tasks1.entries()){ //update tasks list for future tasks
         if (!tasks.includes(task)) {
           tasks.push(task);
         } //if        
@@ -736,7 +736,8 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
         checked = (validTaskIds.length == 0 || validTaskIds.includes(i)) ? "checked" : "";
         text += "<tr>"
         text += "<td class=value><div><input type='checkbox' id='task" + i + "' name=task" + i + "' " + checked + ">";
-        text += "<label for='task" + i + "' id='taskl" + i + "'> " + tasks[i] + "</label><div></td>";
+//        text += "<label for='task" + i + "' id='taskl" + i + "'> " + tasks[i] + "</label><div></td>";
+        text += "<input type='text' id='taskdesc" + i + "' value='" + tasks[i] + "'></input><div></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerIcs" + i + "'></div></td>";
         //        text += "<td><div style='background-color: " + colors[i].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div></td>";
         text += "</tr>";

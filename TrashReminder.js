@@ -445,7 +445,8 @@ function refreshTaskTypes() {
         checked = (gDataValidTaskIds.length == 0 || gDataValidTaskIds.includes(i)) ? "checked" : "";
         text += "<tr>"
         text += "<td class='value'><div><input type='checkbox' class='taskType' onChange='refreshTaskDates();sendValidTaskTypesToESP();' id='taskType" + i + "' name=task" + i + "' " + checked + ">";
-        text += "<label for='taskType" + i + "' id='taskTypel" + i + "'> " + gDataTasks[i] + "</label><div></td>";
+//        text += "<label for='taskType" + i + "' id='taskTypel" + i + "'> " + gDataTasks[i] + "</label><div></td>";
+        text += "<input type='text id='taskType_desc" + i + "' value='> " + gDataTasks[i] + "'</input><div></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerTask" + i + "'></div></td>";
         text += "</tr>";
     }
@@ -664,7 +665,7 @@ function genJson() {
     }
     //read text fields (in case user modfified task name)
     for (let i = 0; i < gTasks.length; i++) {
-      gTask[i] = document.getElementById("taskdesc" + i).text;
+      gTasks[i] = document.getElementById("taskdesc" + i).text;
     }
 
     var jsonText = '{"tasks":["' + gTasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';

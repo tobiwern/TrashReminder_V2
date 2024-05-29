@@ -600,6 +600,8 @@ function getFutureTasks(){ //function checks if there are still future tasks
       gTasks = [];
       return({});
     }
+  } else {
+    return({});  
   }
 }
 

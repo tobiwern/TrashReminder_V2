@@ -290,7 +290,7 @@ function sendValidTaskTypesToESP() {
 function sendTaskDescriptionToESP() {
   //read text fields (in case user modfified task name)
   for (let i = 0; i < gDataTasks.length; i++) {
-    obj = document.getElementById("taskType_desc" + i);
+    var obj = document.getElementById("taskType_desc" + i);
     if(obj){ gDataTasks[i] = obj.value;}  
   }
   sendCurrentDataToESP(); //send updated data
@@ -455,7 +455,7 @@ function refreshTaskTypes() {
         text += "<tr>"
         text += "<td class='value'><div><input type='checkbox' class='taskType' onChange='refreshTaskDates();sendValidTaskTypesToESP();' id='taskType" + i + "' name=task" + i + "' " + checked + ">";
 //        text += "<label for='taskType" + i + "' id='taskTypel" + i + "'> " + gDataTasks[i] + "</label><div></td>";
-        text += "<input type='text' id='taskType_desc" + i + "' value='" + gDataTasks[i] + "' width='80' onfocusout='sendTaskDescriptionToESP()'></div></td>";
+        text += "<input type='text' id='taskType_desc" + i + "' value='" + gDataTasks[i] + "' width='100' onfocusout='sendTaskDescriptionToESP()'></div></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerTask" + i + "'></div></td>";
         text += "</tr>";
     }
@@ -752,7 +752,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
         text += "<tr>"
         text += "<td class=value><div><input type='checkbox' id='task" + i + "' name=task" + i + "' " + checked + ">";
 //        text += "<label for='task" + i + "' id='taskl" + i + "'> " + tasks[i] + "</label><div></td>";
-        text += "<input type='text' id='taskdesc" + i + "' value='" + tasks[i] + "' width='80'></div></td>";
+        text += "<input type='text' id='taskdesc" + i + "' value='" + tasks[i] + "' width='100'></div></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerIcs" + i + "'></div></td>";
         //        text += "<td><div style='background-color: " + colors[i].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div></td>";
         text += "</tr>";

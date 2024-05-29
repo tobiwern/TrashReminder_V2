@@ -524,8 +524,17 @@ var gColors = [];
 var gImportPastDates = false;
 function processFiles() {
   gTasks = [];
-  var futureDates = getFutureTasks();
   gEpochTaskDict = {};
+  var futureTasks = getFutureTasks();
+  if(Object.keys(futureTasks).length != 0){
+    const response = confirm("Es gibt noch ausstehende Termine! Wollen Sie diese beibehalten?");
+    if(response){
+      gEpochTaskDict = futureTasks;
+      statusBarMessage("I", "Ausstehende Termine werden beibehalten.", gHideDelayDefault);
+    } else {
+      statusBarMessage("I", "Ausstehende Termine werden überschrieben.", gHideDelayDefault);
+    }
+  }
   var nowEpoch = Date.now()/ 1000; //since ms => s
   var files = document.getElementById('files').files;
   for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {

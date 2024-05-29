@@ -597,7 +597,6 @@ function getFutureTasks(){ //function checks if there are still future tasks
 function getValidTaskIds() {
     var validTaskIds = [];
     for (var i = 0; i < gTasks.length; i++) {
-        var label = document.getElementById("taskl" + i).innerText;
         if (document.getElementById("task" + i).checked) {
             validTaskIds.push(i);
         }
@@ -741,7 +740,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
         text += "<tr>"
         text += "<td class=value><div><input type='checkbox' id='task" + i + "' name=task" + i + "' " + checked + ">";
 //        text += "<label for='task" + i + "' id='taskl" + i + "'> " + tasks[i] + "</label><div></td>";
-        text += "<input type='text' id='taskdesc" + i + "' value='" + tasks[i] + "'></input><div></td>";
+        text += "<input type='text' id='taskdesc" + i + "' value='" + tasks[i] + "' width='100%'></input><div></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerIcs" + i + "'></div></td>";
         //        text += "<td><div style='background-color: " + colors[i].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div></td>";
         text += "</tr>";

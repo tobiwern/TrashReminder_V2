@@ -663,6 +663,10 @@ function genJson() {
         entries.push('{"' + epoch + '":[' + taskIds.join(',') + ']}');
       }
     }
+    //read text fields (in case user modfified task name)
+    for (let i = 0; i < gTasks.length; i++) {
+      gTask[i] = document.getElementById("taskdesc" + i).text;
+    }
 
     var jsonText = '{"tasks":["' + gTasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';
     console.log(jsonText);

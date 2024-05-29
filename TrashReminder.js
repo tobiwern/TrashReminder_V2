@@ -390,7 +390,7 @@ var gFutureDates = 0;
 var gInitialized = false;
 
 function initDataFromJson(jsonObject) {
-  gDataEpochTaskDict = [];
+  gDataEpochTaskDict = {}; //reset global variable
   var epochTasks = jsonObject["epochTasks"];
   for (const epochTask of epochTasks) {
     for (var epoch in epochTask) { //translate into dict
@@ -573,7 +573,7 @@ function getFutureTasks(){ //function checks if there are still future tasks
       futureTasks[epoch] = {"tasks":getTasks(gDataEpochTaskDict[epoch]), "date": epochToDateString(epoch,"short")}
     } //if
   }
-
+//ToDo: redefine gTasks (see above)
   console.log(futureTasks)
   if(Object.keys(futureTasks).length != 0){
     const response = confirm("Es gibt noch ausstehende Termine! Wollen Sie diese beibehalten?");
@@ -609,7 +609,7 @@ function getTaskIds(tasks) {
 function getTasks(taskIds) {
   var tasks = [];
   for (var i = 0; i < taskIds.length; i++) {
-      tasks.push(tasks[taskIds[i]]);
+    tasks.push(gTasks[taskIds[i]]);
   }
   return (tasks);
 }

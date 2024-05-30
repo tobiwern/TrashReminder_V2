@@ -316,6 +316,9 @@ function sendTaskDescriptionToESP() {
           if (taskId == renameId) {
             let newId = renameIds[renameId];
             if (!newTaskIds.includes(newId)){newTaskIds.push(newId);}
+          } else if(taskId >= tasks.length){ //correct larger IDs
+            let newId = taskId-1;
+            if (!newTaskIds.includes(newId)){newTaskIds.push(newId);}
           } else {
             newTaskIds.push(taskId);
           }
@@ -327,7 +330,7 @@ function sendTaskDescriptionToESP() {
   console.log("After: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
 
   gDataTasks = tasks;  
-  gColors = colors;
+  gDataColors = colors;
   sendCurrentDataToESP(); //send updated data
 }
 

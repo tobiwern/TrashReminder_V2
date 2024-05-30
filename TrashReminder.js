@@ -147,7 +147,7 @@ function requestLogFromESP() {
 }
 
 function deleteLogOnESP() {
-    const response = confirm("Wollen Sie wirklich das Logfile löschen?");
+    const response = confirm("Willst Du das Logfile wirklich löschen?");
     if (!response) {
         statusBarMessage("I", "Löschen des Logfiles abgebrochen.", gHideDelayDefault);
         return;
@@ -280,7 +280,7 @@ function sendValidTaskTypesToESP() {
       }
     }
     if (validTaskIds.length == 0) {
-      statusBarMessage("W", "Sie müssen mindestens eine Abfallart auswählen!");
+      statusBarMessage("W", "Es muss mindestens eine Abfallart ausgewählt sein!");
       return;
     }
     gDataValidTaskIds = validTaskIds; //update in global Setup
@@ -292,10 +292,8 @@ function sendTaskDescriptionToESP() {
   var tasks = [];
   for (let i = 0; i < gDataTasks.length; i++) {
     var task = document.getElementById("taskType_desc" + i).value;
-    if (!tasks.includes(task))      
-      tasks.push(task); 
-    }    
-  }
+    if (!tasks.includes(task)){tasks.push(task);}    
+  }//for
   gDataTasks = tasks;  
   sendCurrentDataToESP(); //send updated data
 }
@@ -340,7 +338,7 @@ function sendDropDownStateToESP(dropdown) {
 }
 
 function deleteTasksOnESP() {
-  const response = confirm("Wollen Sie wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
+  const response = confirm("Willst Du wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
   if (!response) {
     statusBarMessage("I", "Löschen der Daten abgebrochen.", gHideDelayDefault);
     return;
@@ -372,7 +370,7 @@ function deleteTasksOnESP() {
 }
 
 function resetWifiSettingsOnESP() {
-    const response = confirm("Wollen Sie wirklich die WLAN Einstellungen löschen?");
+    const response = confirm("Willst Du die WLAN Einstellungen wirklich löschen?");
     if (!response) {
         statusBarMessage("I", "Löschen der WLAN Einstellungen abgebrochen.", gHideDelayDefault);
         return;
@@ -432,7 +430,7 @@ function sendCurrentDataToESP() { //send currently set data to ESP
         const obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
         sendTasksToESP(jsonText, true);
     } catch (e) {
-        statusBarMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>");
+        statusBarMessage("E", "<em>Die Daten sind nicht korrekt als JSON formatiert. Bitte öffne ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a></em>");
         return;
     }
 }
@@ -448,14 +446,14 @@ function refreshTaskTypesAndDates(response) {
         refreshTaskDates();
         refreshTabs();
     } catch (e) {
-        statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e);
+        statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffne ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>.<br>ERROR: " + e);
         document.getElementById("taskDates").innerHTML = response;
         return;
     }
 }
 
 function refreshTaskTypes() {
-    var text = "Sie werden an folgende Abfallarten erinnert:<br><br>";
+    var text = "Du wirst an folgende Abfallarten erinnert:<br><br>";
     text += "<table>";
 //console.log("RefreshTaskTypes: gDataTasks.length = " + gDataTasks.length);    
     for (let i = 0; i < gDataTasks.length; i++) {
@@ -468,7 +466,7 @@ function refreshTaskTypes() {
         text += "</tr>";
     }
     text += "</table>";
-    text += "<br><em>Setzen Sie einen Haken für die Abfallarten an die Sie erinnert werden wollen. Sie können die Farbe des Warnlichts durch klicken auf das Farbkästchen auswählen.<br></em>"
+    text += "<br><em>Setze einen Haken für die Abfallarten an Du erinnert werden willst. Hier kann die Bezeichnung der Abfallart angepaßt und die Farbe des Warnlichts durch klicken auf das Farbkästchen ausgewählt werden.<br></em>"
     document.getElementById("taskTypes").innerHTML = text + "<br>";
     document.getElementById("messageTaskTypes").innerHTML = "";
     refreshColorPickerColors("colorPickerTask");
@@ -592,16 +590,14 @@ function getFutureTasks(){ //function checks if there are still future tasks
     if(epoch > nowEpoch){ //convert to required format
       tasks1 = getTasks(gDataEpochTaskDict[epoch]);
       for (let [index, task] of tasks1.entries()){ //update tasks list for future tasks
-        if (!tasks.includes(task)) {
-          tasks.push(task);
-        } //if        
-      }
+        if (!tasks.includes(task)) {tasks.push(task);}        
+      } //for
       futureTasks[epoch] = {"tasks":tasks1, "date": epochToDateString(epoch,"short")}
     } //if
   }
   console.log(futureTasks)
   if(Object.keys(futureTasks).length != 0){
-    const response = confirm("Es gibt noch ausstehende Termine! Wollen Sie diese beibehalten?");
+    const response = confirm("Es gibt noch ausstehende Termine! Willst Du diese beibehalten?");
     if(response){
       statusBarMessage("I", "Ausstehende Termine werden beibehalten.", gHideDelayDefault);
       gTasks = tasks;
@@ -688,8 +684,7 @@ function genJson() {
     var tasks = [];
     for (let i = 0; i < gTasks.length; i++) {
       var task = document.getElementById("taskdesc" + i).value;
-      if (!tasks.includes(task))      
-      tasks.push(task); 
+      if (!tasks.includes(task)){tasks.push(task);}
     }
 
     var jsonText = '{"tasks":["' + tasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';
@@ -697,7 +692,7 @@ function genJson() {
     try {
       var obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!
     } catch (e) {
-      statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>");
+      statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffne ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>");
       return;
     }
     sendTasksToESP(jsonText);
@@ -729,7 +724,7 @@ function checkMaxNumberOfEntries() {
         }
     }
     if (text != "") {
-        text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffnen Sie ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>!";
+        text += "Die darüber hinausgehenden Einträge werden nicht verarbeitet.<br>Bitte öffne ein <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>GitHub Issue</a>!";
         statusBarMessage("W", text);
     }
 }
@@ -737,7 +732,7 @@ function checkMaxNumberOfEntries() {
 function showCheckBoxes(items) {
   var i = 0;
   if(Object.keys(gEpochTaskDict).length == 0){
-    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte laden Sie neue Abfuhrtermine herunter!";  
+    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte lade neue Abfuhrtermine herunter!";  
     showMessage("W", text, "messageTasks");
 //    document.getElementById("buttonDownload").style.display = "block"; //show button Download
     gFilesLoaded = false;
@@ -749,7 +744,7 @@ function showCheckBoxes(items) {
         text += "der Datei gefunden.</i>";
     }
     text += "<br><br>";
-    text += "Bitte w&auml;hlen Sie die Abfallarten aus,<br>an die Sie erinnert werden wollen:<br><br>";
+    text += "Bitte w&auml;hle die Abfallarten aus,<br>an die Du erinnert werden willst:<br><br>";
     text += genCheckBoxes(items, gColors);
     text += "<br><button class=button onclick='genJson()'>Abfuhrtermine speichern</button><br><br>";
     document.getElementById("tasks").innerHTML = text;
@@ -775,7 +770,7 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
 }
 
 function send(number) {//debug
-    statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffnen Sie ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>");
+    statusBarMessage("E", "Die Daten sind nicht korrekt als JSON formatiert. Bitte öffne ein GitHub Issue unter <a href='https://github.com/tobiwern/TrashReminder_V2/issues' target='_blank'>https://github.com/tobiwern/TrashReminder/issues</a>");
 }
 
 /// ColorPicker          green      blue       yellow     white      orange     pink       purple    iceblue    icegreen
@@ -880,7 +875,7 @@ function sendNtpServerToESP(){
       if (this.status == 200) {
         statusBarMessage("I", "NTP Server gespeichert.", gHideDelayDefault);   
       } else { //500
-        statusBarMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfen Sie die Adresse!", gHideDelayDefault); 
+        statusBarMessage("E", "NTP Server " + document.getElementById("ntpServer").value + " kann nicht erreicht werden!<br>Bitte überprüfe die Adresse!", gHideDelayDefault); 
 //        document.getElementById("ntpServer").value = this.responseText;
       }      
     }
@@ -1215,8 +1210,8 @@ function buildTab_DATA(){
 
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
   <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
-  angeboten und müssen zuerst heruntergeladen werden. Suchen sie über Ihren Browser nach "Abfuhrtermine" oder "Abfallkalender" + Ihrem Ort, z.B. <a target='_blank' href='https://www.google.com/search?&q=Abfuhrtermine+Stuttgart'>"Abfuhrtermine Stuttgart"</a>.</div><br>
-  <div>Sobald sie die ICS oder ICAL Datei auf Ihr Handy oder ihren Computer heruntergeladen haben, können Sie diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
+  angeboten und müssen zuerst heruntergeladen werden. Suche über Deinen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. <a target='_blank' href='https://www.google.com/search?&q=Abfuhrtermine+Stuttgart'>"Abfuhrtermine Stuttgart"</a>.</div><br>
+  <div>Sobald Du die ICS oder ICAL Datei auf Dein Handy oder Deinen Computer heruntergeladen hast, kannst Du diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
   Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
   <div id='descriptionData'></div> 
   <div id='buttonDeleteTasks'></div><br>
@@ -1227,7 +1222,7 @@ function buildTab_DATA(){
 gFilesLoaded = false;
 function refreshTab_DATA(){
   var downloadButton = `
-  Wählen Sie eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien ihres Entsorgungsunternehmens aus:<br><br>
+  Wähle eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien Deines Entsorgungsunternehmens aus:<br><br>
   <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
   `;
   document.getElementById("buttonDownload").innerHTML = downloadButton;

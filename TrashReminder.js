@@ -304,7 +304,7 @@ function promptForTaskTypeCombine(){
   }
 
   if(duplicates.length > 0){ //means combining entries
-    const response = confirm("Willst Du " + mismatches[0] + " unter " + duplicates[0] + " zusammenführen?");
+    const response = confirm("Willst Du \"" + mismatches[0] + "\" unter dem neuen Namen \"" + duplicates[0] + "\" zusammenführen?");
     if(response){
       return([mismatches[0],duplicates[0]]);
     } else {

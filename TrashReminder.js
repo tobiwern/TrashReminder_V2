@@ -367,11 +367,11 @@ function sendTaskDescriptionToESP() {
   console.log("After: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
   //correct gDataValidTasks
   
-  for(taskId of getValidTaskIds){
-    if(taskId < tasks.length){
-      validTaskIds.push(taskId);
-    }
-  }
+//  for(taskId of getValidTaskIds){
+//    if(taskId < tasks.length){
+//      validTaskIds.push(taskId);
+//    }
+//  }
   gDataValidTaskIds = validTaskIds;
   gDataTasks = tasks;  
   gDataColors = colors;

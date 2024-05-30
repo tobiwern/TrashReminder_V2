@@ -312,7 +312,7 @@ function sendTaskDescriptionToESP() {
       taskIds = gDataEpochTaskDict[epoch];
       var newTaskIds = [];
       for (let [index, taskId] of taskIds.entries()){
-        for(renameId of Object.keys(renameIds)){ 
+        for(renameId of renameIds){ //iterate over values (not keys)
           if (taskId == renameId) {
             let newId = renameIds[renameId];
             if (!newTaskIds.includes(newId)){newTaskIds.push(newId);}

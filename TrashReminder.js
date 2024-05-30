@@ -289,10 +289,14 @@ function sendValidTaskTypesToESP() {
 
 function sendTaskDescriptionToESP() {
   //read text fields (in case user modfified task name)
+  var tasks = [];
   for (let i = 0; i < gDataTasks.length; i++) {
-    var obj = document.getElementById("taskType_desc" + i);
-    if(obj){ gDataTasks[i] = obj.value;}  
+    var task = document.getElementById("taskType_desc" + i).value;
+    if (!tasks.includes(task))      
+      tasks.push(task); 
+    }    
   }
+  gDataTasks = tasks;  
   sendCurrentDataToESP(); //send updated data
 }
 
@@ -681,11 +685,14 @@ function genJson() {
       }
     }
     //read text fields (in case user modfified task name)
+    var tasks = [];
     for (let i = 0; i < gTasks.length; i++) {
-      gTasks[i] = document.getElementById("taskdesc" + i).value;
+      var task = document.getElementById("taskdesc" + i).value;
+      if (!tasks.includes(task))      
+      tasks.push(task); 
     }
 
-    var jsonText = '{"tasks":["' + gTasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';
+    var jsonText = '{"tasks":["' + tasks.join('","') + '"],"colors":["' + gColors.join('","') + '"],"validTaskIds":[' + validTaskIds.join(',') + '],"epochTasks":[' + entries.join(',') + ']}';
     console.log(jsonText);
     try {
       var obj = JSON.parse(jsonText); //just to check if valid JSON, ToDo: Show if there is an error!

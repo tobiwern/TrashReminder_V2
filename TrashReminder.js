@@ -314,7 +314,8 @@ function sendTaskDescriptionToESP() {
       for (let [index, taskId] of taskIds.entries()){
         for(renameId in Object.keys(renameIds)){ 
           if (taskId == renameId) {
-            if (!newTaskIds.includes(renameId)){newTaskIds.push(renameIds[renameId]);}
+            let newId = renameIds[renameId];
+            if (!newTaskIds.includes(newId)){newTaskIds.push(newId);}
           } else {
             newTaskIds.push(taskId);
           }

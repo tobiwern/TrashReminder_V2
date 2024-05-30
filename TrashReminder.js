@@ -303,7 +303,7 @@ function sendTaskDescriptionToESP() {
       renameIds[i] = tasks.indexOf(task);
     }    
   } //for
-  console.log("tasks = " + tasks + ", renameIds = " + renameIds);
+  console.log("tasks = " + tasks + ", renameIds = " + String(renameIds));
   //renaming taskIds if required
   console.log("Before: gDataEpochTaskDict = " + gDataEpochTaskDict);
   if(renameIds.length > 0){

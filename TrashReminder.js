@@ -290,10 +290,33 @@ function sendValidTaskTypesToESP() {
 function sendTaskDescriptionToESP() {
   //read text fields (in case user modfified task name)
   var tasks = [];
+  var renameIds = {};
   for (let i = 0; i < gDataTasks.length; i++) {
     var task = document.getElementById("taskType_desc" + i).value;
-    if (!tasks.includes(task)){tasks.push(task);}    
+    if (!tasks.includes(task)){
+      tasks.push(task);
+    } else {
+      renameIds[i] = tasks.indexOf(task);
+    }    
   }//for
+  //renaming taskIds if required
+  if(renameIds.length > 0){
+    var epochs = Object.keys(gDataEpochTaskDict).sort();
+    for (epoch of epochs) {
+      taskIds = gDataEpochTaskDict[epoch];
+      var newTaskIds = [];
+      for (let taskId in taskIds){
+        for(renameId in renameIds) 
+          if (taskId == renameId) {
+            if (!newTaskIds.includes(renameId)){newTaskIds.push(renameId);}
+          } else {
+            newTaskIds.push(taskId);
+          }
+        } //for        
+      } //for
+      gDataEpochTaskDict[epoch] = newTaskIds;
+    }
+  }
   gDataTasks = tasks;  
   sendCurrentDataToESP(); //send updated data
 }

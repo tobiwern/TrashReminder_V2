@@ -309,7 +309,7 @@ function promptForTaskTypeCombine(){
       return([mismatches[0],duplicates[0]]);
     } else {
       var index = gDataTasks.indexOf(mismatches[0]);
-      document.getElementById("taskType_desc" + index).value = mismatch[0]; //reset field value 
+      document.getElementById("taskType_desc" + index).value = mismatches[0]; //reset field value 
       return([]);
     }
   }

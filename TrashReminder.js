@@ -287,11 +287,42 @@ function sendValidTaskTypesToESP() {
     sendCurrentDataToESP(); //send updated data
 }
 
+function promptForTaskTypeCombine(){
+  const taskTypesDescFields = document.getElementsByClassName("taskType_desc");
+  taskTypes = [];
+  for (taskType of taskTypesDescFields) {//get list of values
+    taskTypes.push(taskType.value);
+  }
+  //detect duplicates in the description fields
+  const duplicates = taskTypes.filter((item, index) => taskTypes.indexOf(item) !== index);
+
+  if(duplicates){ //means combining entries
+    var mismatches = [];
+    for (taskType of gDataTasks) {
+      if(!taskTypes.includes(taskType)){
+        mismatches.push(taskType)
+      }
+    }
+    const response = confirm("Willst Du " + mismatches[0] + " unter " + duplicates[0] + " zusammenführen?");
+    if(response){
+      return([mismatches[0],duplicates[0]]);
+    } else {
+      var index = gDataTasks.indexOf(mismatches[0]);
+      document.getElementById("taskType_desc" + index).value = mismatch[0]; //reset field value 
+      return([]);
+    }
+  }
+}
+
 function sendTaskDescriptionToESP() {
+  [oldValue, newValue] = promptForTaskTypeCombine();
+  if(!oldValue){return(null);}
+
   //read text fields (in case user modfified task name)
   var tasks = [];
   var colors = [];
   var renameIds = {};
+  var validTaskIds = [];
   console.log("Before: gDataTasks = " + JSON.stringify(gDataTasks));
   const taskTypes = document.getElementsByClassName("taskType_desc");
   for (let i = 0; i < taskTypes.length; i++) {
@@ -299,6 +330,9 @@ function sendTaskDescriptionToESP() {
     if (!tasks.includes(task)){
       tasks.push(task);
       colors.push(gDataColors[i]);
+//      if (document.getElementById("task" + i).checked) {
+//        validTaskIds.push(i);
+//      }
     } else {
       renameIds[i] = tasks.indexOf(task);
     }    
@@ -307,6 +341,7 @@ function sendTaskDescriptionToESP() {
   //renaming taskIds if required
   console.log("Before: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
   if(Object.keys(renameIds).length > 0){
+    refreshTaskTypes();
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     for (epoch of epochs) {
       taskIds = gDataEpochTaskDict[epoch];
@@ -328,7 +363,14 @@ function sendTaskDescriptionToESP() {
     }
   }
   console.log("After: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
-
+  //correct gDataValidTasks
+  
+  for(taskId of getValidTaskIds){
+    if(taskId < tasks.length){
+      validTaskIds.push(taskId);
+    }
+  }
+  gDataValidTaskIds = validTaskIds;
   gDataTasks = tasks;  
   gDataColors = colors;
   sendCurrentDataToESP(); //send updated data

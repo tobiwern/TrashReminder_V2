@@ -290,16 +290,21 @@ function sendValidTaskTypesToESP() {
 function sendTaskDescriptionToESP() {
   //read text fields (in case user modfified task name)
   var tasks = [];
+  var colors = [];
   var renameIds = {};
+  console.log("Before: gDataTasks = " + gDataTasks);
   for (let i = 0; i < gDataTasks.length; i++) {
     var task = document.getElementById("taskType_desc" + i).value;
     if (!tasks.includes(task)){
       tasks.push(task);
+      colors.push(gDataColors[i]);
     } else {
       renameIds[i] = tasks.indexOf(task);
     }    
   } //for
+  console.log("tasks = " + tasks + ", renameIds = " + renameIds);
   //renaming taskIds if required
+  console.log("Before: gDataEpochTaskDict = " + gDataEpochTaskDict);
   if(renameIds.length > 0){
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     for (epoch of epochs) {
@@ -317,7 +322,10 @@ function sendTaskDescriptionToESP() {
       gDataEpochTaskDict[epoch] = newTaskIds;
     }
   }
+  console.log("After: gDataEpochTaskDict = " + gDataEpochTaskDict);
+
   gDataTasks = tasks;  
+  gColors = colors;
   sendCurrentDataToESP(); //send updated data
 }
 
@@ -618,7 +626,6 @@ function getFutureTasks(){ //function checks if there are still future tasks
       futureTasks[epoch] = {"tasks":tasks1, "date": epochToDateString(epoch,"short")}
     } //if
   }
-  console.log(futureTasks)
   if(Object.keys(futureTasks).length != 0){
     const response = confirm("Es gibt noch ausstehende Termine! Willst Du diese beibehalten?");
     if(response){

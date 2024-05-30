@@ -293,7 +293,8 @@ function sendTaskDescriptionToESP() {
   var colors = [];
   var renameIds = {};
   console.log("Before: gDataTasks = " + gDataTasks);
-  for (let i = 0; i < gDataTasks.length; i++) {
+  const taskTypes = document.getElementsByClassName("taskType_desc");
+  for (let i = 0; i < taskTypes.length; i++) {
     var task = document.getElementById("taskType_desc" + i).value;
     if (!tasks.includes(task)){
       tasks.push(task);
@@ -492,7 +493,7 @@ function refreshTaskTypes() {
         text += "<tr>"
         text += "<td class='value'><div><input type='checkbox' class='taskType' onChange='refreshTaskDates();sendValidTaskTypesToESP();' id='taskType" + i + "' name=task" + i + "' " + checked + ">";
 //        text += "<label for='taskType" + i + "' id='taskTypel" + i + "'> " + gDataTasks[i] + "</label><div></td>";
-        text += "<input type='text' id='taskType_desc" + i + "' value='" + gDataTasks[i] + "' size='30' onfocusout='sendTaskDescriptionToESP();refreshTaskDates();'></div></td>";
+        text += "<input type='text' class='taskType_desc' id='taskType_desc" + i + "' value='" + gDataTasks[i] + "' size='30' onfocusout='sendTaskDescriptionToESP();refreshTaskDates();'></div></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerTask" + i + "'></div></td>";
         text += "</tr>";
     }

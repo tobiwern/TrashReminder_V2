@@ -312,7 +312,7 @@ function sendTaskDescriptionToESP() {
       taskIds = gDataEpochTaskDict[epoch];
       var newTaskIds = [];
       for (let [index, taskId] of taskIds.entries()){
-        for(renameId in Object.keys(renameIds)){ 
+        for(renameId of Object.keys(renameIds)){ 
           if (taskId == renameId) {
             let newId = renameIds[renameId];
             if (!newTaskIds.includes(newId)){newTaskIds.push(newId);}
@@ -499,7 +499,7 @@ function refreshTaskTypes() {
         text += "</tr>";
     }
     text += "</table>";
-    text += "<br><em>Setze einen Haken für die Abfallarten an Du erinnert werden willst. Hier kann die Bezeichnung der Abfallart angepaßt und die Farbe des Warnlichts durch klicken auf das Farbkästchen ausgewählt werden.<br></em>"
+    text += "<br><em>Setze einen Haken für die Abfallarten an Du erinnert werden willst. Es kann die Bezeichnung der Abfallart angepaßt und die Farbe des Warnlichts durch klicken auf das Farbkästchen ausgewählt werden.<br></em>"
     document.getElementById("taskTypes").innerHTML = text + "<br>";
     document.getElementById("messageTaskTypes").innerHTML = "";
     refreshColorPickerColors("colorPickerTask");

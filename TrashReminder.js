@@ -306,7 +306,7 @@ function sendTaskDescriptionToESP() {
   console.log("tasks = " + tasks + ", renameIds = " + JSON.stringify(renameIds));
   //renaming taskIds if required
   console.log("Before: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
-  if(renameIds.length > 0){
+  if(Object.keys(renameIds).length > 0){
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     for (epoch of epochs) {
       taskIds = gDataEpochTaskDict[epoch];

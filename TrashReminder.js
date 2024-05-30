@@ -559,12 +559,14 @@ function processFiles() {
           if(gImportPastDates || epoch > nowEpoch){
             if (!(epoch in gEpochTaskDict)) { gEpochTaskDict[epoch] = { "tasks": [], "date": dateString }; }
             var arr = gEpochTaskDict[epoch]["tasks"];
-            arr.push(task);
-            gEpochTaskDict[epoch]["tasks"] = arr;
-            if (!gTasks.includes(task)) {
-              gTasks.push(task);
-              gColors = getColors(gTasks);
-            } //if
+            if(!arr.includes(task)){
+              arr.push(task);
+              gEpochTaskDict[epoch]["tasks"] = arr;
+              if (!gTasks.includes(task)) {
+                gTasks.push(task);
+                gColors = getColors(gTasks);
+              } //if
+            } //if  
           } //if
         } //if
       } //for

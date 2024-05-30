@@ -295,14 +295,15 @@ function promptForTaskTypeCombine(){
   }
   //detect duplicates in the description fields
   const duplicates = taskTypes.filter((item, index) => taskTypes.indexOf(item) !== index);
+  //detect mismatches
+  var mismatches = [];
+  for (taskType of gDataTasks) {
+    if(!taskTypes.includes(taskType)){
+      mismatches.push(taskType)
+    }
+  }
 
   if(duplicates.length > 0){ //means combining entries
-    var mismatches = [];
-    for (taskType of gDataTasks) {
-      if(!taskTypes.includes(taskType)){
-        mismatches.push(taskType)
-      }
-    }
     const response = confirm("Willst Du " + mismatches[0] + " unter " + duplicates[0] + " zusammenführen?");
     if(response){
       return([mismatches[0],duplicates[0]]);
@@ -312,6 +313,7 @@ function promptForTaskTypeCombine(){
       return([]);
     }
   }
+  return([mismatches[0]]);
 }
 
 function sendTaskDescriptionToESP() {

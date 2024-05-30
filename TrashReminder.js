@@ -298,7 +298,7 @@ function sendTaskDescriptionToESP() {
     } else {
       renameIds[i] = tasks.indexOf(task);
     }    
-  }//for
+  } //for
   //renaming taskIds if required
   if(renameIds.length > 0){
     var epochs = Object.keys(gDataEpochTaskDict).sort();
@@ -306,7 +306,7 @@ function sendTaskDescriptionToESP() {
       taskIds = gDataEpochTaskDict[epoch];
       var newTaskIds = [];
       for (let taskId in taskIds){
-        for(renameId in renameIds) 
+        for(renameId in renameIds){ 
           if (taskId == renameId) {
             if (!newTaskIds.includes(renameId)){newTaskIds.push(renameId);}
           } else {

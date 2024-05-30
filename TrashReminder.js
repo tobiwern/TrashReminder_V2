@@ -296,7 +296,7 @@ function promptForTaskTypeCombine(){
   //detect duplicates in the description fields
   const duplicates = taskTypes.filter((item, index) => taskTypes.indexOf(item) !== index);
 
-  if(duplicates){ //means combining entries
+  if(duplicates.length > 0){ //means combining entries
     var mismatches = [];
     for (taskType of gDataTasks) {
       if(!taskTypes.includes(taskType)){

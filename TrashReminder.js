@@ -292,7 +292,7 @@ function sendTaskDescriptionToESP() {
   var tasks = [];
   var colors = [];
   var renameIds = {};
-  console.log("Before: gDataTasks = " + gDataTasks);
+  console.log("Before: gDataTasks = " + JSON.stringify(gDataTasks));
   const taskTypes = document.getElementsByClassName("taskType_desc");
   for (let i = 0; i < taskTypes.length; i++) {
     var task = document.getElementById("taskType_desc" + i).value;
@@ -303,9 +303,9 @@ function sendTaskDescriptionToESP() {
       renameIds[i] = tasks.indexOf(task);
     }    
   } //for
-  console.log("tasks = " + tasks + ", renameIds = " + String(renameIds));
+  console.log("tasks = " + tasks + ", renameIds = " + JSON.stringify(renameIds));
   //renaming taskIds if required
-  console.log("Before: gDataEpochTaskDict = " + gDataEpochTaskDict);
+  console.log("Before: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
   if(renameIds.length > 0){
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     for (epoch of epochs) {
@@ -323,7 +323,7 @@ function sendTaskDescriptionToESP() {
       gDataEpochTaskDict[epoch] = newTaskIds;
     }
   }
-  console.log("After: gDataEpochTaskDict = " + gDataEpochTaskDict);
+  console.log("After: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
 
   gDataTasks = tasks;  
   gColors = colors;

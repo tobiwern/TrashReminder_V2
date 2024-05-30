@@ -343,7 +343,6 @@ function sendTaskDescriptionToESP() {
   //renaming taskIds if required
   console.log("Before: gDataEpochTaskDict = " + JSON.stringify(gDataEpochTaskDict));
   if(Object.keys(renameIds).length > 0){
-    refreshTaskTypes();
     var epochs = Object.keys(gDataEpochTaskDict).sort();
     for (epoch of epochs) {
       taskIds = gDataEpochTaskDict[epoch];
@@ -375,6 +374,7 @@ function sendTaskDescriptionToESP() {
   gDataValidTaskIds = validTaskIds;
   gDataTasks = tasks;  
   gDataColors = colors;
+  refreshTaskTypes();
   sendCurrentDataToESP(); //send updated data
 }
 

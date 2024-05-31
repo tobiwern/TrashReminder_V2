@@ -232,7 +232,7 @@ function requestTasksFromESP(show = true) { //send the ESP data to the webpage
 //        gNoDates = false; //not required since gets updated refreshTaskDates
         refreshTaskTypesAndDates(response);
       } else { //500
-        showMessage("W", "Es sind noch keine Abfuhrtermine auf der \"Müll-Erinnerung\" gespeichert!", "messageTaskTypes");
+        showMessage("W", "Es sind noch keine Abfuhrtermine auf \"TrashReminder\" gespeichert!", "messageTaskTypes");
         if (show) { statusBarMessage("E", "Lesen der Daten fehlgeschlagen!", gHideDelayDefault); }
         document.getElementById("taskTypes").innerHTML = "";
         document.getElementById("taskDates").innerHTML = "";
@@ -418,7 +418,7 @@ function sendDropDownStateToESP(dropdown) {
 }
 
 function deleteTasksOnESP() {
-  const response = confirm("Willst Du wirklich alle Abfuhrtermine von der \"Müll-Erinnerung\" löschen?");
+  const response = confirm("Willst Du wirklich alle Abfuhrtermine von \"TrashReminder\" löschen?");
   if (!response) {
     statusBarMessage("I", "Löschen der Daten abgebrochen.", gHideDelayDefault);
     return;
@@ -1195,7 +1195,7 @@ function refreshTab_DATES(){
     }
     description += "<br><b>Abfuhrtermine</b> und die <b>Müllart</b> angezeigt.<br><br>";
   }
-  if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf die \"Müll-Erinnerung\" geladen werden.<br><br>";}
+  if(gFutureDates == 0){description += "Neue Termine können über <a href='#' onclick=document.getElementById('data').click();><img src='https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/main/pictures/download.svg'></a> auf \"TrashReminder\" geladen werden.<br><br>";}
   if(!gNoDates && gShowPastDates){ description +=  "Bereits verstrichene Termine werden ausgegraut dargestellt.<br><br>";}
   document.getElementById("descriptionDates").innerHTML = description;  
   // handle buttons
@@ -1214,7 +1214,7 @@ function refreshTab_DATES(){
 function buildTab_SETTINGS(){
   var content = "";
   content = `
-  Auf dieser Seite können Einstellungen für die "Müll-Erinnerung" geändert werden.<br><br> 
+  Auf dieser Seite können Einstellungen für "TrashReminder" geändert werden.<br><br> 
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/clock.svg?raw=true'> Zeitpunkt der Erinnerung</div></h3>
   <table>
@@ -1281,7 +1281,7 @@ function refreshTab_SETTINGS(){
 function buildTab_DATA(){
   var content = "";
   content += `
-  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder neue Termine (z.B. für das nächste Jahr) gespeichert werden sollen, könnnen neue Abfuhrtermine auf die "Müll-Erinnerung" geladen werden.</div>
+  <div>Falls sich Änderungen an den Abfuhrterminen ergeben haben oder neue Termine (z.B. für das nächste Jahr) gespeichert werden sollen, könnnen neue Abfuhrtermine auf "TrashReminder" geladen werden.</div>
   <hr>
   <div id='buttonDownload'></div>
   <div id='tasks'></div>
@@ -1290,7 +1290,7 @@ function buildTab_DATA(){
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/download-cloud.svg?raw=true'>Von wo bekomme ich die Termine?</div></h3>
   <div>Die Abfuhrdaten werden üblicherweise durch das Entsorgungsunternehmen auf einer Webseite im ICS oder ICAL Format
   angeboten und müssen zuerst heruntergeladen werden. Suche über Deinen Browser nach "Abfuhrtermine" oder "Abfallkalender" + Deinem Ort, z.B. <a target='_blank' href='https://www.google.com/search?&q=Abfuhrtermine+Stuttgart'>"Abfuhrtermine Stuttgart"</a>.</div><br>
-  <div>Sobald Du die ICS oder ICAL Datei auf Dein Handy oder Deinen Computer heruntergeladen hast, kannst Du diese über den Button "Hochladen..." auswählen und auf die "Müll-Erinnerung" laden. 
+  <div>Sobald Du die ICS oder ICAL Datei auf Dein Handy oder Deinen Computer heruntergeladen hast, kannst Du diese über den Button "Hochladen..." auswählen und auf "TrashReminder" laden. 
   Es können auch mehrere Dateien ausgewählt werden, falls mehrere Unternehmen die Abfuhr übernehmen.</div>
   <div id='descriptionData'></div> 
   <div id='buttonDeleteTasks'></div><br>
@@ -1316,7 +1316,7 @@ function refreshTab_DATA(){
   if(!gNoDates){
     description += `
     <h3><div class="centeredHeight"><img src="https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/file-minus.svg?raw=true"> Löschen der Abfuhrtermine</div></h3> 
-    Über den nachstehenden Button können alle Abfuhrtermine von der \"Müll-Erinnerung\" gelöscht werden:<br><br>
+    Über den nachstehenden Button können alle Abfuhrtermine von \"TrashReminder\" gelöscht werden:<br><br>
     `;
     buttonDelete = "<button class='button' onclick='deleteTasksOnESP()'>Abfuhrtermine löschen</button>";
   }
@@ -1327,7 +1327,7 @@ function refreshTab_DATA(){
 // HELP /////////////////////////////////////
 function buildTab_HELP(){
   var content = `
-  Mehr Infos zur "Müll-Erinnerung gibt es unter<br><a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
+  Mehr Infos zu "TrashReminder" gibt es unter<br><a href='https://tobiwern.github.io/TrashReminder_V2/' target='_blank'>https://tobiwern.github.io/TrashReminder/</a>
   <br><br>
   <button class="button" onclick="restartTrashReminder()">TrashReminder neu starten</button>
   <button class="button" onclick="fireworks()">Feuerwerk</button>

@@ -97,7 +97,7 @@ Hier kannst Du die anstehenden Abholtermine einsehen, das Blinken ausschalten od
 ## Anstehende Abholtermine
 
 Auf der Startseite werden alle anstehenden Abholtermine angezeigt.
-Bereits verstrichene Termine werden standardmäßig nicht angezeigt (kann über [Optionen](#optionen) angepasst werden), sodass schnell der nächste Termin ersichtlich ist.
+Bereits verstrichene Termine werden standardmäßig nicht angezeigt, um schnell den nächsten Termine erkennen zu können. Durch Klick auf den Link `anstehende` Termine, können verstrichene Termine eingeblendet werden.
 
 Liegt eine Erinnerung vor, so blinkt auch der Termin in der Liste und eine Schaltfläche `Mülleimer steht draußen` zum Bestätigen ist eingeblendet. 
 
@@ -162,7 +162,7 @@ Unter Optionen können vergangene Termine eingeblendet werden oder beim Import v
  
 ## Problembehandlung
 - Konfigurationsseite unter WLAN `TrashReminder` wird nicht angezeigt
-  - Versuche `<http://192.168.1.4>` aufzurufen.
+  - Versuche `http://192.168.1.4` aufzurufen.
 - Einrichtung der WLAN Verbindung fehlgeschlagen
   - Wenn die erste Verbindung mit dem WLAN fehlschlägt, werden beim erneuten Aufruf von WLAN `TrashReminder` erweiterte Optionen eingeblendet um eine IP-Adresse, Subnetmask, etc. angeben zu können. 
 - [http://TrashReminder](http://TrashReminder) wird nicht gefunden:

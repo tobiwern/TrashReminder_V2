@@ -539,9 +539,9 @@ function refreshTaskTypes() {
     for (let i = 0; i < gDataTasks.length; i++) {
         checked = (gDataValidTaskIds.length == 0 || gDataValidTaskIds.includes(i)) ? "checked" : "";
         text += "<tr>"
-        text += "<td class='value'><div><input type='checkbox' class='taskType' onChange='refreshTaskDates();sendValidTaskTypesToESP();' id='taskType" + i + "' name=task" + i + "' " + checked + ">";
+        text += "<td class='checkbox'><input type='checkbox' class='taskType' onChange='refreshTaskDates();sendValidTaskTypesToESP();' id='taskType" + i + "' name=task" + i + "' " + checked + "></td>";
 //        text += "<label for='taskType" + i + "' id='taskTypel" + i + "'> " + gDataTasks[i] + "</label><div></td>";
-        text += "<input type='text' class='taskType_desc' id='taskType_desc" + i + "' value='" + gDataTasks[i] + "' size='30' onfocusout='sendTaskDescriptionToESP();refreshTaskDates();'></div></td>";
+        text += "<td><input type='text' class='taskType_desc' id='taskType_desc" + i + "' value='" + gDataTasks[i] + "' size='30' onfocusout='sendTaskDescriptionToESP();refreshTaskDates();'></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerTask" + i + "'></div></td>";
         text += "</tr>";
     }

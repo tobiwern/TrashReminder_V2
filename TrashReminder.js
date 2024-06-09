@@ -836,12 +836,10 @@ function genCheckBoxes(tasks, colors, validTaskIds = []) {
     var text = "<table>";
     for (let i = 0; i < tasks.length; i++) {
         checked = (validTaskIds.length == 0 || validTaskIds.includes(i)) ? "checked" : "";
-        text += "<tr>"
-        text += "<td class=value><div><input type='checkbox' id='task" + i + "' name=task" + i + "' " + checked + ">";
-//        text += "<label for='task" + i + "' id='taskl" + i + "'> " + tasks[i] + "</label><div></td>";
-        text += "<input type='text' id='taskdesc" + i + "' value='" + tasks[i] + "' size='30'></div></td>";
+        text += "<tr class=checkBoxes>"
+        text += "<td class=checkbox><input type='checkbox' id='task" + i + "' name=task" + i + "' " + checked + "></td>";
+        text += "<td><input class='inputWide' type='text' id='taskdesc" + i + "' value='" + tasks[i] + "'></td>";
         text += "<td><div class='colorPickSelector' id='colorPickerIcs" + i + "'></div></td>";
-        //        text += "<td><div style='background-color: " + colors[i].replace("0x", "#") + ";border: 2px solid grey;padding: 10px 10px;display: inline-block;'></div></td>";
         text += "</tr>";
     }
     text += "</table>";

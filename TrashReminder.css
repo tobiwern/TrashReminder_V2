@@ -76,6 +76,18 @@
           padding-left: 5px;
           padding-right: 5px;
         }
+        
+        input.inputWide,input.taskType_desc {
+          box-sizing: border-box;
+          width:100%;        
+        }
+
+        td.checkbox {
+          white-space: nowrap;
+          vertical-align: center;
+          text-align: right;
+          padding:0px;
+        }
 
         #epochTasks {
           font-family: Arial, Helvetica, sans-serif;

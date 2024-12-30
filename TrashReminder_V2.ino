@@ -1,4 +1,9 @@
 /*
+NOTE:
+  - FastLED 3.6.0 works, later version 3.9.8 has memory leak!
+  - Use compile setting for "ESP8266 => LOLIN(Wemos) D1 R1" 
+    - Flash Size: "4MB (FS:3MB,OTA:512KB)"
+    - MMU: "16KB cache, 48KB IRAM and 2nd Heap (shared)" 
 Todo:
 ESP:
   - Selecting a color in the config should be shown directly on the model
@@ -47,8 +52,8 @@ boolean showPastDates = 0;
 String language = "de";
 
 #include <WiFiUdp.h>
-#define WM_DEBUG_LEVEL DEBUG_NOTIFY
-#define WM_STRINGS_FILE "wm_strings_de.h"
+//#define WM_DEBUG_LEVEL DEBUG_NOTIFY
+//#define WM_STRINGS_FILE "wm_strings_de.h"
 #include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager
 WiFiManager wm;
 
@@ -475,7 +480,7 @@ void acknowledgeBlink() {
 }
 
 void doNothing() {
-  //  DEBUG_SERIAL.println("ON");
+  //DEBUG_SERIAL.println("ON");
   true;
 }
 

@@ -811,7 +811,7 @@ function checkMaxNumberOfEntries() {
 function showCheckBoxes(items) {
   var i = 0;
   if(Object.keys(gEpochTaskDict).length == 0){
-    var text = "<br><i>Es wurden <b>keine</b> zukünftigen Abfuhrtermine in der Datei gefunden! Bitte lade neue Abfuhrtermine herunter!";  
+    var text = "<br><i>Es wurden keine <b>zukünftigen</b> Abfuhrtermine in der Datei gefunden! Bitte lade neue Abfuhrtermine herunter!";  
     showMessage("W", text, "messageTasks");
 //    document.getElementById("buttonDownload").style.display = "block"; //show button Download
     gFilesLoaded = false;
@@ -829,6 +829,7 @@ function showCheckBoxes(items) {
     document.getElementById("tasks").innerHTML = text;
     refreshColorPickerColors("colorPickerIcs");
     document.getElementById("messageStatusBar").innerHTML = "";
+    showMessage("W", "", "messageTasks"); //Clear potential previous message about no future dates found in file
   }
 }
 

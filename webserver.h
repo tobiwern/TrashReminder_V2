@@ -174,6 +174,7 @@ void notFound() {
 }
 
 void handleRoot() {
+//Serial.println("Handle root");  
   String s = webpage;
   server.send(200, "text/html", s);
 }

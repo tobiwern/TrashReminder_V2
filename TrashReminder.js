@@ -324,7 +324,7 @@ function sendTaskDescriptionToESP() {
   var tasks = [];
   var colors = [];
   var renameIds = {};
-//  var validTaskIds = [];
+//  var validTaskIds = []; //will be needed when combining task names
   console.log("Before: gDataTasks = " + JSON.stringify(gDataTasks));
   const taskTypes = document.getElementsByClassName("taskType_desc");
   for (let i = 0; i < taskTypes.length; i++) {
@@ -1236,14 +1236,14 @@ function buildTab_SETTINGS(){
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/sliders.svg?raw=true'> Optionen</div></h3>
   <table width="80%">
     <tr>
-    <td><input type='checkbox' id="showPastDates" onchange='handleShowPastDates()'>
-    <label for="showPastDates">Vergangene Termine anzeigen</label></td>
+      <td><input type='checkbox' id="showPastDates" onchange='handleShowPastDates()'>
+      <label for="showPastDates">Vergangene Termine anzeigen</label></td>
     </tr>
     <tr>
-    <td><input type='checkbox' id="importPastDates" onchange='handleImportPastDates()'>
-    <label for="importPastDates">Vergangene Termine importieren</label></td>
+      <td><input type='checkbox' id="importPastDates" onchange='handleImportPastDates()'>
+      <label for="importPastDates">Vergangene Termine importieren</label></td>
     </tr>
-    </table><br>
+  </table><br>
 
   <hr>
   <h3><div class='centeredHeight'><img src='https://github.com/tobiwern/TrashReminder_V2/blob/main/pictures/watch.svg?raw=true'> Zeit Einstellungen</div></h3>
@@ -1302,7 +1302,7 @@ function refreshTab_DATA(){
   var downloadButton = `
   Wähle eine oder mehrere bereits heruntergeladene ICS oder ICAL Dateien Deines Entsorgungsunternehmens aus:<br><br>
   <label class="button"><input style="display:none;" type="file" name="files" id="files" accept=".ics" onchange="processFiles()" multiple>Hochladen...</label>
-  `;
+`;
   document.getElementById("buttonDownload").innerHTML = downloadButton;
   if(!gFilesLoaded){
     document.getElementById("buttonDownload").style.display = "block";  

@@ -1,6 +1,7 @@
 // don't add taskId if the number is already in the list (if usr selects two ics files with identical content)
 //How to reference a file from a branch https://raw.githubusercontent.com/tobiwern/TrashReminder_V2/<Branch>/TrashReminder_V2.ino
 //How to reference a md from a branch https://github.com/tobiwern/TrashReminder_V2/blob/<Branch>/README.md (however this is viewed along with the code...)
+//https://realfavicongenerator.net/
 const char webpage[] PROGMEM = R"=====(
 <!DOCTYPE html>
   <html lang="de">

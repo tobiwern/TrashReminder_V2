@@ -37,6 +37,9 @@ Helpful:
   - Getting timezone from IP: https://ipapi.co/api/?csharp#specific-location-field6 or https://ipapi.co/json/ => https://ipapi.co/utc_offset
   - QR Code Generator: https://www.qrcode-generator.ch/
   - Favicon: https://www.favicongenerator.com/reference
+             https://realfavicongenerator.net/
+
+NOTE: You need to copy the wm_strings_en.h into the C:\Users\tobiw\Documents\Arduino\libraries\WiFiManager directory!            
 */
 
 #include <ESP8266WiFi.h>
@@ -53,8 +56,8 @@ String language = "de";
 
 #include <WiFiUdp.h>
 //#define WM_DEBUG_LEVEL DEBUG_NOTIFY
-//#define WM_STRINGS_FILE "wm_strings_de.h"
-#include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager
+//#define WM_STRINGS_FILE "wm_strings_de.h" //is not working due to the Arduino included preprocessor!
+#include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager // Nutzt jetzt wm_strings_en.h (= deutsche Version)
 WiFiManager wm;
 
 #define DEBUG true  //set to true for debug output, false for no debug output

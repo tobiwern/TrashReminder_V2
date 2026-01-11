@@ -201,8 +201,8 @@ void setupWifiManager() {
   std::vector<const char*> menu = { "wifi" };  //only Wifi menu shown
   wm.setMenu(menu);
   wm.setShowStaticFields(false);  //initially don't show Static IP fields, only when regular DHCP connection fails.
-  WiFiManagerParameter custom_text("<dev style='color:green;'>Bitte <b>SSID</b> aus der Liste oben auswählen, <b>Passwort</b> eingeben und <b>Speichern & Verbinden</b> klicken.</dev>");
-  wm.addParameter(&custom_text);
+  //WiFiManagerParameter custom_text("<dev style='color:green;'>Bitte <b>SSID</b> aus der Liste oben auswählen, <b>Passwort</b> eingeben und <b>Speichern & Verbinden</b> klicken.</dev>");
+  //wm.addParameter(&custom_text);
   //WiFiManagerParameter custom_mqtt_server("server", "mqtt server", "iot.eclipse", 40, " readonly");
   //wm.addParameter(&custom_mqtt_server);
   //wm.setCustomHeadElement("<style>html{filter: invert(100%); -webkit-filter: invert(100%);}</style>");
